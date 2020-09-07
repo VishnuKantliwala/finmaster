@@ -205,7 +205,12 @@
                 <?php
                 }
                 ?>
-                
+                <li>
+                    <a href="documentView.php" <?php if($page_id==31) echo 'class="active"';?>>
+                        <i class="fas fa-file-alt"></i>
+                        <span> Documents </span>
+                    </a>
+                </li>
                 <?php
                 if ($_SESSION['control'] == "admin") {
                 ?>

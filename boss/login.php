@@ -38,7 +38,7 @@ if (isset($_POST['Submit'])) {
 
 <head>
     <meta charset="utf-8" />
-    <title>ICED Infotech</title>
+    <title>Finmasters</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- App favicon -->
@@ -91,7 +91,7 @@ if (isset($_POST['Submit'])) {
                     <!-- end card -->
                     <div class="row mt-3">
                         <div class="col-12 text-center">
-                            <p class="text-muted">2020 &copy; ICED Infotech.</p>
+                            <p class="text-muted">2020 &copy; Finmasters.</p>
                         </div> <!-- end col -->
                     </div>
                     <!-- end row -->

@@ -42,7 +42,7 @@ $sql="SELECT * FROM tbl_task WHERE task_cdate >= '".$SDate." 00:00:00' AND task_
 
 <head>
     <meta charset="utf-8" />
-    <title>ICED Infotech</title>
+    <title>Finmasters</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- App favicon -->

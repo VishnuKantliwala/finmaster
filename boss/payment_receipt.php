@@ -7,7 +7,7 @@ $payment_id = $_GET["payment_id"];
 $html = "
 <html>
 <head>
-<title>Payment Receipt | ICED INFOTECH</title>
+<title>Payment Receipt | Finmasters</title>
 <style>
 @media print {
 tr.vendorListHeading {

@@ -53,7 +53,7 @@ if ($cn->numRows($result) > 0) {
 <!-- Mirrored from coderthemes.com/adminto/layouts/light/form-fileupload.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 Jan 2020 08:38:15 GMT -->
 <head>
         <meta charset="utf-8" />
-        <title>ICED Infotech</title>
+        <title>Finmasters</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->

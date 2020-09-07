@@ -14,7 +14,7 @@ $page_id=1;
 
 <head>
     <meta charset="utf-8" />
-    <title>ICED Infotech</title>
+    <title>Finmasters</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- App favicon -->
@@ -39,7 +39,7 @@ $page_id=1;
             <div class="logo-box">
                 <a href="index.php" class="logo text-center">
                     <span class="logo-lg">
-                        <img src="assets/images/logo-dark.png" alt="" height="16">
+                        <img src="assets/images/logo-dark.png" alt="" height="40">
                         <!-- <span class="logo-lg-text-light">Xeria</span> -->
                     </span>
                     <span class="logo-sm">
