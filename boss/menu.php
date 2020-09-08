@@ -4,7 +4,7 @@
     <div class="slimscroll-menu">
         <!-- User box -->
         <div class="user-box text-center">
-            <img src="assets/images/logo.jpg" alt="user-img" title="<?php echo $_SESSION['user']; ?>" class="img-thumbnail avatar-lg">
+            
             <div class="dropdown">
                 <a class="text-dark dropdown-toggle h5 mt-2 mb-1 d-block"><?php echo $_SESSION['user'] . " (" . $_SESSION['control'] . ")"; ?></a>
             </div>
@@ -205,12 +205,12 @@
                 <?php
                 }
                 ?>
-                <li>
+                <!-- <li>
                     <a href="documentView.php" <?php if($page_id==31) echo 'class="active"';?>>
                         <i class="fas fa-file-alt"></i>
                         <span> Documents </span>
                     </a>
-                </li>
+                </li> -->
                 <?php
                 if ($_SESSION['control'] == "admin") {
                 ?>
@@ -241,12 +241,12 @@
                             <span> Company Name </span>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="domain_renew_view.php" <?php if($page_id==13) echo 'class="active"';?>>
                             <i class="fas fa-sync-alt"></i>
                             <span> Upcoming Renewal </span>
                         </a>
-                    </li>
+                    </li> -->
                     
                 <?php
                 }
