@@ -3,9 +3,9 @@ session_start();
 if (!isset($_SESSION['user'])) {
     header("location:login.php");
 }
-if ($_SESSION['control'] != "admin") {
-    header("location:login.php");
-}
+// if ($_SESSION['control'] != "admin") {
+//     header("location:login.php");
+// }
 include_once("../connect.php");
 include_once("../navigationfun.php");
 $cn = new connect();
@@ -15,8 +15,8 @@ $time = date("h:i:s");
 $user_id = $_SESSION['user_id'];
 
 function secondsToTime($seconds) {
-    $dtF = new \DateTime('@0');
-    $dtT = new \DateTime("@$seconds");
+    $dtF = new DateTime('@0');
+    $dtT = new DateTime("@$seconds");
     return $dtF->diff($dtT)->format('%h hours, %i minutes');
 }
 
