@@ -60,6 +60,46 @@
 	}
 	if($_GET['type'] == "updateCustomerDetails")
 	{
+
+		$customer_id =  $_POST["customer_id"];
+		$customer_name =  trim($_POST["customer_name"]);
+		$customer_address = $_POST["customer_address"];
+		$customer_pincode = $_POST["customer_pincode"];
+		$customer_city = $_POST["customer_city"];
+		$gst_type = $_POST["gst_type"];
+		$payment_type = $_POST["payment_type"];
+		$txtAttendant = $_POST["txtAttendant"];
+		
+		$gst_no = $_POST["gst_no"];
+		$currency = $_POST["currency"];
+		$customer_phone1 = $_POST["customer_phone1"];
+		$customer_phone2 = $_POST["customer_phone2"];
+		$customer_email = $_POST["customer_email"];
+		if($customer_id == 0)
+		{
+			$cn->insertdb("INSERT INTO tbl_shipper(`shipper_name`, `shipper_address`, `shipper_city`, `shipper_pincode`, `shipper_phone1`, `shipper_mobile`, `shipper_email`, `gst_no`,`type`,`gst_type`) VALUES('". $customer_name . "', '". $customer_address."','". $customer_city."','". $customer_pincode ."','". $customer_phone1. "','" . $customer_phone2. "','". $customer_email ."','" . $gst_no. "','".$payment_type."','".$gst_type."')");
+			$customer_id = mysqli_insert_id($cn->getConnection());
+		}
+		else
+		{
+			$sql = $cn->selectdb("SELECT shipper_name  FROM tbl_shipper WHERE shipper_id = ".$customer_id);
+			if(mysqli_num_rows($sql) > 0)
+			{
+				$row = mysqli_fetch_assoc($sql);
+				
+				if($row['shipper_name'] == $customer_name)
+				{
+					$cn->insertdb("UPDATE tbl_shipper SET `shipper_name` = '". $customer_name . "', `shipper_address` = '". $customer_address."', `shipper_pincode` = '". $customer_pincode ."', `shipper_city` = '". $customer_city."', `shipper_phone1` = '". $customer_phone1. "', `shipper_mobile` = '" . $customer_phone2. "',`shipper_email` = '". $customer_email ."', `gst_no` = '" . $gst_no. "', `gst_type` = '" . $gst_type. "', `type` = '" . $payment_type. "' WHERE `tbl_shipper`.`shipper_id` = ". $customer_id);
+					
+				}
+				else
+				{
+					$cn->insertdb("INSERT INTO tbl_shipper(`shipper_name`, `shipper_address`, `shipper_city`, `shipper_pincode`, `shipper_phone1`, `shipper_mobile`, `shipper_email`, `gst_no`,`type`,`gst_type`) VALUES('". $customer_name . "', '". $customer_address."','". $customer_city."','". $customer_pincode ."','". $customer_phone1. "','" . $customer_phone2. "','". $customer_email ."','" . $gst_no. "','".$payment_type."','".$gst_type."')");
+					$customer_id = mysqli_insert_id($cn->getConnection());
+				}
+			}
+		}
+
 		$txtServiceConfirmationNo = $_POST["txtServiceConfirmationNo"];
 		$customer_id =  $_POST["customer_id"];
 		$txtAttendant = $_POST["txtAttendant"];
