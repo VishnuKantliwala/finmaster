@@ -14,7 +14,7 @@ if (isset($_POST['Submit'])) {
     $cnt = mysqli_affected_rows($cn->_connection);
     if ($cnt == 1) {
         $rowUser = mysqli_fetch_assoc($recordset);
-        if ($rowUser['user_password'] == base64_encode($pwd)) {
+        if (trim($rowUser['user_password']) === base64_encode($pwd)) {
             
             $my_date = date("Y-m-d H:i:s");
             $cn->insertdb("UPDATE `tbl_user` SET user_last_login_date_time='" . $my_date . "' where user_email='". $user."'");

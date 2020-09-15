@@ -93,34 +93,41 @@ if(isset($_POST['addProduct']))
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico">
-    <!-- App css -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    
     <script src="assets/libs/ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="./assets/js/vendor.min.js"></script>
     <style type="text/css">
-    #shipper-list {
-        float: left;
-        list-style: none;
-        margin-top: -3px;
-        padding: 0;
-        width: 97%;
+    #customer-list{
+        float:left;
+        list-style:none;
+        margin-top:-3px;
+        padding:0;
+        width:97%;
         position: absolute;
-        z-index: 1;
+        z-index:1;
     }
-
-    #shipper-list li {
+    #customer-list li{
         padding: 10px;
         background: #f0f0f0;
         border-bottom: #bbb9b9 1px solid;
     }
-
-    #shipper-list li:hover {
-        background: #ece3d2;
+    #customer-list li:hover{
+        background:#ece3d2;
         cursor: pointer;
     }
     </style>
+    <!-- dropify -->
+    <link href="assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Plugins css -->
+    <link href="assets/libs/x-editable/bootstrap-editable.css" rel="stylesheet" type="text/css" />
+
+    <!-- Treeview css -->
+    <link href="assets/libs/treeview/style.css" rel="stylesheet" type="text/css" />
+    <!-- App css -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -174,235 +181,155 @@ if(isset($_POST['addProduct']))
                                         <div class="col-12">
                                             <div class="p-2">
 
-                                                <div class="form-group row">
-                                                    <h3 style="color:red">
-                                                        <?echo $error?>
-                                                    </h3>
+                                                    <div id="progressbarwizard">
+
+                                                        <ul class="nav nav-pills bg-light nav-justified form-wizard-header mb-1">
+                                                            <li class="nav-item">
+                                                                <a href="#account-2" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
+                                                                    <i class="mdi mdi-account-circle mr-1"></i>
+                                                                    <span class="d-none d-sm-inline">Basic Details</span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a href="#profile-tab-2" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
+                                                                    <i class="mdi mdi-face-profile mr-1"></i>
+                                                                    <span class="d-none d-sm-inline">Category</span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a href="#finish-2" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
+                                                                    <i class="mdi mdi-checkbox-marked-circle-outline mr-1"></i>
+                                                                    <span class="d-none d-sm-inline">Upload Documents</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+
+                                                        <div class="tab-content border-0 mb-0">
+
+                                                            <div id="bar" class="progress mb-3" style="height: 7px;">
+                                                                <div class="bar progress-bar progress-bar-striped progress-bar-animated bg-success"></div>
+                                                            </div>
+
+                                                            <div class="tab-pane" id="account-2">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="form-group row mb-3">
+                                                                            <label class="col-sm-2  col-form-label" for="txtCustomer">Customer</label>
+                                                                            <div class="col-sm-4">
+                                                                                <input type="text" id="txtShipper" name="txtShipper" class="form-control" placeholder="Customer Name" autocomplete="off">
+                                                                                <div id="suggesstion-box"></div>
+                                                                            </div>
+                                                                            <label class="col-sm-1  col-form-label" for="txtCustomer">ID</label>
+                                                                            <div class="col-sm-4">
+                                                                                <input type="text" id="txtShipperID" name="selectcustomer" class="form-control" placeholder="Customer ID" readonly>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group row mb-3">
+                                                                            <label for="inputEmail3" class="col-sm-2 control-label">Select Year:</label>
+                                                                            <div class="col-sm-3">
+                                                                                <select id="year" name="year" class="form-control">
+                                                                                    <option disabled readonly>Select Year</option>
+                                                                                    <option value="BasicDocs">Basic Documents</option>
+                                                                                    <?
+                                                                                $d = date("Y");
+                                                                                $syear = $d - 5;
+                                                                                $eyear = $d + 1;
+                                                                                for($i=$syear;$i<=$eyear;$i++)
+                                                                                {
+                                                                                ?>
+                                                                                    <option value="<? echo $i ."-".intval($i+1); ?>">
+                                                                                        <? echo $i ."-".intval($i+1); ?>
+                                                                                    </option>
+                                                                                    <? } ?>
+                                                                                </select>
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                                    </div> <!-- end col -->
+                                                                </div> <!-- end row -->
+                                                            </div>
+
+                                                            <div class="tab-pane" id="profile-tab-2">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="form-group row mb-3">
+                                                                            <label class="col-md-3 col-form-label" for="name1"> Add/Select Category</label>
+                                                                            <div class="col-md-9">
+                                                                                <div id="checkTree">
+                                                                                    <ul>
+                                                                                        <li>No Category</li>
+                                                                                        <li data-jstree='{"type":"file"}'>Test
+                                                                                            <ul>
+                                                                                                <li data-jstree='{"opened":true}'>Assets
+                                                                                                    <ul>
+                                                                                                        <li data-jstree='{"type":"file"}'>Css</li>
+                                                                                                        <li data-jstree='{"opened":true}'>Plugins
+                                                                                                            <ul>
+                                                                                                                <li data-jstree='{"selected":true,"type":"file"}'>Plugin one</li>
+                                                                                                                <li data-jstree='{"type":"file"}'>Plugin two</li>
+                                                                                                            </ul>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </li>
+                                                                                                <li data-jstree='{"opened":true}'>Email Template
+                                                                                                    <ul>
+                                                                                                        <li data-jstree='{"type":"file"}'>Email one</li>
+                                                                                                        <li data-jstree='{"type":"file"}'>Email two</li>
+                                                                                                    </ul>
+                                                                                                </li>
+                                                                                                <li data-jstree='{"icon":"mdi mdi-view-dashboard"}'>Dashboard</li>
+                                                                                                <li data-jstree='{"icon":"mdi mdi-format-font"}'>Typography</li>
+                                                                                                <li data-jstree='{"opened":true}'>User Interface
+                                                                                                    <ul>
+                                                                                                        <li data-jstree='{"type":"file"}'>Buttons</li>
+                                                                                                        <li data-jstree='{"type":"file"}'>Cards</li>
+                                                                                                    </ul>
+                                                                                                </li>
+                                                                                                <li data-jstree='{"icon":"mdi mdi-texture"}'>Forms</li>
+                                                                                                <li data-jstree='{"icon":"mdi mdi-view-list"}'>Tables</li>
+                                                                                            </ul>
+                                                                                        </li>
+                                                                                        <li><a href="#" id="inline-firstname" data-type="text" data-pk="1" data-placement="right" data-placeholder="Required" data-title="Enter your firstname">Add Category</a></li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        
+                                                                    </div> <!-- end col -->
+                                                                </div> <!-- end row -->
+                                                            </div>
+
+                                                            <div class="tab-pane" id="finish-2">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="form-group row mb-3">
+                                                                            <input type="file" class="dropify" name="file[]" data-height="200" multiple/>
+                                                                        </div>
+                                                                    </div> <!-- end col -->
+                                                                </div> <!-- end row -->
+                                                            </div>
+
+                                                            <ul class="list-inline mb-0 wizard">
+                                                                <li class="previous list-inline-item">
+                                                                    <a href="javascript: void(0);" class="btn btn-secondary">Previous</a>
+                                                                </li>
+                                                                <li class="next list-inline-item float-right">
+                                                                    <a href="javascript: void(0);" class="btn btn-secondary">Next</a>
+                                                                </li>
+                                                            </ul>
+
+                                                        </div> <!-- tab-content -->
+                                                    </div> <!-- end #progressbarwizard-->
+
+
+
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-2  col-form-label"
-                                                        for="txtCustomer">Customer</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" id="txtShipper" name="txtShipper"
-                                                            class="form-control" placeholder="Customer Name">
-                                                        <div id="suggesstion-box"></div>
-                                                        <input type="hidden" id="txtShipperID" name="selectcustomer"
-                                                            class="form-control" value="">
-
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <label class="col-sm-2  col-form-label"
-                                                        for="txtService">Service</label>
-                                                    <div class="col-sm-10">
-                                                        <select class="form-control" id="selectservice"
-                                                            name="selectservice">
-                                                            <option value="0" disabled selected>Select Service</option>
-                                                            <?
-                                                            $sql = $con->selectdb("select * from tbl_product ORDER BY name");
-                                                            while($row = mysqli_fetch_assoc($sql))
-                                                            {
-                                                            ?>
-                                                            <option value="<? echo $row['product_id'] ?>">
-                                                                <? echo $row['name'] ?>
-                                                            </option>
-                                                            <? 
-                                                            }
-                                                            ?>
-                                                        </select>
-
-
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <label class="col-sm-2  col-form-label"
-                                                        for="txtService">Agent</label>
-                                                    <div class="col-sm-10">
-                                                        <select class="form-control" id="selectagent"
-                                                            name="selectagent">
-                                                            <option value="0" disabled selected>Select Agent</option>
-                                                            <?
-                                                            $sql = $con->selectdb("select * from tbl_agent ORDER BY agent_name");
-                                                            while($row = mysqli_fetch_assoc($sql))
-                                                            {
-                                                            ?>
-                                                            <option value="<? echo $row['agent_id'] ?>">
-                                                                <? echo $row['agent_name'] ?>
-                                                            </option>
-                                                            <? 
-                                                            }
-                                                            ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <label class="col-sm-2  col-form-label" for="companyname">Company
-                                                        Name</label>
-                                                    <div class="col-sm-4">
-                                                        <input type="text" id="companyname" name="companyname"
-                                                            class="form-control" placeholder="Company Name">
-                                                    </div>
-
-                                                    <label class="col-sm-2  col-form-label" for="companyname">Policy
-                                                        Number</label>
-                                                    <div class="col-sm-4">
-                                                        <input type="text" id="policyno" name="policyno"
-                                                            class="form-control" placeholder="Policy Number">
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <label class="col-sm-2  col-form-label" for="companyname">Start
-                                                        Date:</label>
-                                                    <div class="col-sm-4">
-                                                        <input data-date-format='dd-mm-yyyy' type="date"
-                                                            class="form-control" id="start_date" name="start_date"
-                                                            placeholder="Select Date">
-                                                    </div>
-
-                                                    <label class="col-sm-2  col-form-label" for="companyname">From
-                                                        Date</label>
-                                                    <div class="col-sm-4">
-                                                        <input tdata-date-format='dd-mm-yyyy' type="date"
-                                                            class="form-control" id="end_date" name="end_date"
-                                                            placeholder="Select Date">
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <label class="col-sm-2  col-form-label"
-                                                        for="premium">Premium</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" id="premium" name="premium"
-                                                            class="form-control" placeholder="Premium">
-
-
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <label class="col-sm-2  col-form-label" for="txtCustomer">Document
-                                                        Name</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" id="txtDocumentName" name="txtDocumentName"
-                                                            class="form-control" placeholder="Document Name">
-
-
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <label class="col-sm-2  col-form-label"
-                                                        for="txtCustomer">Quantity</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="number" id="txtDocumentQuantity"
-                                                            name="txtDocumentQuantity" class="form-control"
-                                                            placeholder="Quantity">
-
-
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <label class="col-sm-2  col-form-label"
-                                                        for="txtDesc">Description</label>
-                                                    <div class="col-sm-10">
-                                                        <textarea name="txtDesc" id="txtDesc" class="form-control">
-                                                      </textarea>
-                                                        <script>
-                                                        CKEDITOR.replace('txtDesc');
-                                                        </script>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="form-group row">
-                                                    <label class="col-sm-2  col-form-label"
-                                                        for="example-placeholder"></label>
-                                                    <div class="col-sm-10">
-                                                        <button type="submit" class="btn btn-primary width-md"
-                                                            name="Submit">Add</button>
-                                                        <a href="documentView.php"
-                                                            class="btn btn-lighten-primary waves-effect waves-primary width-md">Cancel</a>
-                                                    </div>
-                                                </div>
-
-                                            </div>
                                         </div>
                                     </div>
                                     <!-- end row -->
                                 </div> <!-- end card-box -->
                             </div><!-- end col -->
-                            <input type="hidden" id="addSectionCount" value="1" name="addSectionCount">
-                            <div class="col-md-6" > 
-                                <div class="card-box">
-                                    <h4 class="m-t-0 header-title">Document1:</h4>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="p-2">
-                                                <div class="form-group row">
-                                                    <div class="col-md-9">
-
-                                                        <input type="file" id="file" name="file[]"
-                                                            accept="image/jpeg,image/jpg,image/jpe,image/png,image/gif,image/webp,image/bmp,image/tiff,application/pdf">
-                                                        <p class="text text-danger">(MAX FILE UPLOAD SIZE 2 MB)</p>
-                                                        <script type="text/javascript">
-                                                        $('#file').bind('change', function() {
-
-                                                            var fileSize = this.files[0].size / 1024;
-
-                                                            var maxSize = 2000;
-                                                            var ext = $('#file').val().split('.').pop()
-                                                                .toLowerCase();
-                                                            if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg',
-                                                                    'pdf'
-                                                                ]) == -1) {
-                                                                alert('Invalid File!');
-                                                                $('#file').val('');
-                                                                return false;
-                                                            } else {
-                                                                if (fileSize > maxSize) {
-                                                                    alert(
-                                                                        'Please Select File Less Than 2 MB');
-                                                                    $('#file').val('');
-                                                                    return false;
-
-                                                                }
-                                                            }
-
-                                                        });
-                                                        </script>
-                                                    </div>
-
-                                                    <div class="col-md-3">
-                                                        <button type="button" onClick="addNameSection()"
-                                                            class="btn btn-success">ADD MORE</button>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-md-6">
-                                <div>
-                                    <div class="card-box">
-                                        <h4 class="m-t-0 header-title">Add Document</h4>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="p-2">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
+                            
                         </div>
                         <!-- end row -->
                     </div> <!-- container-fluid -->
@@ -416,61 +343,80 @@ if(isset($_POST['addProduct']))
         <!-- Vendor js -->
         <script src="assets/js/vendor.min.js"></script>
 
+        
+
         <!-- App js -->
         <script src="assets/js/app.min.js"></script>
         <script type="text/javascript">
-        $("#txtShipper").keyup(function() {
-            if ($("#txtShipper").val() == "") {
+        $("#txtShipper").keyup(function(){
+            if($.trim($("#txtShipper").val()) == ""){
+                $("txtShipper").val('');
                 $("#txtShipperID").val('');
-                $("#suggesstion-box").hide();
-                $("#chkOther").prop("checked", true);
-            } else {
-                $("#chkOther").prop("checked", false);
+            }else{
                 $.ajax({
                     type: "POST",
-                    url: "fetch_shipper.php",
-                    data: 'keyword=' + $(this).val(),
-                    success: function(data) {
+                    url: "fetch_customer.php",
+                    data:'keyword='+$(this).val(),
+                    success: function(data){
                         $("#suggesstion-box").show();
                         $("#suggesstion-box").html(data);
-                        $("#txtShipper").css("background", "#FFF");
+                        $("#txtShipper").css("background","#FFF");
                     }
                 });
             }
         });
 
-        function selectShipper(name, id) {
+        function selectCustomer(name, id) {
             $("#txtShipper").val(name);
             $("#txtShipperID").val(id);
             $("#suggesstion-box").hide();
         }
         </script>
-
         <script>
-
-        function addNameSection(){
-            
-            var addSectionCount=$("#addSectionCount").val();
-            addSectionCount++;
-            $("#addSectionCount").val(addSectionCount);
-
-            $('#nameBoxWrap').append('<div id="nameBox'+addSectionCount+'" class="col-md-6"><div class="card-box"><h4 class="m-t-0 header-title">Document'+addSectionCount+':</h4><div class="row"><div class="col-12"><div class="p-2"><div class="form-group row"><div class="col-md-9"><input type="file" id="file'+addSectionCount+'" name="file[]" accept="image/jpeg,image/jpg,image/jpe,image/png,image/gif,image/webp,image/bmp,image/tiff,application/pdf"><p class="text text-danger">(MAX FILE UPLOAD SIZE 2 MB)</p></div><div class="col-md-3"><button type="button" onClick="addNameSection()" class="btn btn-success">ADD MORE</button><input type="button"  class="button" value="REMOVE" onclick=removeNameSection("'+addSectionCount+'")/></div></div></div></div></div></div></div>');
-
-            
-
-        }
-
-        function removeNameSection(removeId){
-            var addSectionCount=$("#addSectionCount").val();
-            if(addSectionCount > 1){
-                addSectionCount--;
-                $("#addSectionCount").val(addSectionCount);
-                $("#nameBox"+removeId).remove();
+            fillTreeView();
+            function fillTreeView()
+            {
+                var nodes = "";
+                $.ajax({		
+                    type:'GET',
+                    url:'document_interaction.php?type=fillTreeView',			
+                    success:function(data)
+                    {
+                        console.log(data);
+                        // nodes = "<tr id='loaderRowPayment'><td colspan='8' style='text-align:center;'><img src='Loader.gif' style='width:17%;' id='loader'/></td></tr>";
+                        // $('#paymentList > tbody:last-child').append(loaderRow);
+                        // setTimeout(() => {
+                        //     $('#paymentList > tbody').empty();
+                        //     $('#paymentList > tbody').append(data);
+                           
+                        // }, 1000);
+                    }
+                });
             }
-        }
-
         </script>
 
+        <!-- Plugins js-->
+        <script src="assets/libs/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+
+        <!-- Init js-->
+        <script src="assets/js/pages/form-wizard.init.js"></script>
+
+        <!-- Tree view js -->
+        <script src="assets/libs/treeview/jstree.min.js"></script>
+        <script src="assets/js/pages/treeview.init.js"></script>
+
+        <!-- Plugins js -->
+        <script src="assets/libs/moment/moment.js"></script>
+        <script src="assets/libs/x-editable/bootstrap-editable.min.js"></script>
+
+        <!-- dropify js -->
+        <script src="assets/libs/dropify/dropify.min.js"></script>
+
+        <!-- form-upload init -->
+        <script src="assets/js/pages/form-fileupload.init.js"></script>
+
+        <!-- Init js-->
+        <script src="assets/js/pages/form-xeditable.init.js"></script>
 </body>
 
 </html>
