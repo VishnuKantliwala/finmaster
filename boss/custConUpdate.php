@@ -10,6 +10,7 @@ include_once("../connect.php");
 include_once("../navigationfun.php");
 $cn = new connect();
 $cn->connectdb();
+$page_id=6;
 if (!isset($_GET['si_id'])) {
     header("location:customerview.php");
 }

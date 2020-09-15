@@ -303,7 +303,7 @@ $database = $cn->_database;
                                     </div>
                                     <!-- end row -->
                                 </form>
-                                <form class="form-horizontal" method="post" id="productForm" name="productForm"> 
+                                <form class="form-horizontal" method="post" id="productForm" name="productForm" enctype="multipart/form-data"> 
                                     <div class="row" style="border-top:1px solid black;">
                                         <h4 class="m-t-0 header-title">Service Details</h4>
                                         <div class="col-12">
@@ -392,7 +392,8 @@ $database = $cn->_database;
                                                     </div>
                                                     
                                                 </div>
-                                                <div class="form-group row">
+
+                                                <div class="form-group row" style="display:none">
                                                     <div class="col-sm-12">
                                                         <br/>
                                                         <input type="file" id="download_file" name="download_file[]" class="dropify" multiple />
@@ -1558,13 +1559,15 @@ function addLoader()
 			
       });  
 	  $('#productForm').on('submit',function(event){  
-			event.preventDefault();
+
+            event.preventDefault();
+            alert("IN");
 		   	if($("#addConfirmation").is(":disabled"))
 			{
 				if($('#txtService').val() == 0)  
 				{  
 						$('#txtService').focus();
-						alert("Please Select Service");  
+						alert("Please Select Serviceeee");  
 				} 
 				else if($('#txtDuration').val() == '')  
 				{  
@@ -1580,6 +1583,8 @@ function addLoader()
 							method:"POST",  
 							data:$('#productForm').serialize() + '&txt_service_description='+service_description, 
 							success:function(data){ 
+
+                                // console.log(data);
 								 fetchInvoiceProducts("yes");
                                 $('#productForm')[0].reset();
                                 CKEDITOR.instances.service_description.setData("");

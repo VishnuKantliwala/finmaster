@@ -25,6 +25,10 @@ $service_confirmation_no = $_GET['service_confirmation_no'];
     <link rel="shortcut icon" href="assets/images/favicon.ico">
     <link href="assets/libs/tablesaw/tablesaw.css" rel="stylesheet" type="text/css" />
     <link href="assets/libs/toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- dropify -->
+    <link href="assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
+
     <!-- App css -->
     <link href="assets/libs/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet" />
     <link href="assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
@@ -292,7 +296,7 @@ $service_confirmation_no = $_GET['service_confirmation_no'];
                                     <!-- end row -->
                                 </form>
                                 <? } ?>
-                                <form class="form-horizontal" method="post" id="productForm" name="productForm"> 
+                                <form class="form-horizontal" method="post" id="productForm" name="productForm" enctype="multipart/form-data"> 
                                     <div class="row" style="border-top:1px solid black;">
                                         <h4 class="m-t-0 header-title">Service Details</h4>
                                         <div class="col-12">
@@ -357,12 +361,14 @@ $service_confirmation_no = $_GET['service_confirmation_no'];
                                                         <label class="col-form-label" for="txtRate">Description</label>
                                                         <textarea name="shortDesc" id="shortDesc" class="form-control fctrl digit" placeholder="Short Description"></textarea>
                                                     </div>
+                                                    
                                                     <div class="col-md-1 cols">
                                                         <label class="col-form-label" for="btnAdd">&nbsp;</label>
                                                         <!-- <div class="row"> -->
                                                             <input type="submit" name="btnAdd" id="btnAdd" class="form-control btn btn-icon waves-effect waves-light btn-primary" value="Add Service">
                                                         <!-- </div> -->
                                                     </div>
+                                                    
                                                    
                                                 </div>
                                             </div>
@@ -381,6 +387,12 @@ $service_confirmation_no = $_GET['service_confirmation_no'];
                                                         </script>
                                                     </div>
                                                     
+                                                </div>
+                                                <div class="form-group row" style="display:none">
+                                                    <div class="col-sm-12">
+                                                        <br/>
+                                                        <input type="file" id="download_file" name="download_file[]" class="dropify" multiple />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -787,6 +799,12 @@ $service_confirmation_no = $_GET['service_confirmation_no'];
             <!-- Tablesaw js -->
             <!-- App js -->
             <script src="assets/js/app.min.js"></script>
+
+            <!-- dropify js -->
+            <script src="assets/libs/dropify/dropify.min.js"></script>     
+            <!-- form-upload init -->
+            <script src="assets/js/pages/form-fileupload.init.js"></script>  
+
             <script>
                 var datatab;
                 jQuery.fn.ForceNumericOnly =
@@ -1445,11 +1463,14 @@ function addLoader()
 				{  
 						$txtServiceConfirmationNo = $("#txtServiceConfirmationNo").val();
                         var service_description = CKEDITOR.instances.service_description.getData();
+                        console.log($('#productForm').serialize());
+
 						$.ajax({  
 							url:"service_insert_rate.php?type=product&ServiceConfirmationNo="+$txtServiceConfirmationNo,  
 							method:"POST",  
 							data:$('#productForm').serialize() + '&txt_service_description='+service_description, 
 							success:function(data){ 
+                                // console.log(data);
 								 fetchInvoiceProducts("yes");
                                 $('#productForm')[0].reset();
                                 CKEDITOR.instances.service_description.setData("");

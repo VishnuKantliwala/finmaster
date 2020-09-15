@@ -257,14 +257,14 @@ if (isset($_POST['Submit'])) {
                                                     <div class="col-sm-10">
                                                         <div class="row">
                                                     <?php
-                                                        $sql="SELECT uname FROM admintable WHERE control='developer'";
+                                                        $sql="SELECT user_name FROM tbl_user ORDER BY user_name";
                                                         $result = $cn->selectdb($sql);
                                                         while($row1=$cn->fetchAssoc($result)){
                                                     ?>
                                                             <div class="col-md-4">
                                                                 <div class="switchery-demo">
-                                                                    <input type="checkbox" <?php if(in_array($row1['uname'], $Employee)) echo "checked";?> data-size="small" name="chkEmp[]" value="<?php echo $row1['uname'];?>" data-plugin="switchery" data-color="#3bafda"/>
-                                                                    <?php echo $row1['uname'];?>
+                                                                    <input type="checkbox" <?php if(in_array($row1['user_name'], $Employee)) echo "checked";?> data-size="small" name="chkEmp[]" value="<?php echo $row1['user_name'];?>" data-plugin="switchery" data-color="#3bafda"/>
+                                                                    <?php echo $row1['user_name'];?>
                                                                 </div>
                                                             </div>
                                                     <?php

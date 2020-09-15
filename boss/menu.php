@@ -167,7 +167,7 @@
                             <li <?php if($page_id==5) echo 'class="active"';?>><a href="attendantview.php">Attendant</a></li>
                             <li <?php if($page_id==6) echo 'class="active"';?>><a href="customerview.php">Customer</a></li>
                             <li <?php if($page_id==7) echo 'class="active"';?>><a href="logoview.php">Logo</a></li>
-                            <li <?php if($page_id==8) echo 'class="active"';?>><a href="expenseview.php">Expense</a></li>
+                            <!-- <li <?php if($page_id==8) echo 'class="active"';?>><a href="expenseview.php">Expense</a></li> -->
                             <li <?php if($page_id==9) echo 'class="active"';?>><a href="tcview.php">Term & Condition</a></li>
                         </ul>
 

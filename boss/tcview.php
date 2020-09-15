@@ -84,7 +84,7 @@ $page_id=9;
                             <div class="card-box">
                                 <a href="tcinsert.php" class="btn btn-primary width-md">Add</a>
                                 <br><br>
-                                <table id="datatable" class="table table-bordered dt-responsive nowrap">
+                                <table id="datatable" class="table table-bordered dt-responsive ">
                                       <thead>
                                           <tr>
                                               <th>ID</th>
