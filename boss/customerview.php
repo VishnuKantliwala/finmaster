@@ -79,35 +79,37 @@ $page_id=6;
                             <div class="card-box">
                                 <a href="customer.php" class="btn btn-primary width-md">Add</a>
                                 <br><br>
-                                <table id="datatable" class="table table-bordered dt-responsive nowrap">
+                                <table id="datatable" class="table table-bordered dt-responsive ">
                                       <thead>
                                           <tr>
-                                              <th>Customer ID</th>
-                                              <th>Customer Name</th>
-                                              <th>Address</th>
+                                              <th>ID</th>
+                                              <th>Edit</th>
+                                              <th>Delete</th>
+                                              <th >Customer Name</th>
+                                              <!-- <th>Address</th> -->
                                               <th>Pincode</th>
                                               <th>City</th>
                                               <th>Phone</th>
                                               <th>Type</th>
                                               <th>GST Type</th>
                                               <th>GST No.</th>
-                                              <th>Edit</th>
-                                              <th>Delete</th>
+                                              
                                           </tr>
                                       </thead>
                                       <tfoot>
                                           <tr>
-                                              <th>Customer ID</th>
+                                              <th>ID</th>
+                                              <th>Edit</th>
+                                              <th>Delete</th>
                                               <th>Customer Name</th>
-                                              <th>Address</th>
+                                              <!-- <th>Address</th> -->
                                               <th>Pincode</th>
                                               <th>City</th>
                                               <th>Phone</th>
                                               <th>Type</th>
                                               <th>GST Type</th>
                                               <th>GST No.</th>
-                                              <th>Edit</th>
-                                              <th>Delete</th>
+                                              
                                           </tr>
                                       </tfoot>
                                       <tbody>
@@ -119,16 +121,17 @@ $page_id=6;
                                           ?>
                                                   <tr>
                                                       <td><?php echo $row['shipper_id']; ?></td>
+                                                      <td><a href="customerupdate.php?shipper_id=<?php echo $row['shipper_id']; ?>"><i class="mdi mdi-border-color"></i></a></td>
+                                                      <td><a onClick="deleteRecord(<?php echo $row['shipper_id']; ?>)"><i class="mdi mdi-delete"></i></a></td>
                                                       <td><?php echo $row['shipper_name']; ?></td>
-                                                      <td><?php echo $row['shipper_address']; ?></td>
+                                                      <!-- <td><?php //echo $row['shipper_address']; ?></td> -->
                                                       <td><?php echo $row['shipper_pincode']; ?></td>
                                                       <td><?php echo $row['shipper_city']; ?></td>
                                                       <td><?php echo $row['shipper_phone1']; ?></td>
                                                       <td><?php echo $row['type']; ?></td>
                                                       <td><?php echo $row['gst_type']; ?></td>
                                                       <td><?php echo $row['gst_no']; ?></td>
-                                                      <td><a href="customerupdate.php?shipper_id=<?php echo $row['shipper_id']; ?>"><i class="mdi mdi-border-color"></i></a></td>
-                                                      <td><a onClick="deleteRecord(<?php echo $row['shipper_id']; ?>)"><i class="mdi mdi-delete"></i></a></td>
+                                                      
                                                   </tr>
                                           <?php
                                               }

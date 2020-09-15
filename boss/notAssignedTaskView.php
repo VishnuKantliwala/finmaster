@@ -17,7 +17,7 @@ $page_id=25;
 
 <head>
     <meta charset="utf-8" />
-    <title>Finmasters</title>
+    <title>ICED Infotech</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- App favicon -->
@@ -408,7 +408,7 @@ $page_id=25;
                                     "<td ><button onClick='assignTask(" + data[i].task_id +
                                     ", " + data[i].qty + ", " + data[i].qty_assigned + ", " + i + ")' type='button' class='btn btn-success ' >Assign <i class='mdi  mdi-account-multiple-outline'></i></button></td>" +
 
-                                    "<td ><a href='taskUpdate.php?task_id=" + data[i].task_id +
+                                    "<td ><a href='taskupdate.php?task_id=" + data[i].task_id +
                                     "'><div style='border:1px solid #dee2e6;text-align:center;padding:5px;'>Edit <i class='far fa-edit'></i></div></a></td>" +
 
                                     "<td ><a onClick='deleteRecord(" + data[i].task_id +

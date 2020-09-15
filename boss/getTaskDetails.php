@@ -42,6 +42,20 @@ if(mysqli_num_rows($sql) > 0)
             }
 
         }
+
+        $j=0;
+        $returnObj[$i]["task_file"] = array();
+        $sqlFiles = $cn->selectdb( "SELECT task_file_name FROM tbl_task_file WHERE task_id = ".$row['task_id'] );
+        if( $cn->numRows($sqlFiles) > 0 )
+        {
+            while($rowFiles = $cn->fetchAssoc($sqlFiles))
+            {
+                $returnObj[$i]["task_file"][$j] = $rowFiles["task_file_name"];
+                $j++;
+            }
+        }
+
+
         
         $i++;
     }

@@ -12,7 +12,7 @@ $page_id=25;
 
 $user_id = $_GET['user_id'];
 // Check if any tasks
-$query  = "SELECT t.task_name, te.recordListingID, te.task_emp_id, te.date_assign FROM tbl_task AS t, tbl_task_emp AS te WHERE te.user_id = ".$user_id." AND DATEDIFF( te.date_assign , CURDATE()) <=0 ORDER BY te.recordListingID ASC";
+$query  = "SELECT t.task_name, te.recordListingID, te.task_emp_id, te.date_assign FROM tbl_task AS t, tbl_task_emp AS te WHERE te.user_id = ".$user_id." AND DATEDIFF( te.date_assign , CURDATE()) <=0 GROUP BY te.task_emp_id ORDER BY te.recordListingID ASC";
 $result = $cn->selectdb($query);
 if( $cn->numRows($result) <= 0 )
 {
@@ -24,7 +24,7 @@ if( $cn->numRows($result) <= 0 )
 
 <head>
     <meta charset="utf-8" />
-    <title>Finmasters</title>
+    <title>ICED Infotech</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- App favicon -->

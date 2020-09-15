@@ -2,6 +2,7 @@
  
  include_once('../connect.php'); 
   include_once('commonFunc.php'); 
+  include_once("./image_lib_rname.php");
  
 	 
 	session_start();
@@ -126,11 +127,31 @@
 			$is_task = "no";
 			$product_name = "Not assigned";
 		}		
-
+		echo "in";
 		// Make tasks
 		if($is_task == 'yes')
 		{
+			
 			$sql = $cn->selectdb("INSERT INTO `tbl_task`( `service_inclusion_id`, `shipper_id`, `task_name`, `task_quantity`, `task_description`, `task_date`, `recordListingID`, `task_status`) VALUES (".$service_inclusion_id.",".$shipper_id.",'".$product_name."',".$qty.",'".$service_description."','".date("Y-m-d h:i:s")."',0,0)");
+
+
+			//-----------------------------
+			//Multiple Files
+			//-----------------------------
+			
+			$files = createFiles('download_file', "./task_files/");
+			// print_r($_FILES['download_file']);
+			$task_id = $cn->getLastInsertedID();
+
+			foreach( $files as $file ) {
+				echo "in";
+				if($file != '0')
+				{
+					$sql = "INSERT INTO tbl_task_file(task_id, task_file_name) values (".$task_id.", '".$file."')";
+					$cn->insertdb($sql);
+				}
+			}
+
 		}
 
 

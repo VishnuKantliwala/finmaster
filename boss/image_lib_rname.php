@@ -1,4 +1,4 @@
-		<?php	
+<?php	
 		
 		// make thumb of images
 function make_thumb($src,$dest,$desired_width,$ext)
@@ -268,5 +268,48 @@ function createMultiIcon($inputName, $uploadDir,$i)
 	//end of multiple icons
 	//-----------------------
 	return $image_name;
+}
+
+function createFiles($inputName, $uploadDir)
+{
+	// multiple PDF
+	//----------------------
+	$file_name = [];
+
+	if(isset($_FILES[$inputName]))
+	{
+		for($i=0;$i<count($_FILES[$inputName]['name']);$i++)
+		{
+			if($_FILES[$inputName]['name'][$i]!="")
+			{
+				$file_name_array = explode('.',$_FILES[$inputName]['name'][$i]);
+				$ext = strtolower(array_pop($file_name_array));
+
+				$namearr=explode(".",$_FILES[$inputName]['name'][$i]);
+				//echo "<script>alert('".$name."');</script>";
+				$name=$namearr[0].rand(10000, 99999).'.'.$ext;
+				if ($_FILES[$inputName]["error"][$i] > 0)
+				{
+					array_push( $file_name, '0' );
+				}
+				else
+				{
+					if (file_exists( $uploadDir . md5($name)) )
+					{
+						array_push( $file_name, '0' );
+					}
+					else
+					{
+						move_uploaded_file($_FILES[$inputName]["tmp_name"][$i],$uploadDir. $name);
+						array_push( $file_name, $name );	
+					}
+				}
+			}// if 
+		}//for
+	}//if
+	//---------------------
+	//end of multiple PDF
+	//-----------------------
+	return $file_name;
 }
 ?>

@@ -24,6 +24,10 @@ $database = $cn->_database;
     <link rel="shortcut icon" href="assets/images/favicon.ico">
     <link href="assets/libs/tablesaw/tablesaw.css" rel="stylesheet" type="text/css" />
     <link href="assets/libs/toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- dropify -->
+    <link href="assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
+
     <!-- App css -->
     <link href="assets/libs/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet" />
     <link href="assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
@@ -299,7 +303,7 @@ $database = $cn->_database;
                                     </div>
                                     <!-- end row -->
                                 </form>
-                                <form class="form-horizontal" method="post" id="productForm" name="productForm"> 
+                                <form class="form-horizontal" method="post" id="productForm" name="productForm" enctype="multipart/form-data"> 
                                     <div class="row" style="border-top:1px solid black;">
                                         <h4 class="m-t-0 header-title">Service Details</h4>
                                         <div class="col-12">
@@ -387,6 +391,13 @@ $database = $cn->_database;
                                                         </script>
                                                     </div>
                                                     
+                                                </div>
+
+                                                <div class="form-group row" style="display:none">
+                                                    <div class="col-sm-12">
+                                                        <br/>
+                                                        <input type="file" id="download_file" name="download_file[]" class="dropify" multiple />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -765,6 +776,7 @@ $database = $cn->_database;
                                                         </script>
                                                 </td>
                                             </tr>
+                                            
                                             <tr>
                                                 <td colspan="3"><input type="submit" name="btnUpdate" id="btnUpdate" class="btn btn-icon waves-effect waves-light btn-primary" value="Save Changes"></td>
                                             </tr>
@@ -800,11 +812,18 @@ $database = $cn->_database;
             <script src="assets/libs/datatables/dataTables.responsive.min.js"></script>
             <script src="assets/libs/datatables/responsive.bootstrap4.min.js"></script>
             <script src="assets/js/pages/datatables.init.js"></script>
-            <!-- Tablesaw js -->
             <script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>
             <script src="assets/js/pages/sweet-alerts.init.js"></script>
+            <!-- Tablesaw js -->
             <!-- App js -->
             <script src="assets/js/app.min.js"></script>
+            
+
+            <!-- dropify js -->
+            <script src="assets/libs/dropify/dropify.min.js"></script>     
+            <!-- form-upload init -->
+            <script src="assets/js/pages/form-fileupload.init.js"></script>  
+
             <script>
                 var datatab;
                 jQuery.fn.ForceNumericOnly =
@@ -968,7 +987,7 @@ $database = $cn->_database;
 			});  
 				
       });
-})};
+});
  </script>
   <script>
     //Invoice Start
@@ -1540,13 +1559,15 @@ function addLoader()
 			
       });  
 	  $('#productForm').on('submit',function(event){  
-			event.preventDefault();
+
+            event.preventDefault();
+            alert("IN");
 		   	if($("#addConfirmation").is(":disabled"))
 			{
 				if($('#txtService').val() == 0)  
 				{  
 						$('#txtService').focus();
-						alert("Please Select Service");  
+						alert("Please Select Serviceeee");  
 				} 
 				else if($('#txtDuration').val() == '')  
 				{  
@@ -1562,6 +1583,8 @@ function addLoader()
 							method:"POST",  
 							data:$('#productForm').serialize() + '&txt_service_description='+service_description, 
 							success:function(data){ 
+
+                                // console.log(data);
 								 fetchInvoiceProducts("yes");
                                 $('#productForm')[0].reset();
                                 CKEDITOR.instances.service_description.setData("");
