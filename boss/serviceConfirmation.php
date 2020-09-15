@@ -792,9 +792,6 @@ $database = $cn->_database;
             ?>
             <script src="assets/js/vendor.min.js"></script>
             <!-- Vendor js -->
-
-            
-
             <script src="assets/libs/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
             <script src="assets/libs/switchery/switchery.min.js"></script>
             <script src="assets/libs/multiselect/jquery.multi-select.js"></script>
@@ -814,11 +811,12 @@ $database = $cn->_database;
             <script src="assets/libs/datatables/dataTables.responsive.min.js"></script>
             <script src="assets/libs/datatables/responsive.bootstrap4.min.js"></script>
             <script src="assets/js/pages/datatables.init.js"></script>
-            <!-- Tablesaw js -->
             <script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>
             <script src="assets/js/pages/sweet-alerts.init.js"></script>
+            <!-- Tablesaw js -->
             <!-- App js -->
             <script src="assets/js/app.min.js"></script>
+            
 
             <!-- dropify js -->
             <script src="assets/libs/dropify/dropify.min.js"></script>     
