@@ -70,6 +70,11 @@ $task_emp_description = $_POST['task_emp_description'];
 
             }
 
+            if($_POST['total_reps'][$i] == "")
+            {
+                $_POST['total_reps'][$i] = 0;
+            }
+
             for( $k = 0 ; $k < $_POST['total_reps'][$i] ; $k++ )
             {
                 

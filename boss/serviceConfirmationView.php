@@ -87,7 +87,7 @@ $page_id=25;
                 <div class="container-fluid">
                     <div class="card-box">
                         <div class="form-group row">
-                            <div class="col-sm-1">
+                            <div class="col-sm-2">
                                 <a href="serviceConfirmation.php" class="btn btn-primary width-md">Add</a>
                             </div>
                             <div class="col-sm-1">
@@ -100,7 +100,7 @@ $page_id=25;
                             <div class="col-lg-4">
                                 <input class="form-control input-daterange-datepicker" type="text" name="daterange" id="daterange" placeholder="Select Date Range"/>
                             </div>
-                            <div class="col-sm-1">
+                            <div class="col-sm-2">
                                 <button id="applyFilter" class="btn btn-primary width-md">Filter</button>
                             </div>
                             <div class="col-sm-1">

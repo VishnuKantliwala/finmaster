@@ -4,7 +4,7 @@
     <div class="slimscroll-menu">
         <!-- User box -->
         <div class="user-box text-center">
-            <img src="assets/images/logo.jpg" alt="user-img" title="<?php echo $_SESSION['user']; ?>" class="img-thumbnail avatar-lg">
+            
             <div class="dropdown">
                 <a class="text-dark dropdown-toggle h5 mt-2 mb-1 d-block"><?php echo $_SESSION['user'] . " (" . $_SESSION['control'] . ")"; ?></a>
             </div>
@@ -244,6 +244,7 @@
                             <span> Company Name </span>
                         </a>
                     </li>
+
                     
                 <?php
                 }

@@ -6,21 +6,25 @@ $cn=new connect();
 $cn->connectdb();
 
 $task_emp_id = $_POST['task_emp_id'];
-$chkQuantity = $_POST['chkQuantity'];
+
 $task_emp_description = $_POST['task_emp_description'];
 $totalQty = $_POST['modal_task_emp_quantity'];
 
 $cnt = 0;
 $date = date("Y-m-d h:i:s");
 
-foreach ($_POST['chkQuantity'] as $attributeKey => $attributes){
-    // echo $attributeKey.' '.$_POST['mulradio'][$attributeKey].'<br>';
-    
-    $cn->selectdb("UPDATE tbl_task_emp_qty SET task_emp_status = 1 WHERE  task_emp_qty = ".$_POST['chkQuantity'][$attributeKey]);
-    $cnt++;
-
+if(isset($_POST['chkQuantity']))
+{
+    $chkQuantity = $_POST['chkQuantity'];
+    foreach ($_POST['chkQuantity'] as $attributeKey => $attributes){
+        // echo $attributeKey.' '.$_POST['mulradio'][$attributeKey].'<br>';
         
- } //foreach
+        $cn->selectdb("UPDATE tbl_task_emp_qty SET task_emp_status = 1 WHERE  task_emp_qty = ".$_POST['chkQuantity'][$attributeKey]);
+        $cnt++;
+
+            
+    } //foreach
+}
 
 $diff = 0;
  if($cnt == $totalQty)

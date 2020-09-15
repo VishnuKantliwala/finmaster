@@ -17,7 +17,7 @@ $page_id=25;
 
 <head>
     <meta charset="utf-8" />
-    <title>Finmasters</title>
+    <title>ICED Infotech</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- App favicon -->
@@ -117,9 +117,9 @@ $page_id=25;
                             <div class="col-md-4">
                                 <select class="form-control" type="text" name="ddl_user_id"
                                     id="ddl_user_id" >
-                                    <option value="0">-- SELECT USER --</option>
+                                    <option value="0">-- SELECT EMPLOYEE --</option>
                                     <?
-                                    $sqlShipper = $cn->selectdb("SELECT u.user_name, u.user_id FROM tbl_user AS u, tbl_task_emp AS te WHERE u.user_id = te.user_id ORDER BY u.user_name");
+                                    $sqlShipper = $cn->selectdb("SELECT u.user_name, u.user_id FROM tbl_user AS u, tbl_task_emp AS te WHERE u.user_id = te.user_id GROUP BY u.user_id ORDER BY u.user_name ");
                                     if( $cn->numRows($sqlShipper) > 0 )
                                     {
                                         while($rowShipper = $cn->fetchAssoc($sqlShipper))

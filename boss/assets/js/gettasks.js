@@ -49,6 +49,7 @@ function viewTask(id) {
 
                     // row += '<div class="container">';
 
+
                     row += '<h5>Files : </h5>';
                     if( data[0].task_file )
                     {
@@ -64,6 +65,7 @@ function viewTask(id) {
                     }
                     else {
                         row += " No files";
+
                     }
                     
                     // row += '</div>';

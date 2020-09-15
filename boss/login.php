@@ -7,10 +7,10 @@ $cn->connectdb();
 ?>
 <?php
 if (isset($_POST['Submit'])) {
-    global $cn;
+    
     $user = $_POST['username'];
     $pwd = mysqli_real_escape_string($cn->_connection, $_POST['password']);
-    $recordset = $cn->selectdb("SELECT u.user_email,u.user_email,u.user_password,u.user_id from tbl_user u where BINARY user_email='" . $user . "'");
+    $recordset = $cn->selectdb("SELECT u.user_email,u.user_email,u.user_password,u.user_id from tbl_user u where BINARY user_email='".$user."'");
     $cnt = mysqli_affected_rows($cn->_connection);
     if ($cnt == 1) {
         $rowUser = mysqli_fetch_assoc($recordset);
@@ -69,6 +69,12 @@ if (isset($_POST['Submit'])) {
                     <div class="card">
                         <div class="card-body p-4">
                             <div class="text-center mb-4">
+                                <span class="logo-lg">
+                                    <img src="assets/images/logo-dark.png" alt="" height="40">
+                                    <!-- <span class="logo-lg-text-light">Xeria</span> -->
+                                </span>
+                            </div>
+                            <div class="text-center mb-4">
                                 <h4 class="text-uppercase mt-0">Sign In</h4>
                             </div>
                             <form method="post">
@@ -85,16 +91,12 @@ if (isset($_POST['Submit'])) {
                                     <button class="btn btn-primary btn-block" type="submit" name="Submit"> Log In </button>
                                 </div>
                             </form>
-
+                            <div class="col-12 text-center" style="margin-top:20px;">
+                                <p class="text-muted">2020 &copy; Finmasters.</p>
+                            </div> <!-- end col -->
                         </div> <!-- end card-body -->
                     </div>
-                    <!-- end card -->
-                    <div class="row mt-3">
-                        <div class="col-12 text-center">
-                            <p class="text-muted">2020 &copy; Finmasters.</p>
-                        </div> <!-- end col -->
-                    </div>
-                    <!-- end row -->
+                   
 
                 </div> <!-- end col -->
             </div>
