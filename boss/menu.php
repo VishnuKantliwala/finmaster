@@ -134,9 +134,27 @@
                         <span> Dashboard </span>
                     </a>
                 </li>
+                <li>
+                    <a href="inquiry.php" <?php if($page_id==14) echo 'class="active"';?>>
+                        <i class="fas fa-plus"></i>
+                        <span> Leads </span>
+                    </a>
+                </li>
                 <?php
                 if ($_SESSION['control'] == "admin") {
                 ?>
+                    <li <?php if($page_id==29 OR $page_id==30 ) echo 'class="active"';?>>
+                        <a href="#" <?php if($page_id==2 OR $page_id==30) echo 'class="active"';?>>
+                            <i class="mdi fas fa-tasks"></i>
+                            <span> Tasks </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul class="nav-second-level" aria-expanded="false">
+                            <li><a href="assignedTaskView.php" <?php if($page_id==29) echo 'class="active"';?>>Assigned Tasks</a></li>
+                            <li><a href="notAssignedTaskView.php" <?php if($page_id==30) echo 'class="active"';?>>Non Assigned Tasks</a></li>
+                        </ul>
+                    </li>
+
                     <li <?php if($page_id==2 OR $page_id==3 OR $page_id==4 OR $page_id==5 OR $page_id==6 OR $page_id==7 OR $page_id==8 OR $page_id==9) echo 'class="active"';?>>
                         <a href="#" <?php if($page_id==2 OR $page_id==3 OR $page_id==4 OR $page_id==5 OR $page_id==6 OR $page_id==7 OR $page_id==8 OR $page_id==9) echo 'class="active"';?>>
                             <i class="mdi mdi-texture"></i>
@@ -155,21 +173,11 @@
                         </ul>
 
                     </li>
-                    <li <?php if($page_id==29 OR $page_id==30 ) echo 'class="active"';?>>
-                        <a href="#" <?php if($page_id==2 OR $page_id==30) echo 'class="active"';?>>
-                            <i class="mdi fas fa-tasks"></i>
-                            <span> Tasks </span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <ul class="nav-second-level" aria-expanded="false">
-                            <li><a href="assignedTaskView.php" <?php if($page_id==29) echo 'class="active"';?>>Assigned Tasks</a></li>
-                            <li><a href="notAssignedTaskView.php" <?php if($page_id==30) echo 'class="active"';?>>Non Assigned Tasks</a></li>
-                        </ul>
-                    </li>
+
                     <li>
-                        <a href="purchaseView.php" <?php if($page_id==27) echo 'class="active"';?>>
-                            <i class="fas fa-file-alt"></i>
-                            <span> Purchase </span>
+                        <a href="serviceConfirmationView.php" <?php if($page_id==25) echo 'class="active"';?>>
+                            <i class="far fa-file-alt"></i>
+                            <span> Service Confirmation </span>
                         </a>
                     </li>
                     <li>
@@ -190,30 +198,7 @@
                             <span> Proforma & Quotation </span>
                         </a>
                     </li>
-                    <li>
-                        <a href="serviceConfirmationView.php" <?php if($page_id==25) echo 'class="active"';?>>
-                            <i class="far fa-file-alt"></i>
-                            <span> Service Confirmation </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="renewalReminderView.php" <?php if($page_id==28) echo 'class="active"';?>>
-                            <i class="far fa-file-alt"></i>
-                            <span> Renewal</span>
-                        </a>
-                    </li>
-                <?php
-                }
-                ?>
-                <!-- <li>
-                    <a href="documentView.php" <?php if($page_id==31) echo 'class="active"';?>>
-                        <i class="fas fa-file-alt"></i>
-                        <span> Documents </span>
-                    </a>
-                </li> -->
-                <?php
-                if ($_SESSION['control'] == "admin") {
-                ?>
+
                     <li <?php if($page_id==16 OR $page_id==17 OR $page_id==19 OR $page_id==20 OR $page_id==21 OR $page_id==24) echo 'class="active"';?>>
                         <a href="#" <?php if($page_id==16 OR $page_id==17 OR $page_id==19 OR $page_id==20 OR $page_id==21 OR $page_id==24) echo 'class="active"';?>>
                             <i class="fas fa-chart-pie"></i>
@@ -229,9 +214,27 @@
                             <li <?php if($page_id==24) echo 'class="active"';?>><a href="report-task.php">Task</a></li>
                         </ul>
                     </li>
+
+                    
+                    <!-- <li>
+                        <a href="purchaseView.php" <?php if($page_id==27) echo 'class="active"';?>>
+                            <i class="fas fa-file-alt"></i>
+                            <span> Purchase </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="renewalReminderView.php" <?php if($page_id==28) echo 'class="active"';?>>
+                            <i class="far fa-file-alt"></i>
+                            <span> Renewal</span>
+                        </a>
+                    </li> -->
+
                 <?php
                 }
                 ?>
+
                 <?php
                 if ($_SESSION['control'] == 'admin') {
                 ?>
@@ -241,19 +244,23 @@
                             <span> Company Name </span>
                         </a>
                     </li>
-                    <!-- <li>
-                        <a href="domain_renew_view.php" <?php if($page_id==13) echo 'class="active"';?>>
-                            <i class="fas fa-sync-alt"></i>
-                            <span> Upcoming Renewal </span>
-                        </a>
-                    </li> -->
+
                     
                 <?php
                 }
                 ?>
+
+                <!-- <li>
+                    <a href="documentView.php" <?php if($page_id==31) echo 'class="active"';?>>
+                        <i class="fas fa-file-alt"></i>
+                        <span> Documents </span>
+                    </a>
+                </li> -->
+                
+                
                 
                 <?php
-                if ($_SESSION['control'] == 'Employee') {
+                /*if ($_SESSION['control'] == 'Employee') {
                 ?>
                 <li>
                     <a href="pro_achknow_view.php" <?php if($page_id==15) echo 'class="active"';?>>
@@ -262,14 +269,9 @@
                     </a>
                 </li>
                 <?php
-                }
+                }*/
                 ?>
-                <li>
-                    <a href="inquiry.php" <?php if($page_id==14) echo 'class="active"';?>>
-                        <i class="fas fa-plus"></i>
-                        <span> Inquiry </span>
-                    </a>
-                </li>
+                
                 <li>
                     <a href="changepassword.php" <?php if($page_id==18) echo 'class="active"';?>>
                         <i class="mdi mdi-account-key-outline"></i>

@@ -48,15 +48,24 @@ function viewTask(id) {
                     let row = "<h4>"+data[0].shipper_name+"</h4><p>"+data[0].date_assign+"</p><p>Quantity - "+data[0].task_emp_quantity+" | "+rd+"</p><h5>Description : </h5>" + data[0].task_emp_description;
 
                     // row += '<div class="container">';
+
+
                     row += '<h5>Files : </h5>';
-                    for(let i=0; i<data[0].task_file.length ; i++)
+                    if( data[0].task_file )
                     {
-                        
-                        
-                        row += '<div class="col-md-4" style="padding:10px 0px">' +
-                        '<a target="_BLANK" href="./task_files/'+data[0].task_file[i]+'"> '+data[0].task_file[i]+' </a>'+
-                        "</div>";
-                        
+                        for(let i=0; i<data[0].task_file.length ; i++)
+                        {
+                            
+                            
+                            row += '<div class="col-md-4" style="padding:10px 0px">' +
+                            '<a target="_BLANK" href="./task_files/'+data[0].task_file[i]+'"> '+data[0].task_file[i]+' </a>'+
+                            "</div>";
+                            
+                        }
+                    }
+                    else {
+                        row += " No files";
+
                     }
                     
                     // row += '</div>';
