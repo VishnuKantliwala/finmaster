@@ -8,6 +8,7 @@ include_once("../navigationfun.php");
 $cn = new connect();
 $cn->connectdb();
 $inquiry_detail_id = $_POST['txtUID'];
+$inquiry_id = $_POST['txtUInqId'];
 $customer_id = $_POST['txtUCompanyID'];
 $attendant_id = $_POST['txtUAttend'];
 $customer_name = $_POST['txtUCompany'];
@@ -38,7 +39,7 @@ $status = $_POST['txtUStatus'];
 // 	$cn->insertdb("INSERT INTO tbl_shipper(`shipper_name`, `shipper_address`,`shipper_phone1`,`shipper_email`) VALUES('". $customer_name . "', '". $address."','". $mobile."','". $email ."')");
 // 	$customer_id = mysqli_insert_id($cn->getConnection());
 // }
-echo "UPDATE tbl_shipper SET `shipper_name`='". $customer_name . "', `shipper_address`='". $address."',`shipper_phone1`='". $mobile."',`shipper_email`='". $email ."' WHERE shipper_id =".$customer_id;
+// echo "UPDATE tbl_shipper SET `shipper_name`='". $customer_name . "', `shipper_address`='". $address."',`shipper_phone1`='". $mobile."',`shipper_email`='". $email ."' WHERE shipper_id =".$customer_id;
 
 if(array_sum($_FILES['txtUFile']['size'])>0){
 	$n = count($_FILES['txtUFile']['name']);
@@ -62,9 +63,34 @@ if(array_sum($_FILES['txtUFile']['size'])>0){
 }
 //echo $sql;
 $cn->insertdb($sql);
-if (mysqli_affected_rows($cn->getConnection()) > 0) {
-    echo "true";
-} else {
-    echo "false";
+
+if($_POST['result'] == "Success")
+{
+	$booking_date = date('Y-m-d');
+	$entry_date = date("Y-m-d H:i:s");
+	$cn->insertdb("INSERT INTO `tbl_service_confirmation`( `shipper_id`, `entry_person_id`,`attendant_id`, `entry_date`, `confirmation_date`,`currency`) VALUES (".$customer_id.",'".$_SESSION['user_id']."',".$attendant_id.",'".$entry_date."','".$booking_date."','INR')");
+	$service_confirmation_id = mysqli_insert_id($cn->getConnection());
+	$cn->insertdb("INSERT INTO `tbl_inquiry_confirmation`(`inquiry_id`, `service_confirmation_id`, `entry_date`, `entry_person_id`) VALUES (".$inquiry_id.",".$service_confirmation_id.",'".$entry_date."','".$_SESSION['user_id']."')");
+	if (mysqli_affected_rows($cn->getConnection()) > 0) {
+		echo "SuccessTrue-".$service_confirmation_id;
+	}
+	else
+	{
+		echo "SuccessFalse";
+	}
 }
+else if($_POST['result'] == "Unsuccess")
+{
+	$booking_date = date('Y-m-d');
+	$entry_date = date("Y-m-d H:i:s");
+	$cn->insertdb("INSERT INTO `tbl_inquiry_unsuccess`(`inquiry_id`, `entry_date`, `entry_person_id`) VALUES (".$inquiry_id.",'".$entry_date."','".$_SESSION['user_id']."')");
+	if (mysqli_affected_rows($cn->getConnection()) > 0) {
+		echo "Unsuccess";
+	}
+	else
+	{
+		echo "UnsuccessFalse";
+	}
+}
+
 ?>

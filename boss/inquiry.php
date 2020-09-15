@@ -69,10 +69,40 @@ $page_id=14;
                 background:#ece3d2;
                 cursor: pointer;
             } */
+            .loader{
+                opacity:0.6;
+                position: fixed;
+                left: 0px;
+                top: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 9999;
+                background: rgb(249,249,249);
+                display:none;
+            }
+            .centered {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                
+                color:darkred;
+                display:inline-flex;
+                border:1px solid grey;
+                padding:10px;
+                background:black;
+            }
         </style>
     </head>
 
     <body>
+        <div class="loader" id="customLoader">
+            
+            <div class="centered">
+                <img src="loader1.gif" style="height:40px;"/>
+                <h4 style="color:#d0d0d0;margin-left:10px;" id="loaderText">Please wait...</h4>
+            </div>
+        </div>
         <!-- Begin page -->
         <div id="wrapper">
             <!-- Topbar Start -->
@@ -279,6 +309,14 @@ $page_id=14;
                                                                 <option value="Pending">Pending</option>
                                                                 <option value="Commplete">Complete</option>
                                                             </select>
+                                                        </div>
+                                                        <div class="col-md-12" style="margin-top:10px;margin-bottom:10px;">
+                                                            <label class="control-label">Result : &nbsp;</label>
+                                                            <input type="radio" name="result" id="success" value="Success" />
+                                                            <label for="success" id="success" style="cursor:pointer;">Success</label>
+                                                            <input type="radio" name="result" id="unsuccess" value="Unsuccess"/>
+                                                            <label for="unsuccess" id="success" style="cursor:pointer;">Unsuccess</label>
+                                                            <label style="font-style:italic;color:#ff5b5b;cursor:pointer;" id="clearSelection"> --Clear Selection</label>
                                                         </div>
                                                         <div class="col-md-12">
                                                             <label class="control-label">Choose Color</label>
@@ -545,6 +583,7 @@ $page_id=14;
             });
             $("#btnInsert").click(function (event) {
                 event.preventDefault();
+                $("#customLoader").show();
                 var form = $('#formInsert')[0];
                 var data = new FormData(form);
                 $.ajax({
@@ -556,14 +595,18 @@ $page_id=14;
                     url:'insert_inquiry.php',
                     data:data,
                     success:function(data){
-                        console.log(data);
+                        //console.log(data);
                         calendar.fullCalendar('refetchEvents');
                         document.getElementById("formInsert").reset();
+                        setTimeout(() => {
+                            $("#customLoader").hide();
+                        }, 500);
                     }
                 });
             });
             $("#btnUpdate").click(function () {
                 event.preventDefault();
+                $("#customLoader").show();
                 var form = $('#formUpdate')[0];
                 var data = new FormData(form);
                 $.ajax({
@@ -578,10 +621,24 @@ $page_id=14;
                         //console.log(data);
                         calendar.fullCalendar('refetchEvents');
                         document.getElementById("formUpdate").reset();
+                        var res = data.split("-");
+                        if(res[0] == "SuccessTrue")
+                        {
+                            $("#loaderText").html("Redirecting..");
+                            setTimeout(() => {
+                                $("#customLoader").hide();
+                            }, 500);
+                            window.location.href = "serviceConfirmationUpdate.php?service_confirmation_no="+res[1];
+                        }
+                        setTimeout(() => {
+                            $("#customLoader").hide();
+                        }, 500);
+                        
                     }
                 });
             });
             $("#btnDelete").click(function() {
+                $("#customLoader").show();
                 var id = $("#txtUID").val();
                 $.ajax({
                     type:'POST',
@@ -590,8 +647,15 @@ $page_id=14;
                     success:function(data){
                         calendar.fullCalendar('refetchEvents');
                         document.getElementById("formUpdate").reset();
+                        setTimeout(() => {
+                            $("#customLoader").hide();
+                        }, 500);
                     }
                 });
+            });
+            $("#clearSelection").on("click",function(){
+                $("#success:checked").prop("checked", false);
+                $("#unsuccess:checked").prop('checked', false);
             });
             function imgDel(id,name,shipper_id) {
                 $.ajax({
