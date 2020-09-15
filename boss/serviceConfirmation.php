@@ -24,6 +24,10 @@ $database = $cn->_database;
     <link rel="shortcut icon" href="assets/images/favicon.ico">
     <link href="assets/libs/tablesaw/tablesaw.css" rel="stylesheet" type="text/css" />
     <link href="assets/libs/toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- dropify -->
+    <link href="assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
+
     <!-- App css -->
     <link href="assets/libs/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet" />
     <link href="assets/libs/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
@@ -387,6 +391,12 @@ $database = $cn->_database;
                                                         </script>
                                                     </div>
                                                     
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-12">
+                                                        <br/>
+                                                        <input type="file" id="download_file" name="download_file[]" class="dropify" multiple />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -765,6 +775,7 @@ $database = $cn->_database;
                                                         </script>
                                                 </td>
                                             </tr>
+                                            
                                             <tr>
                                                 <td colspan="3"><input type="submit" name="btnUpdate" id="btnUpdate" class="btn btn-icon waves-effect waves-light btn-primary" value="Save Changes"></td>
                                             </tr>
@@ -781,6 +792,9 @@ $database = $cn->_database;
             ?>
             <script src="assets/js/vendor.min.js"></script>
             <!-- Vendor js -->
+
+            
+
             <script src="assets/libs/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
             <script src="assets/libs/switchery/switchery.min.js"></script>
             <script src="assets/libs/multiselect/jquery.multi-select.js"></script>
@@ -805,6 +819,12 @@ $database = $cn->_database;
             <script src="assets/js/pages/sweet-alerts.init.js"></script>
             <!-- App js -->
             <script src="assets/js/app.min.js"></script>
+
+            <!-- dropify js -->
+            <script src="assets/libs/dropify/dropify.min.js"></script>     
+            <!-- form-upload init -->
+            <script src="assets/js/pages/form-fileupload.init.js"></script>  
+
             <script>
                 var datatab;
                 jQuery.fn.ForceNumericOnly =
@@ -968,7 +988,7 @@ $database = $cn->_database;
 			});  
 				
       });
-})};
+});
  </script>
   <script>
     //Invoice Start
