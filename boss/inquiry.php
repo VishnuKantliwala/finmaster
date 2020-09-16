@@ -310,14 +310,7 @@ $page_id=14;
                                                                 <option value="Commplete">Complete</option>
                                                             </select>
                                                         </div>
-                                                        <div class="col-md-12" style="margin-top:10px;margin-bottom:10px;">
-                                                            <label class="control-label">Result : &nbsp;</label>
-                                                            <input type="radio" name="result" id="success" value="Success" />
-                                                            <label for="success" id="success" style="cursor:pointer;">Success</label>
-                                                            <input type="radio" name="result" id="unsuccess" value="Unsuccess"/>
-                                                            <label for="unsuccess" id="success" style="cursor:pointer;">Unsuccess</label>
-                                                            <label style="font-style:italic;color:#ff5b5b;cursor:pointer;" id="clearSelection"> --Clear Selection</label>
-                                                        </div>
+                                                        
                                                         <div class="col-md-12">
                                                             <label class="control-label">Choose Color</label>
                                                             <select class="form-control form-white" data-placeholder="Choose a color..." id="txtUColor" name="txtUColor">
@@ -329,6 +322,18 @@ $page_id=14;
                                                                 <option value="inverse" style="background-color: #3a87ad;color:#fff">Boston Blue</option>
                                                                 <option value="warning" style="background-color: #f9c851;color:#fff">Saffron Mango</option>
                                                             </select>
+                                                        </div>
+                                                        <div class="col-md-12" style="margin-top:10px;margin-bottom:10px;">
+                                                            <label class="control-label">Result : &nbsp;</label>
+                                                            <input type="radio" name="result" id="success" value="Success" />
+                                                            <label for="success" id="success" style="cursor:pointer;">Success</label>
+                                                            <input type="radio" name="result" id="unsuccess" value="Unsuccess"/>
+                                                            <label for="unsuccess" id="unsuccess" style="cursor:pointer;">Unsuccess</label>
+                                                            <label style="font-style:italic;color:#ff5b5b;cursor:pointer;" id="clearSelection"> --Clear Selection</label>
+                                                        </div>
+                                                        <div class="col-md-12" style="margin-bottom:10px;">
+                                                            <label class="control-label" id="resultlbl" style="color:green;font-style:italic;"></label>
+                                                            <a href="" id="resultLink" style="display:none;" target="_BLANK">Check it here --></a>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -542,6 +547,19 @@ $page_id=14;
                         success:function(data){
                             //console.log(data);
                             data = JSON.parse(data);
+                            if(data.result == "Success")
+                            {
+                                $("#success").prop("checked", true);
+                                $("#resultlbl").html("This inquiry got success..");
+                                $("#resultLink").show();
+                                $("#resultLink").attr("href","serviceConfirmationUpdate.php?service_confirmation_no="+data.service_confirmation_id);
+                            }
+                            if(data.result == "Unsuccess")
+                            {
+                                $("#unsuccess").prop("checked", true);
+                                $("#resultLink").hide();
+                                $("#resultlbl").html("This inquiry got unsuccess..");
+                            }
                             $("#txtUStart").val(data.inquiry_stime);
                             $("#txtUEnd").val(data.inquiry_etime);
                             $("#txtUCompany").val(data.shipper_name);
@@ -556,26 +574,30 @@ $page_id=14;
                             $("#txtUInqId").val(data.inquiry_id);
                             $("#txtImg").val(data.meeting_document);
                             $("#txtUStatus").val(data.status);
-                            var imgs = data.meeting_document.split(",");
-                            imgs.pop();
-                            var img = "";
-                            jQuery.each(imgs,function(i,val) {
-                                var ext = val.substring(val.lastIndexOf(".")+1);
-                                if(ext=="pdf"){
-                                    $img_name = "assets/file/pdf.png";
-                                 }else if(ext=="png" || ext=="jpg" || ext=="jpeg" || ext=="gif"){
-                                    $img_name = "inquiry/"+data.shipper_id+"/"+val;
-                                }else if(ext=="doc" || ext=="docx"){
-                                    $img_name = "assets/file/doc.png";
-                                }else if(ext=="xls" || ext=="xlsx"){
-                                    $img_name = "assets/file/xls.png";
-                                }else if(ext=="txt"){
-                                    $img_name = "assets/file/txt.png";
-                                }
-                                img+="<li class='list-inline-item file-box'><a href='inquiry/"+data.shipper_id+"/"+val+"' target='_blank'><img src='"+$img_name+"' class='img-fluid img-thumbnail' alt='attached-img' width='80'></a><p class='font-13 mb-1 text-muted'><small><a onclick='imgDel("+data.inquiry_detail_id+",\""+val+"\","+data.shipper_id+")'>Delete</a></small></p></li>";
-                            });
-                            $(".attached-files ul li").remove();
-                            $(".attached-files ul").append(img);
+                            if(data.meeting_document != "")
+                            {
+                                var imgs = data.meeting_document.split(",");
+                                imgs.pop();
+                                var img = "";
+                                jQuery.each(imgs,function(i,val) {
+                                    var ext = val.substring(val.lastIndexOf(".")+1);
+                                    if(ext=="pdf"){
+                                        $img_name = "assets/file/pdf.png";
+                                    }else if(ext=="png" || ext=="jpg" || ext=="jpeg" || ext=="gif"){
+                                        $img_name = "inquiry/"+data.shipper_id+"/"+val;
+                                    }else if(ext=="doc" || ext=="docx"){
+                                        $img_name = "assets/file/doc.png";
+                                    }else if(ext=="xls" || ext=="xlsx"){
+                                        $img_name = "assets/file/xls.png";
+                                    }else if(ext=="txt"){
+                                        $img_name = "assets/file/txt.png";
+                                    }
+                                    img+="<li class='list-inline-item file-box'><a href='inquiry/"+data.shipper_id+"/"+val+"' target='_blank'><img src='"+$img_name+"' class='img-fluid img-thumbnail' alt='attached-img' width='80'></a><p class='font-13 mb-1 text-muted'><small><a onclick='imgDel("+data.inquiry_detail_id+",\""+val+"\","+data.shipper_id+")'>Delete</a></small></p></li>";
+                                });
+                                $(".attached-files ul li").remove();
+                                $(".attached-files ul").append(img);
+                            }
+                            
                             $("#update-category").modal("show");
                         }
                     });

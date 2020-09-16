@@ -66,6 +66,11 @@ $cn->insertdb($sql);
 
 if($_POST['result'] == "Success")
 {
+	$sqlCheckUnsuccess = $cn->selectdb("SELECT inquiry_id FROM tbl_inquiry_unsuccess WHERE `inquiry_id` =".$inquiry_id);
+	if($cn->numRows($sqlCheckUnsuccess) > 0)
+	{
+		$cn->insertdb("DELETE FROM tbl_inquiry_unsuccess WHERE `inquiry_id`=".$inquiry_id);
+	}
 	$booking_date = date('Y-m-d');
 	$entry_date = date("Y-m-d H:i:s");
 	$cn->insertdb("INSERT INTO `tbl_service_confirmation`( `shipper_id`, `entry_person_id`,`attendant_id`, `entry_date`, `confirmation_date`,`currency`) VALUES (".$customer_id.",'".$_SESSION['user_id']."',".$attendant_id.",'".$entry_date."','".$booking_date."','INR')");
