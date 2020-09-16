@@ -10,7 +10,7 @@ include_once("../connect.php");
 include_once("../navigationfun.php");
 $cn = new connect();
 $cn->connectdb();
-$page_id=25;
+$page_id=29;
 ?>
 <!DOCTYPE html>
 <html lang="en">

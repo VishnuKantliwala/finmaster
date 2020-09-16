@@ -8,10 +8,10 @@ if ($_SESSION['control'] != "admin") {
 }
 include_once("../connect.php");
 include_once("../navigationfun.php");
-include_once("./image_lib_rname.php");
+include_once("image_lib_rname.php");
 $cn = new connect();
 $cn->connectdb();
-$page_id=22;
+$page_id=29;
 ?>
 <?php
 $error = "";
