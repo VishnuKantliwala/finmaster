@@ -183,7 +183,7 @@ $page_id=14;
                                                             </select>
                                                         </div>
                                                         <div class="col-md-12">
-                                                            <label class="control-label">Company Name</label>
+                                                            <label class="control-label">Client Name</label>
                                                             <input class="form-control form-white" placeholder="Company name" type="text" id="txtCompany" name="txtCompany" autocomplete="off"/>
                                                             <div id="suggesstion-box"></div>
                                                             <input type="hidden" name="txtCompanyID" id="txtCompanyID" value="0">
