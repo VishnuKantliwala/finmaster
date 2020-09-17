@@ -141,13 +141,13 @@ if (isset($_POST['Submit'])) {
                                                     <div class="col-sm-10">
                                                         <input type="checkbox" name="chkRenew" data-plugin="switchery" data-color="#1AB394" data-secondary-color="#ED5565" data-size="small" />
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="form-group row">
                                                     <label class="col-sm-2  col-form-label" for="txtCode">Task</label>
                                                     <div class="col-sm-10">
                                                         <input type="checkbox" name="chkTask" data-plugin="switchery" data-color="#1AB394" data-secondary-color="#ED5565" data-size="small" />
                                                     </div>
-                                                </div> -->
+                                                </div>
                                                 <div class="form-group row">
                                                     <label class="col-sm-2  col-form-label" for="example-placeholder"></label>
                                                     <div class="col-sm-10">
