@@ -274,7 +274,7 @@ function createFiles($inputName, $uploadDir)
 {
 	// multiple PDF
 	//----------------------
-	$file_name = [];
+// 	$file_name = [];
 
 	if(isset($_FILES[$inputName]))
 	{
