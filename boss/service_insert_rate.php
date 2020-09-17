@@ -2,7 +2,7 @@
  
  include_once('../connect.php'); 
   include_once('commonFunc.php'); 
-  include_once("./image_lib_rname.php");
+  include_once("../image_lib_rname.php");
  
 	 
 	session_start();
