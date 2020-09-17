@@ -1561,7 +1561,7 @@ function addLoader()
 	  $('#productForm').on('submit',function(event){  
 
             event.preventDefault();
-            alert("IN");
+            //alert("IN");
 		   	if($("#addConfirmation").is(":disabled"))
 			{
 				if($('#txtService').val() == 0)  
