@@ -167,7 +167,7 @@
 			$is_task = "no";
 			$product_name = "Not assigned";
 		}		
-		echo "in";
+// 		echo "in";
 		// Make tasks
 		if($is_task == 'yes')
 		{
@@ -184,7 +184,7 @@
 			$task_id = $cn->getLastInsertedID();
 
 			foreach( $files as $file ) {
-				echo "in";
+// 				echo "in";
 				if($file != '0')
 				{
 					$sql = "INSERT INTO tbl_task_file(task_id, task_file_name) values (".$task_id.", '".$file."')";
