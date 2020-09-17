@@ -13,7 +13,7 @@ class commonFunc
 		{
 			$row = mysqli_fetch_assoc($sql);
 			
-// 			$returnObj = (object)[]; 
+ 			$returnObj = (object)[]; 
 			$returnObj->total_amount=$row['total_amount'];
 			$returnObj->net_amount=$row['net_amount'];
 			$returnObj->gst_charge=$row['gst_charge'];
