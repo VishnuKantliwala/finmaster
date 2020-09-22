@@ -1463,7 +1463,7 @@ function addLoader()
 				{  
 						$txtServiceConfirmationNo = $("#txtServiceConfirmationNo").val();
                         var service_description = CKEDITOR.instances.service_description.getData();
-                        console.log($('#productForm').serialize());
+                       // console.log($('#productForm').serialize());
 
 						$.ajax({  
 							url:"service_insert_rate.php?type=product&ServiceConfirmationNo="+$txtServiceConfirmationNo,  
