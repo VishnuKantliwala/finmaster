@@ -13,7 +13,7 @@ class commonFunc
 		{
 			$row = mysqli_fetch_assoc($sql);
 			
-//  			$returnObj = (object)[]; 
+ 			$returnObj = (object)[]; 
 			$returnObj->total_amount=$row['total_amount'];
 			$returnObj->net_amount=$row['net_amount'];
 			$returnObj->gst_charge=$row['gst_charge'];
@@ -31,7 +31,7 @@ class commonFunc
 		{
 			$row = mysqli_fetch_assoc($sql);
 			
-// 			$returnObj = (object)[]; 
+			$returnObj = (object)[]; 
 			$returnObj->gst_rate=$row['gst_rate'];
 			
 			return json_encode($returnObj);
@@ -46,7 +46,7 @@ class commonFunc
 		{
 			$row = mysqli_fetch_assoc($sql);
 			
-// 			$returnObj = (object)[]; 
+			$returnObj = (object)[]; 
 			$returnObj->gst_rate=$row['expense_gst'];
 			
 			return json_encode($returnObj);
@@ -61,7 +61,7 @@ class commonFunc
 		{
 			$row = mysqli_fetch_assoc($sql);
 			
-// 			$returnObj = (object)[]; 
+			$returnObj = (object)[]; 
 			$returnObj->service_inclusion_id=$row['service_inclusion_id'];
 			$returnObj->user_name=$row['user_name'];
 			$returnObj->description=$row['description'];
@@ -87,7 +87,7 @@ class commonFunc
 		{
 			$row = mysqli_fetch_assoc($sql);
 			
-// 			$returnObj = (object)[]; 
+			$returnObj = (object)[]; 
 			$returnObj->total_amount=$row['total_amount'];
 			$returnObj->net_amount=$row['total_amount'];
 			$returnObj->gst_charge=$row['gst_charge'];

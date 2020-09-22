@@ -72,7 +72,7 @@ $task_emp_description = $_POST['task_emp_description'];
 
             if($_POST['total_reps'][$i] == "")
             {
-                $_POST['total_reps'][$i] = 0;
+                $_POST['total_reps'][$i] = 1;
             }
 
             for( $k = 0 ; $k < $_POST['total_reps'][$i] ; $k++ )
@@ -80,29 +80,28 @@ $task_emp_description = $_POST['task_emp_description'];
                 
 
                 $cn->selectdb("INSERT INTO `tbl_task_emp`( `task_id`, `user_id`, `task_emp_quantity`, `task_emp_repetition_duration`, `task_emp_description`, `date_assign`,`task_emp_duration`,  `task_emp_status`, `task_emp_expected_time`) VALUES (".$task_id.",".$user_id.",".$task_emp_quantity.",".$task_emp_repetition_duration.",'".$task_emp_description."', '".$date."','0' ,0, '".$expected_time."')");
-
-                $date = date_create($date); 
-
+                // $date = date_create($date); 
                 // Use date_add() function to add date object 
-                date_add($date, date_interval_create_from_date_string($date_add_string)); 
+                // date_add($date, date_interval_create_from_date_string($date_add_string)); 
 
-                $date = date_format( $date, "Y-m-d h:i:s" );
+                // $date = date_format( $date, "Y-m-d h:i:s" );
             }
 
             
 
-            $lastID = $cn->getLastInsertedID();
+            $lastID = mysqli_insert_id($cn->getConnection());
 
             for($j=0; $j<$task_emp_quantity ;$j++)
             {
-                $cn->selectdb("INSERT INTO `tbl_task_emp_qty`( `task_emp_id`, `task_emp_status`) VALUES ( ".$lastID.", 0 )");
+                 $cn->selectdb("INSERT INTO `tbl_task_emp_qty`( `task_emp_id`, `task_emp_status`) VALUES ( ".$lastID.", 0 )");
             }
 
         }
     }
-    $cn->selectdb("UPDATE tbl_task SET task_status = 1, task_quantity_assigned=task_quantity_assigned+".$task_emp_quantity." WHERE task_id=".$task_id);
-
-    display_success("Task Assigned Successfully!");
+     $cn->selectdb("UPDATE tbl_task SET task_status = 1, task_quantity_assigned=task_quantity_assigned+".$task_emp_quantity." WHERE task_id=".$task_id);
+    // echo "INSERT INTO `tbl_task_emp_qty`( `task_emp_id`, `task_emp_status`) VALUES ( ".$lastID.", 0 )";
+    // echo "UPDATE tbl_task SET task_status = 1, task_quantity_assigned=task_quantity_assigned+".$task_emp_quantity." WHERE task_id=".$task_id;
+     display_success("Task Assigned Successfully!");
 
 
  
