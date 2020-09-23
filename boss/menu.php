@@ -163,6 +163,7 @@
                         </a>
                         <ul class="nav-second-level" aria-expanded="false">
                             <li <?php if($page_id==3) echo 'class="active"';?>><a href="serviceview.php">Service</a></li>
+                            <li <?php if($page_id==29) echo 'class="active"';?>><a href="subserviceview.php">Sub Services</a></li>
                             <li <?php if($page_id==4) echo 'class="active"';?>><a href="userview.php">Employee</a></li>
                             <li <?php if($page_id==5) echo 'class="active"';?>><a href="attendantview.php">Attendant</a></li>
                             <li <?php if($page_id==6) echo 'class="active"';?>><a href="customerview.php">Customer</a></li>
