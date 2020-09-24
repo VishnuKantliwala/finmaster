@@ -250,9 +250,9 @@ if(isset($_REQUEST["btnDeleteFiles"]))
                                                 <div class="form-group row">
                                                     <label for="inputEmail3" class="col-sm-2 control-label">
                                                         Files</label>
-                                                    <input type="hidden" class="form-control" id="frontpdf"
+                                                    <!-- <input type="hidden" class="form-control" id="frontpdf"
                                                         name="frontpdf" placeholder="Multiple pdfs"
-                                                        value="<? echo $row['pdf_file']; ?>">
+                                                        value="<?// echo $row['pdf_file']; ?>"> -->
 
                                                     <div class="col-sm-10">
                                                         <input type="file" id="download_file" name="download_file[]"
