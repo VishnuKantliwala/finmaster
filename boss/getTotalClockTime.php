@@ -15,9 +15,8 @@ $time = date("h:i:s");
 $user_id = $_SESSION['user_id'];
 
 function secondsToTime($seconds) {
-    $dtF = new DateTime('@0');
-    $dtT = new DateTime("@$seconds");
-    return $dtF->diff($dtT)->format('%h hours, %i minutes');
+    $t = round($seconds);
+    return sprintf('%02d Hours, %02d Min, %02d Secs', ($t/3600),($t/60%60), $t%60);
 }
 
 

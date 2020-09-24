@@ -6,7 +6,7 @@ $cn->connectdb();
 
 function secondsToTime($seconds) {
     $t = round($seconds);
-    return sprintf('%02d Days, %02d Min, %02d Secs', ($t/3600),($t/60%60), $t%60);
+    return sprintf('%02d Hours, %02d Min, %02d Secs', ($t/3600),($t/60%60), $t%60);
 }
 
 $filter = "";
