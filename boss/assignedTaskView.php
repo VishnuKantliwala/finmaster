@@ -101,7 +101,7 @@ $page_id=29;
                                     id="ddl_shipper_id" >
                                     <option value="0">-- SELECT CLIENT --</option>
                                     <?
-                                    $sqlShipper = $cn->selectdb("SELECT s.shipper_name, s.shipper_id FROM tbl_shipper AS s, tbl_task AS t WHERE s.shipper_id = t.shipper_id ORDER BY s.shipper_name");
+                                    $sqlShipper = $cn->selectdb("SELECT s.shipper_name, s.shipper_id FROM tbl_shipper AS s, tbl_task AS t WHERE s.shipper_id = t.shipper_id GROUP BY s.shipper_name ORDER BY s.shipper_name");
                                     if( $cn->numRows($sqlShipper) > 0 )
                                     {
                                         while($rowShipper = $cn->fetchAssoc($sqlShipper))
@@ -322,7 +322,7 @@ $page_id=29;
             $(document).ready(function() {
                 
                 getRecords("", "", "", 0, 0, 0);
-
+                $("#daterange").val("");
             });
             var counter = 0;
 
@@ -439,7 +439,7 @@ $page_id=29;
                                 row += '<br/><div style="width:100%; display:block">';
                                 if(data[0].task_emp_status == 2)
                                     row+='<button class="btn btn-blue" onClick="reappointTask('+id+', '+task_id+')">Reappoint Task</button>&nbsp;&nbsp;';
-                                row += '<a class="btn btn-success" href="taskUpdate.php?task_id='+task_id+'">Update Task</a></div>';
+                                row += '<a class="btn btn-success" href="taskupdate.php?task_id='+task_id+'">Update Task</a></div>';
                                 
                                 
                                 $('.modal-body').html(row);
