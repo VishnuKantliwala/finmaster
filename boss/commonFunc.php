@@ -13,12 +13,12 @@ class commonFunc
 		{
 			$row = mysqli_fetch_assoc($sql);
 			
-//  			$returnObj = (object)[]; 
-			$returnObj->total_amount=$row['total_amount'];
-			$returnObj->net_amount=$row['net_amount'];
-			$returnObj->gst_charge=$row['gst_charge'];
-			$returnObj->received=$row['received_amount'];
-			$returnObj->credit=$row['credit_amount'];
+  			$returnObj = array(); 
+			$returnObj["total_amount"]=$row['total_amount'];
+			$returnObj["net_amount"]=$row['net_amount'];
+			$returnObj["gst_charge"]=$row['gst_charge'];
+			$returnObj["received"]=$row['received_amount'];
+			$returnObj["credit"]=$row['credit_amount'];
 			return json_encode($returnObj);
 		}
 	}
@@ -30,10 +30,8 @@ class commonFunc
 		if(mysqli_num_rows($sql) > 0)
 		{
 			$row = mysqli_fetch_assoc($sql);
-			
-// 			$returnObj = (object)[]; 
-			$returnObj->gst_rate=$row['gst_rate'];
-			
+			$returnObj = array();
+			$returnObj["gst_rate"]=$row['gst_rate'];
 			return json_encode($returnObj);
 		}
 	}
@@ -45,10 +43,8 @@ class commonFunc
 		if(mysqli_num_rows($sql) > 0)
 		{
 			$row = mysqli_fetch_assoc($sql);
-			
-// 			$returnObj = (object)[]; 
-			$returnObj->gst_rate=$row['expense_gst'];
-			
+			$returnObj = array(); 
+			$returnObj["gst_rate"]=$row['expense_gst'];
 			return json_encode($returnObj);
 		}
 	}
@@ -61,20 +57,20 @@ class commonFunc
 		{
 			$row = mysqli_fetch_assoc($sql);
 			
-// 			$returnObj = (object)[]; 
-			$returnObj->service_inclusion_id=$row['service_inclusion_id'];
-			$returnObj->user_name=$row['user_name'];
-			$returnObj->description=$row['description'];
-			$returnObj->short_desc=$row['short_desc'];
-			$returnObj->service_name=$row['name'];
-			$returnObj->product_id=$row['product_id'];
-			$returnObj->duration=$row['duration'];
-			$returnObj->yorm=$row['yorm'];
-			$returnObj->gst=$row['gst'];
-			$returnObj->total_amount=$row['total_amount'];
-			$returnObj->quantity=$row['quantity'];
-			$returnObj->service_rate=$row['service_rate'];
-			$returnObj->entry_date=date("d-m-Y H:i:s",strtotime($row['entry_date']));
+			$returnObj = array(); 
+			$returnObj["service_inclusion_id"]=$row['service_inclusion_id'];
+			$returnObj["user_name"]=$row['user_name'];
+			$returnObj["description"]=$row['description'];
+			$returnObj["short_desc"]=$row['short_desc'];
+			$returnObj["service_name"]=$row['name'];
+			$returnObj["product_id"]=$row['product_id'];
+			$returnObj["duration"]=$row['duration'];
+			$returnObj["yorm"]=$row['yorm'];
+			$returnObj["gst"]=$row['gst'];
+			$returnObj["total_amount"]=$row['total_amount'];
+			$returnObj["quantity"]=$row['quantity'];
+			$returnObj["service_rate"]=$row['service_rate'];
+			$returnObj["entry_date"]=date("d-m-Y H:i:s",strtotime($row['entry_date']));
 			return json_encode($returnObj);
 		}
 	}
@@ -87,12 +83,12 @@ class commonFunc
 		{
 			$row = mysqli_fetch_assoc($sql);
 			
-// 			$returnObj = (object)[]; 
-			$returnObj->total_amount=$row['total_amount'];
-			$returnObj->net_amount=$row['total_amount'];
-			$returnObj->gst_charge=$row['gst_charge'];
-			$returnObj->received=$row['received'];
-			$returnObj->credit=$row['credit'];
+			$returnObj = array(); 
+			$returnObj["total_amount"]=$row['total_amount'];
+			$returnObj["net_amount"]=$row['total_amount'];
+			$returnObj["gst_charge"]=$row['gst_charge'];
+			$returnObj["received"]=$row['received'];
+			$returnObj["credit"]=$row['credit'];
 			return json_encode($returnObj);
 		}
 	}

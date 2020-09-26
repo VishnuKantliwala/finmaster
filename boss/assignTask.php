@@ -94,6 +94,16 @@ $task_emp_description = $_POST['task_emp_description'];
             for($j=0; $j<$task_emp_quantity ;$j++)
             {
                  $cn->selectdb("INSERT INTO `tbl_task_emp_qty`( `task_emp_id`, `task_emp_status`) VALUES ( ".$lastID.", 0 )");
+                 $lastTaskEmpQtyID = mysqli_insert_id($cn->getConnection());
+                 //GET ALL SUB SERVICES OF SELECTED SERVICE OF THIS TASK
+                 $sqlSubTask = $cn->selectdb("SELECT sp.sub_product_id FROM tbl_sub_product sp,tbl_task t,tbl_service_inclusion si WHERE t.service_inclusion_id = si.service_inclusion_id AND si.product_id = sp.product_id AND t.task_id =".$task_id);
+                 if($cn->numRows($sqlSubTask) > 0)
+                 {
+                     while($rowSubTask = $cn->fetchAssoc($sqlSubTask))
+                     {
+                         $cn->insertdb("INSERT INTO `tbl_task_emp_qty_sub`( `task_emp_qty_id`, `sub_product_id`, `task_emp_sub_status`) VALUES (".$lastTaskEmpQtyID.",".$rowSubTask['sub_product_id'].",'0')");
+                     }
+                 }
             }
 
         }

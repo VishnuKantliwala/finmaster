@@ -41,16 +41,16 @@ $database = $cn->_database;
     <link href="assets/libs/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet">
     <link href="assets/libs/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <!-- third party css -->
-    <link href="assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <!-- <link href="assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
     <link href="assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
-    <link href="assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" /> -->
     <!-- third party css end -->
     <!-- third party js -->
-    <script src="assets/libs/datatables/jquery.dataTables.min.js"></script>
+    <!-- <script src="assets/libs/datatables/jquery.dataTables.min.js"></script>
             <script src="assets/libs/datatables/dataTables.bootstrap4.js"></script>
             <script src="assets/libs/datatables/dataTables.responsive.min.js"></script>
-            <script src="assets/libs/datatables/responsive.bootstrap4.min.js"></script>
+            <script src="assets/libs/datatables/responsive.bootstrap4.min.js"></script> -->
     <!-- App css -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />

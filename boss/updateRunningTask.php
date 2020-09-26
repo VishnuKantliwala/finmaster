@@ -25,6 +25,15 @@ if(isset($_POST['chkQuantity']))
             
     } //foreach
 }
+if(isset($_POST['chkSubQuantity']))
+{
+    $chkSubQuantity = $_POST['chkSubQuantity'];
+    foreach ($_POST['chkSubQuantity'] as $attributeKey => $attributes){
+        // echo $attributeKey.' '.$_POST['mulradio'][$attributeKey].'<br>';
+        
+        $cn->selectdb("UPDATE tbl_task_emp_qty_sub SET task_emp_sub_status = 1 WHERE  task_emp_qty_sub_id = ".$_POST['chkSubQuantity'][$attributeKey]);
+    } //foreach
+}
 
 $diff = 0;
  if($cnt == $totalQty)

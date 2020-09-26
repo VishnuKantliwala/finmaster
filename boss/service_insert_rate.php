@@ -155,7 +155,7 @@
 
 		// Check first if it's an task
 		
-		$sqlIsTask = $cn->selectdb("SELECT is_task, name FROM tbl_product WHERE product_id=".$product_id);
+		$sqlIsTask = $cn->selectdb("SELECT is_task,`name` FROM tbl_product WHERE product_id=".$product_id);
 		if( $cn->numRows($sqlIsTask) > 0 )
 		{
 			$rowIsTask = $cn->fetchAssoc($sqlIsTask);

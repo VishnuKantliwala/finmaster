@@ -81,7 +81,58 @@ function viewTask(id) {
         });
     }, 700);
 }
-
+function checkUncheck(i,subTaskLength)
+{
+    if($('#chkQuantity_'+i).is(':checked'))
+    {
+        for(j=0;j<subTaskLength;j++)
+        {
+            $("#chkSubQuantity_"+i+"_"+j).attr('checked', true);
+        }
+    }
+    else
+    {
+        for(j=0;j<subTaskLength;j++)
+        {
+            if(!$("#chkSubQuantity_"+i+"_"+j).is(':disabled'))
+                $("#chkSubQuantity_"+i+"_"+j).attr('checked', false);
+        }
+    }
+}
+function checkUncheckMainTask(i,j,subTaskLength)
+{
+    if($("#chkSubQuantity_"+i+"_"+j).is(':checked'))
+    {
+        var flag = true;
+        for(k=0;k<subTaskLength;k++)
+        {
+            if(!$("#chkSubQuantity_"+i+"_"+k).is(':checked'))
+            {
+                
+                flag = false;
+                break;
+            }
+        }
+        if(flag)
+        {
+            $('#chkQuantity_'+i).attr('checked', true);
+            if(!$('#chkQuantity_'+i).is(':checked'))
+                $('#chkQuantity_'+i).next().trigger("click");
+        }   
+        else
+        {
+            $('#chkQuantity_'+i).attr('checked', false);
+            if($('#chkQuantity_'+i).is(':checked'))
+                $('#chkQuantity_'+i).next().trigger("click");
+        }
+    }
+    else
+    {
+        $('#chkQuantity_'+i).attr('checked', false);
+        if($('#chkQuantity_'+i).is(':checked'))
+            $('#chkQuantity_'+i).next().trigger("click");
+    }
+}
 function viewRunningTask(id) {
     // alert(id);
     $("#RunningTaskModal").modal("show");
@@ -136,28 +187,52 @@ function viewRunningTask(id) {
                     row += '<h5>Files : </h5>';
                     for(let i=0; i<data[0].task_file.length ; i++)
                     {
-                        
-                        
                         row += '<div class="col-md-4" style="padding:10px 0px">' +
                         '<a target="_BLANK" href="./task_files/'+data[0].task_file[i]+'"> '+data[0].task_file[i]+' </a>'+
                         "</div>";
-                        
                     }
                     
 
                     let rowQuantity = '';
-                    for(let i=0; i<data[0].task_emp_status.length ; i++)
+                    rowQuantity += '<div class="col-md-12"><h5>Tasks : </h5></div>';
+                    for(let i=0; i<data[0].task_emp_qty_id.length ; i++)
                     {
                         let chkStatus = '';
+                        var task_emp_qty_idKey = Object.keys(data[0].task_emp_qty_id[i])[0];
+                        var functionCall = "";
+                        var subTaskLength = 0;
+                        if(task_emp_qty_idKey > 0)
+                        {
+                            subTaskLength = data[0].task_emp_qty_id[i][task_emp_qty_idKey].length;
+                            functionCall = 'onChange="checkUncheck('+i+','+subTaskLength+')"';
+                        }
                         if(data[0].task_emp_status[i] == 1 )
                         {
                             chkStatus = "checked";
                         }
-                        rowQuantity += '<div class="col-md-4" style="padding:10px 0px">' +
-                        '<input '+chkStatus+' type="checkbox" name="chkQuantity[]" data-plugin="switchery" data-color="#1AB394" data-secondary-color="#ED5565" data-size="small" class="switchery_'+i+'" value="'+data[0].task_emp_qty_id[i]+'" /> '+ data[0].task_name + " " + (i+1) +
-                        "</div>";
+                        rowQuantity += '<div class="col-md-12" style="padding:10px 0px">' +
+                        '<input '+chkStatus+' type="checkbox" name="chkQuantity[]" id="chkQuantity_'+i+'" data-plugin="switchery" data-color="#1AB394" data-secondary-color="#ED5565" data-size="small" class="switchery_'+i+'" value="'+task_emp_qty_idKey+'" '+functionCall+'/> '+ data[0].task_name + " " + (i+1);
+                        rowQuantity += "</div>";
+                        if(task_emp_qty_idKey > 0)
+                        {
+                            rowQuantity += '<div class="col-md-2" ><label>Sub Tasks: </label></div>';
+                            for(let j=0; j < subTaskLength; j++)
+                            {
+                                let chkSubStatus = '';
+                                if(data[0].task_emp_qty_id[i][task_emp_qty_idKey][j].task_emp_sub_status == 1 )
+                                {
+                                    chkSubStatus = "checked disabled";
+                                }
+                                var subFunctionCall = 'onChange="checkUncheckMainTask('+i+','+j+','+subTaskLength+')"';
+                                rowQuantity += '<div class="col-md-2" >' +
+                                '<input '+chkSubStatus+' type="checkbox" name="chkSubQuantity[]" id="chkSubQuantity_'+i+'_'+j+'" value="'+data[0].task_emp_qty_id[i][task_emp_qty_idKey][j].task_emp_qty_sub_id+'" '+subFunctionCall+'/><label for="chkSubQuantity_'+i+'_'+j+'">&nbsp;'+ data[0].task_emp_qty_id[i][task_emp_qty_idKey][j].sub_product_name +'</label>';
+                                rowQuantity += "</div>";
+                            }
+                            rowQuantity += "<div class='col-md-12' style='border:1px solid black;'></div>";
+                        }
                         
                     }
+                   
                     $('.quantityList').html(rowQuantity);
 
                     $("#task_name").html(data[0].task_name);
@@ -197,7 +272,7 @@ $('#runningTaskForm').submit(function(e) {
             cache: false,
             processData: false,
             success: (result) => {
-                console.log(result);
+                // console.log(result);
                 return result;
             }
         }).then((result) => {
@@ -232,7 +307,7 @@ function acceptTask(id) {
             data: "task_emp_id=" + id,
             success: function(data) {
                 // alert(data);
-                console.log(data);
+                // console.log(data);
                 getNewTasks();
                 getRunningTasks();
             },

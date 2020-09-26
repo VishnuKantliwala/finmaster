@@ -434,6 +434,55 @@ $page_id=29;
                                 
                                 var row = "<h3>"+task_name+"</h3><div class='widget-detail-2 text-left'><h2 class='font-weight-normal mb-1'> "+status+" </h2><p class='text-muted mb-3' style='margin-bottom: 1px !important;'>Date - "+date+"</p><p>Expected_time : "+task_emp_expected_time+" | Total time : "+task_emp_duration+"</p><p class='text-muted mb-3'>Task - "+done_quantity+" / "+quantity+"</p></div>";
 
+                                let rowQuantity = '';
+                                rowQuantity += '<div class="row" style="padding:10px;">';
+                                rowQuantity += '<div class="col-md-12"><h5>Tasks : </h5></div>';
+                                var CompleteStatus = "";
+                                for(let i=0; i<data[0].task_emp_qty_id.length ; i++)
+                                {
+                                    let chkStatus = '';
+                                    var task_emp_qty_idKey = Object.keys(data[0].task_emp_qty_id[i])[0];
+                                    var functionCall = "";
+                                    var subTaskLength = 0;
+                                    CompleteStatus = "";
+                                    if(task_emp_qty_idKey > 0)
+                                    {
+                                        subTaskLength = data[0].task_emp_qty_id[i][task_emp_qty_idKey].length;
+                                        functionCall = 'onChange="checkUncheck('+i+','+subTaskLength+')"';
+                                    }
+                                    if(data[0].task_emp_status == 1 || data[0].task_emp_status == 2)
+                                    {
+                                        chkStatus = "checked";
+                                        CompleteStatus = "<label style='font-style:intalic;color:green;'>--Completed</label>";
+                                    }
+                                    rowQuantity += '<div class="col-md-12" style="padding:10px 0px">' +
+                                    '<input '+chkStatus+' disabled type="checkbox" name="chkQuantity[]" id="chkQuantity_'+i+'" value="'+task_emp_qty_idKey+'" '+functionCall+'/> '+ data[0].task_name + " " + (i+1) +" "+ CompleteStatus;
+                                    rowQuantity += "</div>";
+                                    if(task_emp_qty_idKey > 0)
+                                    {
+                                        rowQuantity += '<div class="col-md-2" ><label>Sub Tasks: </label></div>';
+                                        for(let j=0; j < subTaskLength; j++)
+                                        {
+                                            let chkSubStatus = '';
+                                            CompleteStatus = "";
+                                            if(data[0].task_emp_qty_id[i][task_emp_qty_idKey][j].task_emp_sub_status == 1 )
+                                            {
+                                                chkSubStatus = "checked";
+                                                CompleteStatus = "<label style='font-style:intalic;color:green;'>--Completed</label>";
+                                            }
+                                            var subFunctionCall = 'onChange="checkUncheckMainTask('+i+','+j+','+subTaskLength+')"';
+                                            rowQuantity += '<div class="col-md-2" >' +
+                                            '<input '+chkSubStatus+' disabled type="checkbox" name="chkSubQuantity[]" id="chkSubQuantity_'+i+'_'+j+'" value="'+data[0].task_emp_qty_id[i][task_emp_qty_idKey][j].task_emp_qty_sub_id+'" '+subFunctionCall+'/><label for="chkSubQuantity_'+i+'_'+j+'">&nbsp;'+ data[0].task_emp_qty_id[i][task_emp_qty_idKey][j].sub_product_name +'</label>'+CompleteStatus;
+                                            rowQuantity += "</div>";
+                                        }
+                                        rowQuantity += "<div class='col-md-12' style='border:1px solid black;'></div>";
+                                    }
+                                    
+                                }
+                                rowQuantity += '</div>';
+                                //$('.quantityList').html(rowQuantity);
+                                row += rowQuantity;
+
                                 row+="<div class='progress progress-bar-alt-success progress-sm'><div class='progress-bar bg-success' role='progressbar' aria-valuenow='"+step+"' aria-valuemin='0' aria-valuemax='100' style='width: "+step+"%;'><span class='sr-only'>77% Complete</span></div></div>";
 
                                 row += '<br/><div style="width:100%; display:block">';
