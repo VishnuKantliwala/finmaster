@@ -450,7 +450,7 @@ $page_id=29;
                                         subTaskLength = data[0].task_emp_qty_id[i][task_emp_qty_idKey].length;
                                         functionCall = 'onChange="checkUncheck('+i+','+subTaskLength+')"';
                                     }
-                                    if(data[0].task_emp_status == 1 || data[0].task_emp_status == 2)
+                                    if(data[0].task_emp_status == 2)
                                     {
                                         chkStatus = "checked";
                                         CompleteStatus = "<label style='font-style:intalic;color:green;'>--Completed</label>";
