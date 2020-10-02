@@ -4,7 +4,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-6">
-                                &copy; Copyrights 2020 by <a href="http://www.icedinfotech.com/" target="_blank">Finmasters</a>. All Rights Reserved.</p>
+                                &copy; Copyrights 2020 by <a href="http://www.finmaster.in/" target="_blank">Finmasters</a>. All Rights Reserved.</p>
                             </div>
                             <div class="col-md-6">
                                 <div class="text-md-right footer-links d-none d-sm-block">

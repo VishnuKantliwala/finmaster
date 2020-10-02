@@ -159,8 +159,8 @@ $page_id=29;
                                         <tr>
                                             <th style="text-align:center;">Employee Name</th>
                                             <th style="text-align:center;">Quantity</th>
-                                            <th style="text-align:center;">Repeatation</th>
-                                            <th style="text-align:center;">Total Reps</th>
+                                            <th style="text-align:center;">Duration Type</th>
+                                            <th style="text-align:center;">Duration</th>
                                             <th style="text-align:center;">Expected Hours</th>
 
                                         </tr>
@@ -298,10 +298,12 @@ $page_id=29;
                         success: function(data) {
                             // alert(data);
                             if (data != "false") {
+                                //alert(data);
                                 data = JSON.parse(data);
+                                
                                 var length = data.length;
                                 var row = "<tbody>";
-                                for (i = 0; i < length; i++) {
+                                for (i = 0; i < length-1; i++) {
 
                                     row += "<tr id='rowEmp" + i + "'>" +
                                         "<td ><input type='hidden' name='user_id[]' value='" + data[
@@ -310,19 +312,27 @@ $page_id=29;
                                     for (let i = 0; i <= qty - qty_assigned; i++) {
                                         row += "<option >" + i + "</option>";
                                     }
-                                    row +=
-                                        "</select></td>" +
+                                    row += "</select></td>";
+                                    if(data[length-1].isFromServiceConfirmation == 1)
+                                    {
+                                        row +=    
+                                        "<td><input class='form-control' type='text' name='task_emp_repetition_duration[]' value='"+data[length-1].yorm+"' readonly/></td>" +
+                                        "<td><input class='form-control' type='number' name='total_reps[]' value='"+data[length-1].duration+"' readonly/></td>"+
+                                        "<td><input class='form-control' type='number' name='expected_hours[]'/></td>"+
+                                        "</tr>";
+                                    }
+                                    else
+                                    {
+                                        row +=    
                                         "<td><select class='form-control' name='task_emp_repetition_duration[]'>" +
-                                        "<option value='0'>One time</option>" +
-                                        "<option value='1'>Weekly</option>" +
-                                        "<option value='2'>Monthly</option>" +
-                                        "<option value='3'>Quarterly</option>" +
-                                        "<option value='4'>Half Yearly</option>" +
-                                        "<option value='5'>Yearly</option>" +
+                                        "<option value='Month'>Month</option>" +
+                                        "<option value='Year'>Year</option>" +
                                         "</select></td>" +
                                         "<td><input class='form-control' type='number' name='total_reps[]'/></td>"+
                                         "<td><input class='form-control' type='number' name='expected_hours[]'/></td>"+
                                         "</tr>";
+                                    }
+                                    
                                 }
                                 row += "</tbody>";
                                 $('#empTable > tbody').replaceWith(row);

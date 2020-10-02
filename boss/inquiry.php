@@ -352,6 +352,9 @@ $page_id=14;
                 </div> <!-- content -->
             </div>
         </div>
+        <?php
+            include 'footer.php';
+            ?>
         <!-- END wrapper -->
         <style type="text/css">
             .add_box{

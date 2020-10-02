@@ -442,23 +442,28 @@ $page_id=29;
                                 {
                                     let chkStatus = '';
                                     var task_emp_qty_idKey = Object.keys(data[0].task_emp_qty_id[i])[0];
+                                    var task_emp_qty_id = data[0].task_emp_qty_id[i];
                                     var functionCall = "";
                                     var subTaskLength = 0;
                                     CompleteStatus = "";
-                                    if(task_emp_qty_idKey > 0)
+                                    subTaskLength = data[0].task_emp_qty_id[i][task_emp_qty_idKey].length;
+                                    if(subTaskLength > 1)
                                     {
-                                        subTaskLength = data[0].task_emp_qty_id[i][task_emp_qty_idKey].length;
                                         functionCall = 'onChange="checkUncheck('+i+','+subTaskLength+')"';
                                     }
-                                    if(data[0].task_emp_status == 2)
+                                    if(data[0].task_emp_qty_status[i] == 1)
                                     {
                                         chkStatus = "checked";
                                         CompleteStatus = "<label style='font-style:intalic;color:green;'>--Completed</label>";
                                     }
+                                    else
+                                    {
+                                        CompleteStatus = "<label style='font-style:intalic;color:green;'>--Not Completed</label>";
+                                    }
                                     rowQuantity += '<div class="col-md-12" style="padding:10px 0px">' +
-                                    '<input '+chkStatus+' disabled type="checkbox" name="chkQuantity[]" id="chkQuantity_'+i+'" value="'+task_emp_qty_idKey+'" '+functionCall+'/> '+ data[0].task_name + " " + (i+1) +" "+ CompleteStatus;
+                                    '<input '+chkStatus+' disabled type="checkbox" name="chkQuantity[]" id="chkQuantity_'+i+'" value="'+task_emp_qty_id+'" '+functionCall+'/> '+ data[0].task_name + " " + (i+1) +" "+ CompleteStatus;
                                     rowQuantity += "</div>";
-                                    if(task_emp_qty_idKey > 0)
+                                    if(subTaskLength > 1)
                                     {
                                         rowQuantity += '<div class="col-md-2" ><label>Sub Tasks: </label></div>';
                                         for(let j=0; j < subTaskLength; j++)

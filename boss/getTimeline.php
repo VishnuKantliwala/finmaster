@@ -40,6 +40,7 @@ if(mysqli_num_rows($sql) > 0)
             while($rowQty = $cn->fetchAssoc($sqlQty))
             {
                 $returnObj[$i]["task_emp_qty_id"][$j] = $rowQty["task_emp_qty"];
+                $returnObj[$i]["task_emp_qty_status"][$j] = $rowQty['task_emp_status'];
                 $k=0;
                 $qty_id = $rowQty['task_emp_qty'];
                 $sqlSubQty = $cn->selectdb( "SELECT qs.`task_emp_qty_sub_id`,qs.`sub_product_id`, qs.`task_emp_sub_status`,sp.`sub_product_name` FROM `tbl_task_emp_qty_sub` qs,tbl_sub_product sp WHERE qs.sub_product_id = sp.sub_product_id AND qs.task_emp_qty_id=".$rowQty["task_emp_qty"]);

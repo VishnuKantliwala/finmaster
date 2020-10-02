@@ -19,30 +19,30 @@ function viewTask(id) {
                     
                     //Repetition duration
                     let rd = data[0].task_emp_repetition_duration;
-                    if(rd == 0)
-                    {
-                        rd = "One time";
-                    }
-                    else if(rd == 1)
-                    {
-                        rd = "Weekly";
-                    }
-                    else if(rd == 2)
+                    if(rd == "Month")
                     {
                         rd = "Monthly";
                     }
-                    else if(rd == 3)
-                    {
-                        rd = "Quarterly";
-                    }
-                    else if(rd == 4)
-                    {
-                        rd = "Half Yearly";
-                    }
-                    else if(rd == 5)
+                    else if(rd == "Year")
                     {
                         rd = "Yearly";
                     }
+                    // else if(rd == 2)
+                    // {
+                    //     rd = "Monthly";
+                    // }
+                    // else if(rd == 3)
+                    // {
+                    //     rd = "Quarterly";
+                    // }
+                    // else if(rd == 4)
+                    // {
+                    //     rd = "Half Yearly";
+                    // }
+                    // else if(rd == 5)
+                    // {
+                    //     rd = "Yearly";
+                    // }
                     
 
                     let row = "<h4>"+data[0].shipper_name+"</h4><p>"+data[0].date_assign+"</p><p>Quantity - "+data[0].task_emp_quantity+" | "+rd+"</p><h5>Description : </h5>" + data[0].task_emp_description;
@@ -156,30 +156,15 @@ function viewRunningTask(id) {
                     
                     //Repetition duration
                     let rd = data[0].task_emp_repetition_duration;
-                    if(rd == 0)
-                    {
-                        rd = "One time";
-                    }
-                    else if(rd == 1)
-                    {
-                        rd = "Weekly";
-                    }
-                    else if(rd == 2)
+                    if(rd == "Month")
                     {
                         rd = "Monthly";
                     }
-                    else if(rd == 3)
-                    {
-                        rd = "Quarterly";
-                    }
-                    else if(rd == 4)
-                    {
-                        rd = "Half Yearly";
-                    }
-                    else if(rd == 5)
+                    else if(rd == "Year")
                     {
                         rd = "Yearly";
                     }
+                   
                     
 
                     let row = "<h4>"+data[0].shipper_name+"</h4><p>"+data[0].date_assign+"</p><p>Quantity - "+data[0].task_emp_quantity+" | "+rd+"</p><h5>Description : </h5>";
@@ -195,25 +180,30 @@ function viewRunningTask(id) {
 
                     let rowQuantity = '';
                     rowQuantity += '<div class="col-md-12"><h5>Tasks : </h5></div>';
+                    //alert(JSON.stringify(data));
                     for(let i=0; i<data[0].task_emp_qty_id.length ; i++)
                     {
                         let chkStatus = '';
                         var task_emp_qty_idKey = Object.keys(data[0].task_emp_qty_id[i])[0];
+                        var task_emp_qty_id = data[0].task_emp_qty_id[i];
+                        //alert(JSON.stringify(task_emp_qty_id));
                         var functionCall = "";
-                        var subTaskLength = 0;
-                        if(task_emp_qty_idKey > 0)
+                        var subTaskLength = data[0].task_emp_qty_id[i][task_emp_qty_idKey].length;
+                        //alert(data[0].task_emp_qty_id[i][task_emp_qty_idKey][0].hasOwnProperty("task_emp_qty_sub_id"));
+                        if(subTaskLength > 0 && data[0].task_emp_qty_id[i][task_emp_qty_idKey][0].hasOwnProperty("task_emp_qty_sub_id"))
                         {
-                            subTaskLength = data[0].task_emp_qty_id[i][task_emp_qty_idKey].length;
+                            task_emp_qty_id = task_emp_qty_idKey;
+                            alert(task_emp_qty_id);
                             functionCall = 'onChange="checkUncheck('+i+','+subTaskLength+')"';
                         }
-                        if(data[0].task_emp_status[i] == 1 )
+                        if(data[0].task_emp_status[i] == 1)
                         {
                             chkStatus = "checked";
                         }
                         rowQuantity += '<div class="col-md-12" style="padding:10px 0px">' +
-                        '<input '+chkStatus+' type="checkbox" name="chkQuantity[]" id="chkQuantity_'+i+'" data-plugin="switchery" data-color="#1AB394" data-secondary-color="#ED5565" data-size="small" class="switchery_'+i+'" value="'+task_emp_qty_idKey+'" '+functionCall+'/> '+ data[0].task_name + " " + (i+1);
+                        '<input '+chkStatus+' type="checkbox" name="chkQuantity[]" id="chkQuantity_'+i+'" data-plugin="switchery" data-color="#1AB394" data-secondary-color="#ED5565" data-size="small" class="switchery_'+i+'" value="'+task_emp_qty_id+'" '+functionCall+'/> '+ data[0].task_name + " " + (i+1);
                         rowQuantity += "</div>";
-                        if(task_emp_qty_idKey > 0)
+                        if(subTaskLength > 0 && data[0].task_emp_qty_id[i][task_emp_qty_idKey][0].hasOwnProperty("task_emp_qty_sub_id"))
                         {
                             rowQuantity += '<div class="col-md-2" ><label>Sub Tasks: </label></div>';
                             for(let j=0; j < subTaskLength; j++)
@@ -232,6 +222,8 @@ function viewRunningTask(id) {
                         }
                         
                     }
+                    
+                    
                    
                     $('.quantityList').html(rowQuantity);
 
