@@ -193,7 +193,7 @@ function viewRunningTask(id) {
                         if(subTaskLength > 0 && data[0].task_emp_qty_id[i][task_emp_qty_idKey][0].hasOwnProperty("task_emp_qty_sub_id"))
                         {
                             task_emp_qty_id = task_emp_qty_idKey;
-                            alert(task_emp_qty_id);
+                            //alert(task_emp_qty_id);
                             functionCall = 'onChange="checkUncheck('+i+','+subTaskLength+')"';
                         }
                         if(data[0].task_emp_status[i] == 1)
