@@ -1,7 +1,7 @@
  <?php  
 
  include_once('../connect.php'); 
-
+session_start();
 
   include_once('commonFunc.php'); 
   include_once("image_lib_rname.php");
@@ -10,7 +10,7 @@
 	$cn->connectdb();
 			
 	 $cmnFnc = new commonFunc();
-	date_default_timezone_set('Asia/Kolkata');
+	
 	if($_GET['type'] == "addCustomerDetails")
 	{
 		$customer_id =  $_POST["customer_id"];
