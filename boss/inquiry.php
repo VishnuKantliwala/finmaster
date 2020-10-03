@@ -549,7 +549,7 @@ $page_id=14;
                         url:'fetch_inquiry.php',
                         data:{inquiry_detail_id:id},
                         success:function(data){
-                            //console.log(data);
+                            console.log(data);
                             data = JSON.parse(data);
                             if(data.result == "Success")
                             {
