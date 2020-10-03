@@ -558,11 +558,18 @@ $page_id=14;
                                 $("#resultLink").show();
                                 $("#resultLink").attr("href","serviceConfirmationUpdate.php?service_confirmation_no="+data.service_confirmation_id);
                             }
-                            if(data.result == "Unsuccess")
+                            else if(data.result == "Unsuccess")
                             {
                                 $("#unsuccess").prop("checked", true);
                                 $("#resultLink").hide();
                                 $("#resultlbl").html("This inquiry got unsuccess..");
+                            }
+                            else
+                            {
+                                $("#success").prop("checked", false);
+                                $("#unsuccess").prop("checked", false);
+                                $("#resultLink").hide();
+                                $("#resultlbl").html("");
                             }
                             $("#txtUStart").val(data.inquiry_stime);
                             $("#txtUEnd").val(data.inquiry_etime);
