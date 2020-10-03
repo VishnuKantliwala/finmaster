@@ -543,6 +543,7 @@ $page_id=14;
                 },
                 eventClick:function(event) {
                     var id = event.id;
+                    alert(id);
                     $.ajax({
                         type:'POST',
                         url:'fetch_inquiry.php',
