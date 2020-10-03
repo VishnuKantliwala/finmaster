@@ -1470,7 +1470,7 @@ function addLoader()
 							method:"POST",  
 							data:$('#productForm').serialize() + '&txt_service_description='+service_description, 
 							success:function(data){ 
-                                // console.log(data);
+                                 console.log(data);
 								 fetchInvoiceProducts("yes");
                                 $('#productForm')[0].reset();
                                 CKEDITOR.instances.service_description.setData("");
