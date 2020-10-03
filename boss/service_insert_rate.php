@@ -1,6 +1,8 @@
  <?php  
-@ob_start();
-session_start();
+if(session_status() == 1)
+{
+	session_start();
+}
  include_once('../connect.php'); 
 
 
