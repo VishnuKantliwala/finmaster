@@ -73,9 +73,9 @@ if($_POST['result'] == "Success")
 	}
 	$booking_date = date('Y-m-d');
 	$entry_date = date("Y-m-d H:i:s");
-	$cn->insertdb("INSERT INTO `tbl_service_confirmation`( `shipper_id`, `entry_person_id`,`attendant_id`, `entry_date`, `confirmation_date`,`currency`) VALUES (".$customer_id.",'".$_SESSION['user_id']."',".$attendant_id.",'".$entry_date."','".$booking_date."','INR')");
+	$cn->insertdb("INSERT INTO `tbl_service_confirmation`( `shipper_id`, `entry_person_id`,`attendant_id`, `entry_date`, `confirmation_date`,`currency`) VALUES (".$customer_id.",".$_SESSION['user_id'].",".$attendant_id.",'".$entry_date."','".$booking_date."','INR')");
 	$service_confirmation_id = mysqli_insert_id($cn->getConnection());
-	$cn->insertdb("INSERT INTO `tbl_inquiry_confirmation`(`inquiry_id`, `service_confirmation_id`, `entry_date`, `entry_person_id`) VALUES (".$inquiry_id.",".$service_confirmation_id.",'".$entry_date."','".$_SESSION['user_id']."')");
+	$cn->insertdb("INSERT INTO `tbl_inquiry_confirmation`(`inquiry_id`, `service_confirmation_id`, `entry_date`, `entry_person_id`) VALUES (".$inquiry_id.",".$service_confirmation_id.",'".$entry_date."',".$_SESSION['user_id'].")");
 	if (mysqli_affected_rows($cn->getConnection()) > 0) {
 		echo "SuccessTrue-".$service_confirmation_id;
 	}
@@ -88,7 +88,7 @@ else if($_POST['result'] == "Unsuccess")
 {
 	$booking_date = date('Y-m-d');
 	$entry_date = date("Y-m-d H:i:s");
-	$cn->insertdb("INSERT INTO `tbl_inquiry_unsuccess`(`inquiry_id`, `entry_date`, `entry_person_id`) VALUES (".$inquiry_id.",'".$entry_date."','".$_SESSION['user_id']."')");
+	$cn->insertdb("INSERT INTO `tbl_inquiry_unsuccess`(`inquiry_id`, `entry_date`, `entry_person_id`) VALUES (".$inquiry_id.",'".$entry_date."',".$_SESSION['user_id'].")");
 	if (mysqli_affected_rows($cn->getConnection()) > 0) {
 		echo "Unsuccess";
 	}
