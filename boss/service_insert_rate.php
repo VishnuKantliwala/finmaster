@@ -1,5 +1,5 @@
  <?php  
-// session_start();
+session_start();
 // echo session_status()."-userid-".$_SESSION['user_id'];
 // if(session_status() == 1)
 // {
