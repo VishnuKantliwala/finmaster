@@ -1,6 +1,6 @@
  <?php  
 session_start();
-echo session_status()."-userid-".$_SESSION['user_id'];
+// echo session_status()."-userid-".$_SESSION['user_id'];
 // if(session_status() == 1)
 // {
 // 	session_start();
