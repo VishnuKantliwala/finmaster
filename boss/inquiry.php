@@ -543,23 +543,25 @@ $page_id=14;
                 },
                 eventClick:function(event) {
                     var id = event.id;
-                    alert(id);
+                    //alert(id);
                     $.ajax({
                         type:'POST',
                         url:'fetch_inquiry.php',
                         data:{inquiry_detail_id:id},
                         success:function(data){
-                            console.log(data);
+                            //console.log(data);
                             data = JSON.parse(data);
                             if(data.result == "Success")
                             {
                                 $("#success").prop("checked", true);
+                                $("#unsuccess").prop("checked", false);
                                 $("#resultlbl").html("This inquiry got success..");
                                 $("#resultLink").show();
                                 $("#resultLink").attr("href","serviceConfirmationUpdate.php?service_confirmation_no="+data.service_confirmation_id);
                             }
                             else if(data.result == "Unsuccess")
                             {
+                                $("#success").prop("checked", false);
                                 $("#unsuccess").prop("checked", true);
                                 $("#resultLink").hide();
                                 $("#resultlbl").html("This inquiry got unsuccess..");
