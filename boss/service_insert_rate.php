@@ -13,7 +13,7 @@ if (version_compare(phpversion(), '5.4.0', '<')) {
         session_start();
     }
  }
-echo "<script>alert(".session_status()."-".session_id().")</script>";
+echo "<script>alert('".session_status()."-".session_id()."')</script>";
   include_once('commonFunc.php'); 
   include_once("image_lib_rname.php");
  
