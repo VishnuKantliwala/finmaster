@@ -1,7 +1,8 @@
  <?php  
-
- include_once('../connect.php'); 
+@ob_start();
 session_start();
+ include_once('../connect.php'); 
+
 
   include_once('commonFunc.php'); 
   include_once("image_lib_rname.php");
