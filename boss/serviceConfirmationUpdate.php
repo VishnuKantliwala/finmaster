@@ -3,6 +3,7 @@ session_start();
 if (!isset($_SESSION['user'])) {
     header("location:login.php");
 }
+echo "<script>alert('".$_SESSION['user_id']."')</script>";
 include_once("../connect.php");
 include_once("../navigationfun.php");
 // include_once("image_lib_rname.php");
