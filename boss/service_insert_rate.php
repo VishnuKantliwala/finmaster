@@ -1,4 +1,5 @@
  <?php  
+echo session_status();
 if(session_status() == 1)
 {
 	session_start();
