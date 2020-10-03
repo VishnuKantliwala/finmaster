@@ -5,7 +5,7 @@
   include_once("image_lib_rname.php");
  
 	 
-	if (session_status() == PHP_SESSION_NONE) {
+	if (!isset($_SESSION)) {
 	    session_start();
 	}
 	$cn=new connect();
