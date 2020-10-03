@@ -8,7 +8,7 @@
  
 	$cn=new connect();
 	$cn->connectdb();
-			
+	session_start();		
 	 $cmnFnc = new commonFunc();
 	
 	if($_GET['type'] == "addCustomerDetails")
