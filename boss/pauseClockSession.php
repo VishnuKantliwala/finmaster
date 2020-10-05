@@ -20,8 +20,8 @@ $sqlNewTime = $cn->selectdb("SELECT `start_time`, `end_time` FROM tbl_user_login
 if( $cn->numRows($sqlNewTime) > 0 )
 {
     $rowNewTime = $cn->fetchAssoc($sqlNewTime);
-    $diff =  strtotime($time) - strtotime($rowNewTime['start_time'])  ;
-    echo "in ".$diff;
+    $diff =  strtotime($time) - strtotime($rowNewTime['start_time']);
+    echo "in time-".strtotime($time)."start_time".strtotime($rowNewTime['start_time'])."-DIFF-".$diff;
 }
 
 $sql = "UPDATE tbl_user_login SET user_login_total_time = user_login_total_time + ".$diff."  WHERE DATEDIFF(user_login_date, CURDATE()) = 0 AND user_id = ".$user_id." ";
