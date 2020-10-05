@@ -365,8 +365,8 @@ $database = $cn->_database;
                                                         <input type="text" name="txtRenewAmt" id="txtRenewAmt" class="form-control digit fctrl" placeholder="Renew Amt">
                                                     </div-->
                                                     <div class="col-md-2 cols">
-                                                        <label class="col-form-label" for="txtRate">Description</label>
-                                                        <textarea name="shortDesc" id="shortDesc" class="form-control fctrl digit" placeholder="Short Description"></textarea>
+                                                        <label class="col-form-label" for="txtRate">Remark</label>
+                                                        <textarea name="shortDesc" id="shortDesc" class="form-control fctrl digit" placeholder="Remark"></textarea>
                                                     </div>
                                                     <div class="col-md-1 cols">
                                                         <label class="col-form-label" for="btnAdd">&nbsp;</label>
