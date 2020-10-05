@@ -21,7 +21,7 @@ if( $cn->numRows($sqlNewTime) > 0 )
 {
     $rowNewTime = $cn->fetchAssoc($sqlNewTime);
     $diff =  strtotime($time) - strtotime($rowNewTime['start_time'])  ;
-    echo "in ";
+    echo "in ".$diff;
 }
 
 $sql = "UPDATE tbl_user_login SET user_login_total_time = user_login_total_time + ".$diff."  WHERE DATEDIFF(user_login_date, CURDATE()) = 0 AND user_id = ".$user_id." ";
