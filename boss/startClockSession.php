@@ -27,7 +27,7 @@ else
 $sql2 = "INSERT INTO tbl_user_login_log ( `user_login_id`, `start_time`, `user_login_log_status`) VALUES (".$user_login_id.", '".$time."', 1)";
 $cn->insertdb($sql2);
 
- echo "INSERT INTO tbl_task_emp_log ( `task_emp_id`, `start_date`, `task_emp_log_status`) VALUES (".$task_emp_id.", '".$date."', 1)";
+//echo "INSERT INTO tbl_task_emp_log ( `task_emp_id`, `start_date`, `task_emp_log_status`) VALUES (".$task_emp_id.", '".$date."', 1)";
 
 if (mysqli_affected_rows($cn->getConnection()) > 0) {
     echo "true";
