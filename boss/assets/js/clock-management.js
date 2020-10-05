@@ -88,7 +88,7 @@ function startTimeIn() {
             method: "POST",
             success: function(data) {
                 // alert(data);
-                // console.log(data);    
+                 console.log(data);    
                 
                 
             },
