@@ -5,7 +5,7 @@ $cn=new connect();
 $cn->connectdb();
 
 $filter = "";
-
+date_default_timezone_set('Asia/Kolkata'); 
 
 
 $qry = "SELECT t.*,te.*, u.user_id, u.user_name, s.shipper_name FROM tbl_task AS t, tbl_task_emp AS te, tbl_user u, tbl_shipper AS s WHERE t.task_id = te.task_id AND te.user_id = u.user_id AND s.shipper_id = t.shipper_id AND u.user_id = '".$_SESSION['user_id']."' AND task_emp_status = 0 AND DATEDIFF( te.date_assign , CURDATE()) <=0 ORDER BY te.recordListingID";
@@ -23,7 +23,7 @@ if(mysqli_num_rows($sql) > 0)
         $returnObj[$i]["task_emp_quantity"]=$row['task_emp_quantity'];
         $returnObj[$i]["task_emp_quantity_done"]=$row['task_emp_quantity_done'];
         $returnObj[$i]["task_emp_repetition_duration"]=$row['task_emp_repetition_duration'];
-        $returnObj[$i]["date_assign"]=$date = date("j F Y - h : m",strtotime($row['date_assign']));
+        $returnObj[$i]["date_assign"] = date("j F Y - h : m",strtotime($row['date_assign']));
         $returnObj[$i]["task_emp_id"]=$row['task_emp_id'];       
         
         $i++;
