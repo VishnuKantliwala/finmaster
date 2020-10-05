@@ -8,11 +8,13 @@
             <div class="dropdown">
                 <a class="text-dark dropdown-toggle h5 mt-2 mb-1 d-block"><?php echo $_SESSION['user'] . " (" . $_SESSION['control'] . ")"; ?></a>
             </div>
-            <p class="text-gray totalElapseTime mt-10">Loading...</p>            
+<!--             <p class="text-gray totalElapseTime mt-10">Loading...</p>             -->
             
         </div>
 
-        
+        <?
+        /*
+        ?>
         <div class="col-md-12 clockDiv text-center">
             <?
             $timeOver = false;
@@ -109,7 +111,9 @@
             </div>
             
         </div>
-        
+        <?
+        */
+        ?>
 
         <div class="col-md-12 text-center">
             <ul class="list-inline">
