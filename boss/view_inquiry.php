@@ -8,7 +8,7 @@ include_once("../navigationfun.php");
 $cn = new connect();
 $cn->connectdb();
 
-$sql="SELECT D.inquiry_detail_id,s.shipper_name,D.inquiry_stime,D.inquiry_etime,D.inquiry_color FROM tbl_inquiry_detail AS D, tbl_inquiry AS I,tbl_shipper AS s WHERE s.shipper_id = I.shipper_id AND D.inquiry_id = I.inquiry_id";
+$sql="SELECT D.inquiry_detail_id,s.shipper_name,D.inquiry_stime,D.inquiry_etime,D.inquiry_color FROM tbl_inquiry_detail AS D, tbl_inquiry AS I,tbl_shipper AS s WHERE s.shipper_id = I.shipper_id AND D.inquiry_id = I.inquiry_id AND I.inquiry_status = 0";
 $result = $cn->selectdb($sql);
 while ($row = $cn->fetchAssoc($result)) {
 	$data[] = array(
