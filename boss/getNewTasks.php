@@ -23,7 +23,7 @@ if(mysqli_num_rows($sql) > 0)
         $returnObj[$i]["task_emp_quantity"]=$row['task_emp_quantity'];
         $returnObj[$i]["task_emp_quantity_done"]=$row['task_emp_quantity_done'];
         $returnObj[$i]["task_emp_repetition_duration"]=$row['task_emp_repetition_duration'];
-        $returnObj[$i]["date_assign"] = date_format(strtotime($row['date_assign']),"j F Y - h : m"); \\date("j F Y - h : m",strtotime($row['date_assign']));
+        $returnObj[$i]["date_assign"] = date("j F Y - h : i",strtotime($row['date_assign']));
         $returnObj[$i]["task_emp_id"]=$row['task_emp_id'];       
         
         $i++;
