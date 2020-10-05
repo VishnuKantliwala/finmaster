@@ -48,6 +48,10 @@ function clockOut() {
                 url: "clockOut.php",
                 success: function(data) {
                    // console.log(data);
+                     if(data == "session-expired")
+                     {
+                        window.location = "login.php";
+                     }
                     if (data == 'true') {
                         Swal.fire({
                             title: "Clock out successfull!",
@@ -89,7 +93,10 @@ function startTimeIn() {
             success: function(data) {
                 // alert(data);
                  //console.log(data);    
-                
+                if(data == "session-expired")
+               {
+                  window.location = "login.php";
+               }
                 
             },
         }).done(() => {
@@ -111,6 +118,10 @@ function startTimeOut() {
             success: function(data) {
                 // alert(data);
                // console.log(data);
+               if(data == "session-expired")
+               {
+                  window.location = "login.php";
+               }
             },
         }).done(() => {
             $(".clockLoader").hide(500);
@@ -130,6 +141,10 @@ function getTotalTime() {
             success: function(data) {
                 // alert(data);
                 // console.log(data);
+               if(data == "session-expired")
+               {
+                  window.location = "login.php";
+               }
                 $(".totalElapseTime").html("[ "+data+" ]");
 
             },
