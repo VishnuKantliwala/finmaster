@@ -47,7 +47,7 @@ function clockOut() {
                 async: false,
                 url: "clockOut.php",
                 success: function(data) {
-                    console.log(data);
+                   // console.log(data);
                     if (data == 'true') {
                         Swal.fire({
                             title: "Clock out successfull!",
@@ -88,7 +88,7 @@ function startTimeIn() {
             method: "POST",
             success: function(data) {
                 // alert(data);
-                 console.log(data);    
+                 //console.log(data);    
                 
                 
             },
@@ -110,7 +110,7 @@ function startTimeOut() {
             method: "POST",
             success: function(data) {
                 // alert(data);
-                console.log(data);
+               // console.log(data);
             },
         }).done(() => {
             $(".clockLoader").hide(500);
