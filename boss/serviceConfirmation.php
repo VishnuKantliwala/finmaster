@@ -233,7 +233,7 @@ $database = $cn->_database;
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <label class="col-form-label" for="customer_city">City</label>
-                                                        <input type="text" id="customer_city" name="customer_city"  title="Enter only Alphabet" class="form-control" placeholder="City">
+                                                        <input type="text" id="customer_city" name="customer_city" pattern="[a-zA-Z]+" title="Enter only Alphabet" class="form-control" placeholder="City">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
