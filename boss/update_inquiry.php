@@ -87,7 +87,7 @@ if($_POST['result'] == "Success")
 }
 else if($_POST['result'] == "Unsuccess")
 {
-	$cn->insertdb("UPDATE tbl_inquiry SET inquiry_status = '1' WHERE `inquiry_id`=".$inquiry_id);
+	$cn->insertdb("UPDATE tbl_inquiry SET inquiry_status = '2' WHERE `inquiry_id`=".$inquiry_id);
 	$booking_date = date('Y-m-d');
 	$entry_date = date("Y-m-d H:i:s");
 	$cn->insertdb("INSERT INTO `tbl_inquiry_unsuccess`(`inquiry_id`, `entry_date`, `entry_person_id`) VALUES (".$inquiry_id.",'".$entry_date."',".$_SESSION['user_id'].")");

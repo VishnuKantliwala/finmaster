@@ -212,7 +212,7 @@ $page_id=14;
                                                             <label class="control-label">Status</label>
                                                             <select class="form-control form-white" placeholder="Status" name="txtStatus" id="txtStatus">
                                                                 <option value="Pending">Pending</option>
-                                                                <option value="Commplete">Complete</option>
+                                                                <option value="Complete">Complete</option>
                                                             </select>
                                                         </div>
                                                         <div class="col-md-12">
@@ -307,7 +307,7 @@ $page_id=14;
                                                             <label class="control-label">Status</label>
                                                             <select class="form-control form-white" placeholder="Status" name="txtUStatus" id="txtUStatus">
                                                                 <option value="Pending">Pending</option>
-                                                                <option value="Commplete">Complete</option>
+                                                                <option value="Complete">Complete</option>
                                                             </select>
                                                         </div>
                                                         

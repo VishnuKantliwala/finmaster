@@ -38,12 +38,18 @@ $page_id=20;
     <link href="assets/libs/bootstrap-colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
     <link href="assets/libs/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet">
     <link href="assets/libs/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- third party css -->
+    <link href="assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <!-- third party css end -->
     <!-- App css -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
-        #company-list{
+        #customer-list{
             float:left;
             list-style:none;
             margin-top:-3px;
@@ -52,15 +58,44 @@ $page_id=20;
             position: absolute;
             z-index:1;
         }
-        #company-list li{
+        #customer-list li{
             padding: 10px;
             background: #f0f0f0;
             border-bottom: #bbb9b9 1px solid;
         }
-        #company-list li:hover{
+        #customer-list li:hover{
             background:#ece3d2;
             cursor: pointer;
         }
+        .loader{
+                opacity:0.6;
+                position: fixed;
+                left: 0px;
+                top: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 9999;
+                background: rgb(249,249,249);
+                display:none;
+            }
+            .centered {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                
+                color:darkred;
+                display:inline-flex;
+                border:1px solid grey;
+                padding:10px;
+                background:black;
+            }
+            @media (min-width: 576px)
+            {
+                .modal-dialog {
+                    max-width:800px;
+                }
+            }
     </style>
 </head>
 
@@ -110,7 +145,7 @@ $page_id=20;
         <div class="content-page">
             <div class="content">
                 <!-- Start Content-->
-                <form class="form-horizontal" action="lbl_print_inquiry_report.php" autocomplete="off" role="form" method="post" enctype="multipart/form-data">
+                
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-12">
@@ -119,32 +154,58 @@ $page_id=20;
                                     <div class="row">
                                       <div class="col-12">
                                           <div class="p-2">
+                                          <form class="form-horizontal" autocomplete="off" role="form" method="post" id="searchformClient">
                                                   <div class="form-group row">
-                                                      <label class="col-sm-2  col-form-label" for="txtInquiry">Company Name</label>
+                                                      <label class="col-sm-2  col-form-label" for="txtInquiry">Client Name</label>
                                                       <div class="col-sm-10">
                                                         <input type="text" name="txtInquiry" id="txtInquiry" class="form-control" placeholder="Name">
                                                         <div id="suggesstion-box"></div>
-                                                        <input type="hidden" name="txtInquiryID" id="txtInquiryID">
-                                                        <br> All Company
-                                                        <input checked="" type="checkbox" name="chkCompany" id="chkCompany" />
-                                                      </div>
-                                                  </div>
-                                                  <div class="form-group row">
-                                                      <label class="col-sm-2  col-form-label" for="datepicker">Date</label>
-                                                      <div class="col-sm-10">
-                                                          <div class="input-daterange input-group" id="date-range">
-                                                                <input type="text" required placeholder="from" class="form-control" name="start">
-                                                                <input type="text" required placeholder="to" class="form-control" name="end">
-                                                            </div>
+                                                        <input type="hidden" name="txtInquiryID" id="txtInquiryID" value="0">
+                                                        <br> All Clients
+                                                        <input  type="checkbox" name="chkCompany" id="chkCompany" />
                                                       </div>
                                                   </div>
                                                   <div class="form-group row">
                                                       <label class="col-sm-2  col-form-label" for="example-placeholder"></label>
                                                       <div class="col-sm-10">
-                                                          <button type="submit" class="btn btn-primary width-md" name="Submit">Search</button>
-                                                          <a href="index.php" class="btn btn-lighten-primary waves-effect waves-primary width-md">Cancel</a>
+                                                          <button type="submit" class="btn btn-primary width-md" name="filterResultClient" id="filterResultClient">Search</button>
+                                                          <label id="clientformresultmsg" style="font-style:italic;color:red;"></label>
                                                       </div>
                                                   </div>
+                                            </form>
+                                                  <div class="form-group row">
+                                                      <div class="col-sm-2">
+                                                          
+                                                      </div>
+                                                      <div class="col-sm-4">
+                                                          <div style="width:100%;border:1px dashed black;margin-top:7px;"></div>
+                                                      </div>
+                                                      <div class="col-sm-1" style="text-align:center;">
+                                                          <label>OR</label>
+                                                      </div>
+                                                      <div class="col-sm-4">
+                                                      <div style="width:100%;border:1px dashed black;margin-top:7px;"></div>
+                                                      </div>
+                                                  </div>
+                                                <form class="form-horizontal" autocomplete="off" role="form" method="post" id="searchform">
+                                                   
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-2  col-form-label" for="datepicker">Date</label>
+                                                        <div class="col-sm-10">
+                                                            <div class="input-daterange input-group" id="date-range">
+                                                                    <input type="text" placeholder="from" class="form-control" name="FromDate" required>
+                                                                    <input type="text" placeholder="to" class="form-control" name="ToDate" required>
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-2  col-form-label" for="example-placeholder"></label>
+                                                        <div class="col-sm-10">
+                                                            <button type="submit" class="btn btn-primary width-md" name="filterResult" id="filterResult">Search</button>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </form>
                                           </div>
                                       </div>
                                     </div>
@@ -152,8 +213,110 @@ $page_id=20;
                                 </div> <!-- end card-box -->
                             </div><!-- end col -->
                         </div><!-- end row -->
+                        <div id="FollowUpsDataModal" class="modal fade">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Inquiry FollowUps of <label id="FollowUpsClient"></label></h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        
+                                    </div>
+                                    <div class="modal-body" id="FollowUpsDataModalBody">
+
+                                        <table id="FollowUps" class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Entry Date</th>
+                                                    <th>From Date</th>
+                                                    <th>To Date</th>
+                                                    <th>Status</th>
+                                                    <th>Entry Person</th>
+                                                    <th>Details</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="FollowUpsTbody">
+                                               
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="InquiryDetailDataModal" class="modal fade">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Inquiry Details of <label id="InquiryDetailClient"></label></h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        
+                                    </div>
+                                    <div class="modal-body" id="InquiryDetailDataModalBody">
+
+                                        <table id="InquiryDetail" class="table table-striped">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Description :</th>
+                                                    <td id="descriptionHere"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="2">Documents :</th>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2" id="documentsHere">
+                                                        <ul class="list-inline files-list">
+                                                                    
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="loader" id="customLoader">
+                            <div class="centered">
+                                <img src="loader1.gif" style="height:40px;"/>
+                                <h4 style="color:#d0d0d0;margin-left:10px;" id="loaderText">Please Wait...</h4>
+                            </div>
+                        </div>
+                        <div class="row" id="loaderRow" style="display:none;">
+                        <div class="col-12">
+                            <div class="card-box" >
+                            	<h4 class="m-t-0 header-title">Search Result</h4>
+                                
+                                <table id="datatable" class="table table-bordered dt-responsive nowrap" >
+                                      <thead>
+                                          <tr>
+                                          	  <th>Client Name</th>
+                                              <th>Attendant Name</th>
+                                              <th>Mobile No.</th>
+                                              <th>Email-ID</th>
+                                              <th>Inquiry Status</th>
+                                              <th>FollowUps</th>
+                                           </tr>
+                                      </thead>
+                                      <tfoot>
+                                          <tr>
+                                              <th>Client Name</th>
+                                              <th>Attendant Name</th>
+                                              <th>Mobile No.</th>
+                                              <th>Email-ID</th>
+                                              <th>Inquiry Status</th>
+                                              <th>FollowUps</th>
+                                          </tr>
+                                      </tfoot>
+                                      <tbody id="ClientSearchResult">
+                                          
+                                      </tbody>
+
+                                  </table>
+                            </div>
+                        </div>
+                    </div>
                     </div> <!-- container-fluid -->
-                </form>
+    
             </div> <!-- content -->
             <?php
             include 'footer.php';
@@ -174,11 +337,211 @@ $page_id=20;
             <script src="assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
             <script src="assets/js/pages/form-advanced.init.js"></script>
             <script src="assets/libs/toastr/toastr.min.js"></script>
-
+            <script src="assets/libs/datatables/jquery.dataTables.min.js"></script>
+            <script src="assets/libs/datatables/dataTables.bootstrap4.js"></script>
+            <script src="assets/libs/datatables/dataTables.responsive.min.js"></script>
+            <script src="assets/libs/datatables/responsive.bootstrap4.min.js"></script>
+            <!-- <script src="assets/js/pages/datatables.init.js"></script> -->
             <!-- Tablesaw js -->
             <!-- App js -->
             <script src="assets/js/app.min.js"></script>
             <script>
+                $("#searchformClient").on("submit",function(event){
+                    event.preventDefault();
+                    var txtInquiry = $("#txtInquiry").val();
+                    var txtInquiryID = $("#txtInquiryID").val();
+                    if(txtInquiry != "" && txtInquiryID == 0)
+                    {
+                        $("#clientformresultmsg").html("Please select client name from suggestion..!");
+                        setTimeout(() => {
+                            $("#clientformresultmsg").html("");
+                        }, 1500);
+                    }
+                    else if($("#chkCompany").prop("checked") == false && txtInquiry == "")
+                    {
+                        $("#clientformresultmsg").html("Please select either \"All Client\" Or Client Name from suggestion..!");
+                        setTimeout(() => {
+                            $("#clientformresultmsg").html("");
+                        }, 2000);
+                    }
+                    else
+                    {
+                        $("#customLoader").show();
+                        $.ajax({  
+                            url:"fetchInquiryReportResult.php?type=ClientWise",  
+                            method:"POST",  
+                            data:$('#searchformClient').serialize(),
+                            success:function(data){  
+                                //console.log(data);
+                                row = "";
+                                if(data != 0)
+                                {
+                                    data = JSON.parse(data);
+                                    //console.log(data.length);
+                                    for(i=0;i<data.length;i++)
+                                    {
+                                        row += "<tr>"+
+                                               "<td>"+data[i].shipper_name+"</td>"+
+                                               "<td>"+data[i].attendant_name+"</td>"+
+                                               "<td>"+data[i].shipper_phone1+"</td>"+
+                                               "<td>"+data[i].shipper_email+"</td>"+
+                                               "<td>"+data[i].inquiry_status+"</td>"+
+                                               "<td style='text-align:center;'><i class='fa fa-info-circle' style='cursor:pointer;' onClick='openFollowUpsModal("+data[i].inquiry_id+",\"ClientWise\")'></i></td>"+
+                                               "</tr>";
+                                    }
+                                }
+                                else
+                                {
+                                    row = "<tr><td colspan='6'>No Records Found..!</td></tr>";
+                                }
+                                setTimeout(() => {
+                                    $("#customLoader").hide();
+                                    $("#loaderRow").show();
+                                    $("#ClientSearchResult").html(row);
+                                    $('#datatable').DataTable();
+                                }, 1500);
+                                
+                            }
+                        });
+                    }
+                });
+                var inquiryDetails = "";
+                function openFollowUpsModal(inquiry_id,type)
+                {
+                    var Formdata = "";
+                    if(type == "DateWise")
+                    {
+                        Formdata = $('#searchform').serialize();
+                    }
+                    $.ajax({  
+                            url:"fetchInquiryReportResult.php?type=FollowUps&Form="+type+"&inquiry_id="+inquiry_id,  
+                            method:"POST",
+                            data:Formdata,
+                            success:function(data){  
+                                //console.log(data);
+                                row = "";
+                                if(data != 0)
+                                {
+                                    data = JSON.parse(data);
+                                    inquiryDetails = data;
+                                    //console.log(data.length);
+                                    $("#FollowUpsClient").html(data[0].shipper_name);
+                                    $("#InquiryDetailClient").html(data[0].shipper_name);
+                                    for(i=0;i<data.length;i++)
+                                    {
+                                        row += "<tr>"+
+                                               "<td>"+data[i].entry_date+"</td>"+
+                                               "<td>"+data[i].inquiry_stime+"</td>"+
+                                               "<td>"+data[i].inquiry_etime+"</td>"+
+                                               "<td>"+data[i].status+"</td>"+
+                                               "<td>"+data[i].user_name+"</td>"+
+                                               "<td style='text-align:center;'><i class='fa fa-info-circle' style='cursor:pointer;' onClick='openInquiryDetailsModal("+data[i].inquiry_detail_id+")'></i></td>"+
+                                               "</tr>";
+                                    }
+                                    
+                                }
+                                else
+                                {
+                                    row = "<tr><td colspan='6'>No Records Found..!</td></tr>";
+                                }
+                                $("#FollowUpsTbody").html(row);
+                                $("#FollowUpsDataModal").modal('show');
+                                $("#FollowUpsDataModal").css("opacity","1");
+                            }
+                        });
+                }
+                function openInquiryDetailsModal(inquiry_detail_id)
+                {
+                    if(inquiryDetails != "")
+                    {
+                        for(i=0;i<inquiryDetails.length;i++)
+                        {
+                           if(inquiry_detail_id == inquiryDetails[i].inquiry_detail_id)
+                           {
+                               if($.trim(inquiryDetails[i].description) != "")
+                               {
+                                    $("#descriptionHere").html(inquiryDetails[i].description);
+                               }
+                               else
+                               {
+                                    $("#descriptionHere").html("Description is Empty..!");
+                               }
+                               if(inquiryDetails[i].meeting_document != "")
+                                {
+                                    var imgs = inquiryDetails[i].meeting_document.split(",");
+                                    imgs.pop();
+                                    var img = "";
+                                    jQuery.each(imgs,function(j,val) {
+                                        var ext = val.substring(val.lastIndexOf(".")+1);
+                                        if(ext=="pdf"){
+                                            $img_name = "assets/file/pdf.png";
+                                        }else if(ext=="png" || ext=="jpg" || ext=="jpeg" || ext=="gif"){
+                                            $img_name = "inquiry/"+inquiryDetails[i].shipper_id+"/"+val;
+                                        }else if(ext=="doc" || ext=="docx"){
+                                            $img_name = "assets/file/doc.png";
+                                        }else if(ext=="xls" || ext=="xlsx"){
+                                            $img_name = "assets/file/xls.png";
+                                        }else if(ext=="txt"){
+                                            $img_name = "assets/file/txt.png";
+                                        }
+                                        img+="<li class='list-inline-item file-box'><a href='inquiry/"+inquiryDetails[i].shipper_id+"/"+val+"' target='_blank'><img src='"+$img_name+"' class='img-fluid img-thumbnail' alt='attached-img' width='80'></a><p class='font-13 mb-1 text-muted'></p></li>";
+                                    });
+                                    $("#documentsHere ul li").remove();
+                                    $("#documentsHere ul").append(img);
+                                }
+                                else
+                                {
+                                    $("#documentsHere ul li").remove();
+                                    $("#documentsHere ul").append("<li>No Documents..!<li>");
+                                }
+                           }
+                        }
+                        // $("#FollowUpsDataModal").modal('hide');
+                        // $("#FollowUpsDataModal").css("opacity","0");
+                        $("#InquiryDetailDataModal").modal('show');
+                        $("#InquiryDetailDataModal").css("opacity","1");
+                    }
+                }
+                $("#searchform").on("submit",function(event){
+                    event.preventDefault();
+                    $("#customLoader").show();
+                    $.ajax({  
+                        url:"fetchInquiryReportResult.php?type=DateWise",  
+                        method:"POST",  
+                        data:$('#searchform').serialize(),
+                        success:function(data){  
+                            //console.log(data);
+                            row = "";
+                            if(data != 0)
+                            {
+                                data = JSON.parse(data);
+                                //console.log(data.length);
+                                for(i=0;i<data.length;i++)
+                                {
+                                    row += "<tr>"+
+                                            "<td>"+data[i].shipper_name+"</td>"+
+                                            "<td>"+data[i].attendant_name+"</td>"+
+                                            "<td>"+data[i].shipper_phone1+"</td>"+
+                                            "<td>"+data[i].shipper_email+"</td>"+
+                                            "<td>"+data[i].inquiry_status+"</td>"+
+                                            "<td style='text-align:center;'><i class='fa fa-info-circle' style='cursor:pointer;' onClick='openFollowUpsModal("+data[i].inquiry_id+",\"DateWise\")'></i></td>"+
+                                            "</tr>";
+                                }
+                            }
+                            else
+                            {
+                                row = "<tr><td colspan='6'>No Records Found..!</td></tr>";
+                            }
+                            setTimeout(() => {
+                                $("#customLoader").hide();
+                                $("#loaderRow").show();
+                                $("#ClientSearchResult").html(row);
+                                $('#datatable').DataTable();
+                            }, 1500);
+                            
+                        }
+                    });
+                });
                 $("#txtInquiry").keyup(function(){
                     if($("#txtInquiry").val() == ""){
                         $("#txtInquiryID").val('');
@@ -189,7 +552,7 @@ $page_id=20;
                         $("#chkCompany").prop("checked",false);
                         $.ajax({
                             type: "POST",
-                            url: "fetch_company.php",
+                            url: "fetch_customer.php",
                             data:'keyword='+$(this).val(),
                             success: function(data){
                                 $("#suggesstion-box").show();
@@ -199,7 +562,7 @@ $page_id=20;
                         });
                     }
                 });
-                function selectCompany(name,id) {
+                function selectCustomer(name,id) {
                     $("#txtInquiry").val(name);
                     $("#txtInquiryID").val(id);
                     $("#suggesstion-box").hide();
