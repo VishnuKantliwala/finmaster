@@ -413,6 +413,7 @@ $page_id=20;
                     {
                         Formdata = $('#searchform').serialize();
                     }
+                    $("#customLoader").show();
                     $.ajax({  
                             url:"fetchInquiryReportResult.php?type=FollowUps&Form="+type+"&inquiry_id="+inquiry_id,  
                             method:"POST",
@@ -444,6 +445,7 @@ $page_id=20;
                                 {
                                     row = "<tr><td colspan='6'>No Records Found..!</td></tr>";
                                 }
+                                $("#customLoader").hide();
                                 $("#FollowUpsTbody").html(row);
                                 $("#FollowUpsDataModal").modal('show');
                                 $("#FollowUpsDataModal").css("opacity","1");
