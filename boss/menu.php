@@ -166,6 +166,7 @@
                             <span class="menu-arrow"></span>
                         </a>
                         <ul class="nav-second-level" aria-expanded="false">
+                            <li <?php if($page_id==32) echo 'class="active"';?>><a href="categoryview.php?cat_id=0">Category</a></li>
                             <li <?php if($page_id==3) echo 'class="active"';?>><a href="serviceview.php">Service</a></li>
                             <li <?php if($page_id==29) echo 'class="active"';?>><a href="subserviceview.php">Sub Services</a></li>
                             <li <?php if($page_id==4) echo 'class="active"';?>><a href="userview.php">Employee</a></li>
