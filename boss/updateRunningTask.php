@@ -1,5 +1,8 @@
 <?
 session_start();
+if (!isset($_SESSION['user'])) {
+    header("location:login.php");
+}
 include_once("../connect.php");
 
 $cn=new connect(); 
