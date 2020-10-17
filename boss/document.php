@@ -3,86 +3,9 @@ session_start();
 if (!isset($_SESSION['user'])) {
     header("location:login.php");
 }
-if ($_SESSION['control'] != "admin") {
-    header("location:login.php");
-}
-include_once("../connect.php");
-include_once("../navigationfun.php");
-$cn = new connect();
-$cn->connectdb();
-$page_id=22;
+$page_id=31;
 ?>
-<?php
-$error = "";
-function compress($source, $destination, $quality) {
 
-    $info = getimagesize($source);
-
-    if ($info['mime'] == 'image/jpeg') 
-        $image = imagecreatefromjpeg($source);
-
-    elseif ($info['mime'] == 'image/gif') 
-        $image = imagecreatefromgif($source);
-
-    elseif ($info['mime'] == 'image/png') 
-        $image = imagecreatefrompng($source);
-
-    imagejpeg($image, $destination, $quality);
-
-    return $destination;
-}	  
-if(isset($_POST['addProduct']))
-{
-    
-    $clientname = $_POST['clientname'];
-    $customer_id = $_POST['selectcustomer'];
-    $selectservice = $_POST['selectservice'];
-    $selectagent = $_POST['selectagent'];
-    $parts = explode('-', date("d-m-Y"));
-    $current_date  = "$parts[2]-$parts[1]-$parts[0]";
-    $parts1 = explode('-', $_POST['start_date']);
-    $start_date  = "$parts1[2]-$parts1[1]-$parts1[0]";
-    $parts2 = explode('-', $_POST['end_date']);
-    $end_date  = "$parts2[2]-$parts2[1]-$parts2[0]";
-    $premium = $_POST['premium'];
-    $companyname = $_POST['companyname'];
-    $policyno = $_POST['policyno'];
-                
-    $con->insertdb("INSERT INTO `tbl_document`(`client_name`,`shipper_id`, `product_id`, `agent_id`, `current_date`, `start_date`, `end_date`, `premium`, `company_name`, `policy_no`,`entrypersonname`) VALUES ('".$clientname."',".$customer_id.",".$selectservice.",".$selectagent.",'".$current_date."','".$start_date."','".$end_date."','".$premium."','".$companyname."','".$policyno."','".$_SESSION['user']."')");
-    $last_id = mysqli_insert_id($con->getConnection());
-    if(!file_exists("Documents/".$customer_id))
-    {
-        mkdir("Documents/".$customer_id);
-    }
-        //insert in tbl_files table
-    if(isset($_FILES['file'])){
-
-        foreach($_FILES['file']['tmp_name'] as $key => $tmp_name)
-        {
-            $file_name = rand(100, 999).$_FILES['file']['name'][$key];
-            $file_size =$_FILES['file']['size'][$key];
-            $file_tmp =$_FILES['file']['tmp_name'][$key];
-            $file_type=$_FILES['file']['type'][$key];  
-        
-            move_uploaded_file($file_tmp,"Documents/".$customer_id."/".$file_name);
-            if($file_type != "application/pdf")
-            {
-                $source_img = "Documents/".$customer_id."/".$file_name;
-                $destination_img = "Documents/".$customer_id."/".$file_name;
-
-                $d = compress($source_img, $destination_img, 85);
-            }
-            if($file_name != "")
-                $con->insertdb("INSERT INTO `tbl_files`(`shipper_id`,`document_id`, `file_name`,`fdate`) VALUES (".$customer_id.",".$last_id.",'".$file_name."','".date('Y-m-d')."')");
-        }
-    }	
-            
-    header("location:documentView.php");
-    
-    // echo $sql;
-    
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -168,7 +91,7 @@ if(isset($_POST['addProduct']))
         <?php
         include 'menu.php';
         ?>
-        <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post">
+       
             <div class="content-page">
                 <div class="content">
                     <!-- Start Content-->
@@ -176,156 +99,90 @@ if(isset($_POST['addProduct']))
                         <div class="row nameBoxWrap" name="nameBoxWrap">
                             <div class="col-12">
                                 <div class="card-box">
-                                    <h4 class="m-t-0 header-title">Add Document</h4>
+                                    <form name="basicForm" id="basicForm" method="post">
+                                    <h4 class="m-t-0 header-title">Basic Details</h4>
+                                    <hr/>
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="p-2">
-
-                                                    <div id="progressbarwizard">
-
-                                                        <ul class="nav nav-pills bg-light nav-justified form-wizard-header mb-1">
-                                                            <li class="nav-item">
-                                                                <a href="#account-2" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
-                                                                    <i class="mdi mdi-account-circle mr-1"></i>
-                                                                    <span class="d-none d-sm-inline">Basic Details</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="nav-item">
-                                                                <a href="#profile-tab-2" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
-                                                                    <i class="mdi mdi-face-profile mr-1"></i>
-                                                                    <span class="d-none d-sm-inline">Category</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="nav-item">
-                                                                <a href="#finish-2" data-toggle="tab" class="nav-link rounded-0 pt-2 pb-2">
-                                                                    <i class="mdi mdi-checkbox-marked-circle-outline mr-1"></i>
-                                                                    <span class="d-none d-sm-inline">Upload Documents</span>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-
-                                                        <div class="tab-content border-0 mb-0">
-
-                                                            <div id="bar" class="progress mb-3" style="height: 7px;">
-                                                                <div class="bar progress-bar progress-bar-striped progress-bar-animated bg-success"></div>
-                                                            </div>
-
-                                                            <div class="tab-pane" id="account-2">
-                                                                <div class="row">
-                                                                    <div class="col-12">
-                                                                        <div class="form-group row mb-3">
-                                                                            <label class="col-sm-2  col-form-label" for="txtCustomer">Customer</label>
-                                                                            <div class="col-sm-4">
-                                                                                <input type="text" id="txtShipper" name="txtShipper" class="form-control" placeholder="Customer Name" autocomplete="off">
-                                                                                <div id="suggesstion-box"></div>
-                                                                            </div>
-                                                                            <label class="col-sm-1  col-form-label" for="txtCustomer">ID</label>
-                                                                            <div class="col-sm-4">
-                                                                                <input type="text" id="txtShipperID" name="selectcustomer" class="form-control" placeholder="Customer ID" readonly>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="form-group row mb-3">
-                                                                            <label for="inputEmail3" class="col-sm-2 control-label">Select Year:</label>
-                                                                            <div class="col-sm-3">
-                                                                                <select id="year" name="year" class="form-control">
-                                                                                    <option disabled readonly>Select Year</option>
-                                                                                    <option value="BasicDocs">Basic Documents</option>
-                                                                                    <?
-                                                                                $d = date("Y");
-                                                                                $syear = $d - 5;
-                                                                                $eyear = $d + 1;
-                                                                                for($i=$syear;$i<=$eyear;$i++)
-                                                                                {
-                                                                                ?>
-                                                                                    <option value="<? echo $i ."-".intval($i+1); ?>">
-                                                                                        <? echo $i ."-".intval($i+1); ?>
-                                                                                    </option>
-                                                                                    <? } ?>
-                                                                                </select>
-                                                                            </div>
-                                                                            
-                                                                        </div>
-                                                                    </div> <!-- end col -->
-                                                                </div> <!-- end row -->
-                                                            </div>
-
-                                                            <div class="tab-pane" id="profile-tab-2">
-                                                                <div class="row">
-                                                                    <div class="col-12">
-                                                                        <div class="form-group row mb-3">
-                                                                            <label class="col-md-3 col-form-label" for="name1"> Add/Select Category</label>
-                                                                            <div class="col-md-9">
-                                                                                <div id="checkTree">
-                                                                                    <ul>
-                                                                                        <li>No Category</li>
-                                                                                        <li data-jstree='{"type":"file"}'>Test
-                                                                                            <ul>
-                                                                                                <li data-jstree='{"opened":true}'>Assets
-                                                                                                    <ul>
-                                                                                                        <li data-jstree='{"type":"file"}'>Css</li>
-                                                                                                        <li data-jstree='{"opened":true}'>Plugins
-                                                                                                            <ul>
-                                                                                                                <li data-jstree='{"selected":true,"type":"file"}'>Plugin one</li>
-                                                                                                                <li data-jstree='{"type":"file"}'>Plugin two</li>
-                                                                                                            </ul>
-                                                                                                        </li>
-                                                                                                    </ul>
-                                                                                                </li>
-                                                                                                <li data-jstree='{"opened":true}'>Email Template
-                                                                                                    <ul>
-                                                                                                        <li data-jstree='{"type":"file"}'>Email one</li>
-                                                                                                        <li data-jstree='{"type":"file"}'>Email two</li>
-                                                                                                    </ul>
-                                                                                                </li>
-                                                                                                <li data-jstree='{"icon":"mdi mdi-view-dashboard"}'>Dashboard</li>
-                                                                                                <li data-jstree='{"icon":"mdi mdi-format-font"}'>Typography</li>
-                                                                                                <li data-jstree='{"opened":true}'>User Interface
-                                                                                                    <ul>
-                                                                                                        <li data-jstree='{"type":"file"}'>Buttons</li>
-                                                                                                        <li data-jstree='{"type":"file"}'>Cards</li>
-                                                                                                    </ul>
-                                                                                                </li>
-                                                                                                <li data-jstree='{"icon":"mdi mdi-texture"}'>Forms</li>
-                                                                                                <li data-jstree='{"icon":"mdi mdi-view-list"}'>Tables</li>
-                                                                                            </ul>
-                                                                                        </li>
-                                                                                        <li><a href="#" id="inline-firstname" data-type="text" data-pk="1" data-placement="right" data-placeholder="Required" data-title="Enter your firstname">Add Category</a></li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        
-                                                                    </div> <!-- end col -->
-                                                                </div> <!-- end row -->
-                                                            </div>
-
-                                                            <div class="tab-pane" id="finish-2">
-                                                                <div class="row">
-                                                                    <div class="col-12">
-                                                                        <div class="form-group row mb-3">
-                                                                            <input type="file" class="dropify" name="file[]" data-height="200" multiple/>
-                                                                        </div>
-                                                                    </div> <!-- end col -->
-                                                                </div> <!-- end row -->
-                                                            </div>
-
-                                                            <ul class="list-inline mb-0 wizard">
-                                                                <li class="previous list-inline-item">
-                                                                    <a href="javascript: void(0);" class="btn btn-secondary">Previous</a>
-                                                                </li>
-                                                                <li class="next list-inline-item float-right">
-                                                                    <a href="javascript: void(0);" class="btn btn-secondary">Next</a>
-                                                                </li>
-                                                            </ul>
-
-                                                        </div> <!-- tab-content -->
-                                                    </div> <!-- end #progressbarwizard-->
-
-
-
+                                            <div class="form-group row mb-3">
+                                                <label class="col-sm-2  col-form-label" for="txtCustomer">Customer</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" id="txtShipper" name="txtShipper" class="form-control" placeholder="Customer Name" autocomplete="off" required>
+                                                    <div id="suggesstion-box"></div>
                                                 </div>
+                                                
+                                                <label class="col-sm-1  col-form-label" for="txtCustomer">ID</label>
+                                                <div class="col-sm-4">
+                                                    <input type="text" id="txtShipperID" name="txtShipperID" class="form-control" placeholder="Customer ID" readonly>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="form-group row mb-3">
+                                                <label for="inputEmail3" class="col-sm-2 control-label">Select Year:</label>
+                                                <div class="col-sm-3">
+                                                    <select id="year" name="year" class="form-control" required>
+                                                        <option disabled readonly>Select Year</option>
+                                                        <option value="BasicDocs">Basic Documents</option>
+                                                        <?
+                                                    $d = date("Y");
+                                                    $syear = $d - 5;
+                                                    $eyear = $d + 1;
+                                                    for($i=$syear;$i<=$eyear;$i++)
+                                                    {
+                                                    ?>
+                                                        <option value="<? echo $i ."-".intval($i+1); ?>">
+                                                            <? echo $i ."-".intval($i+1); ?>
+                                                        </option>
+                                                        <? } ?>
+                                                    </select>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="form-group row mb-3">
+                                                <div class="col-md-12">
+                                                    <button type="submit" class="btn btn-primary width-sm" id="saveBasicDetails" name="saveBasicDetails">Save Basic Details</button>
+                                                    <a href="serviceConfirmationView.php" class="btn btn-lighten-primary waves-effect waves-primary  width-sm">Cancel</a>
+                                                    <img src='loader1.gif' style='width:2%;display:none;' id='custloader'/>
+                                                    <label id="Message" style="font-weight:bold;color:green;"></label>
+                                                </div>
+                                            </div>
+                                        </div> <!-- end col -->
+                                    </div> <!-- end row -->
+                                    </form>
+                                    <!-- end row -->
+                                </div> <!-- end card-box -->
+                                <div class="card-box">
+                                    <form name="docsForm" id="docsForm" method="post" enctype="multipart/form-data">
+                                    <h4 class="m-t-0 header-title">Select Category & Upload Documents</h4>
+                                    <hr/>
+                                    <input type="hidden" id="document_id" name="document_id" class="form-control">
+                                    <input type="hidden" id="document_year_id" name="document_year_id" class="form-control">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div id="catTree">
+                                                <ul>
+                                                    
+                                                </ul>
+                                            </div>
+                                        </div> <!-- end col -->
+                                    </div> <!-- end row -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group row mb-3">
+                                                <input type="file" class="dropify" name="file[]" id="files" data-height="200" multiple/>
+                                            </div>
+                                        </div> <!-- end col -->
+                                    </div> <!-- end row -->
+                                    <div class="form-group row mb-3">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-primary width-sm" id="addConfirmation" name="addConfirmation">Upload Documents</button>
+                                            <a href="documentView.php" class="btn btn-lighten-primary waves-effect waves-primary  width-sm">Cancel</a>
+                                            <input type="hidden" id="txtResultDocs">
+                                            <img src='loader1.gif' style='width:2%;display:none;' id='custloaderDocs'/>
+                                            <label id="MessageDocs" style="font-weight:bold;color:green;"></label>
                                         </div>
                                     </div>
+                                    </form>
                                     <!-- end row -->
                                 </div> <!-- end card-box -->
                             </div><!-- end col -->
@@ -335,11 +192,11 @@ if(isset($_POST['addProduct']))
                     </div> <!-- container-fluid -->
 
                 </div> <!-- content -->
-
+            </div>
                 <?php
             include 'footer.php';
             ?>
-        </form>
+        
         <!-- Vendor js -->
         <script src="assets/js/vendor.min.js"></script>
 
@@ -382,17 +239,122 @@ if(isset($_POST['addProduct']))
                     url:'document_interaction.php?type=fillTreeView',			
                     success:function(data)
                     {
-                        console.log(data);
-                        // nodes = "<tr id='loaderRowPayment'><td colspan='8' style='text-align:center;'><img src='Loader.gif' style='width:17%;' id='loader'/></td></tr>";
-                        // $('#paymentList > tbody:last-child').append(loaderRow);
-                        // setTimeout(() => {
-                        //     $('#paymentList > tbody').empty();
-                        //     $('#paymentList > tbody').append(data);
-                           
-                        // }, 1000);
+                        //console.log(data);
+                        data = JSON.parse(data);
+                        var checkBox = "";
+                        //alert(data.length);
+                        var row = '';
+                        for(i=0;i<data.length;i++)
+                        {
+                            if(data[i].sub_cat.length == 0)
+                                checkBox = '<input type="radio" name="cat_id" id="cat_id_'+data[i].cat_id+'" value="'+data[i].cat_id+'"/>';
+                            else
+                                checkBox = "";
+                            row += '<li>'+checkBox+'&nbsp;<label for="cat_id_'+data[i].cat_id+'">'+data[i].cat_name+'</label>';
+                            if(data[i].sub_cat.length > 0)
+                            {
+                                row += "<ul>";
+                                for(j=0;j<data[i].sub_cat.length;j++)
+                                {
+                                    row += '<li><input type="radio" name="cat_id" id="sub_cat_id_'+data[i].sub_cat[j].cat_id+'" value="'+data[i].sub_cat[j].cat_id+'"/>&nbsp;<label for="sub_cat_id_'+data[i].sub_cat[j].cat_id+'">'+data[i].sub_cat[j].cat_name+'</label></li>';
+                                }
+                                row += "</ul>";
+                            }
+                            row += "</li>";
+                        }
+                        // row += '<li><a href="#" id="inline-firstname" data-type="text" data-pk="1" data-placement="right" data-placeholder="Required" data-title="Enter your firstname">Add Category</a></li>';
+                        $("#catTree > ul").html(row);
                     }
                 });
             }
+        </script>
+        <script>
+        $('#basicForm').on('submit',function(event){  
+			event.preventDefault();
+			$('#lbl').html("");  
+            $("#custloader").show();
+            $('#Message').html("Saving..");
+			$('#saveBasicDetails').val("Saving..");  
+			setTimeout(() => {
+				$.ajax({  
+					url:"document_interaction.php?type=SaveBasicDetails",  
+					method:"POST",  
+					data:$('#basicForm').serialize(),  
+					success:function(data){
+                        data = JSON.parse(data);
+                        $("#document_id").val(data.lastDocInsID);
+                        $("#document_year_id").val(data.lastDocYearInsID);
+						$('#saveBasicDetails').val("Saved Successfully"); 
+						$('#Message').html("Basic Details Saved Successfully.");
+						setTimeout(() => {
+                            $("#custloader").hide();
+                            $('#Message').html("");
+							$('#saveBasicDetails').val("Save Basic Details"); 
+						}, 1000);
+						//$("#basicForm :input").prop("disabled",true);
+						
+					},
+                    error:function(data)
+                    {
+                        $("#custloader").hide();
+						$('#Message').html(data); 
+                    } 
+				});  
+			}, 2000);
+			
+			
+        });  
+        $('#docsForm').on('submit',function(event){  
+			event.preventDefault();
+            //console.log(JSON.stringify($('#docsForm').serialize()));
+            $("#custloaderDocs").show();
+            $('#MessageDocs').html("Uploading..");
+            $('#saveBasicDetails').val("Uploading..");  
+            var form = $('#docsForm')[0];
+            var formdata = new FormData(form);
+			//setTimeout(() => {
+				$.ajax({  
+					url:"document_interaction.php?type=UploadDocs",  
+					method:"POST",
+                    enctype: 'multipart/form-data',
+                    processData: false,  // Important!
+                    contentType: false,
+                    cache: false,
+					data:formdata,
+					success:function(data){
+                        //data = JSON.parse(data);
+                        //console.log(data);
+                        if(data == 1)
+                        {
+                            $('#saveBasicDetails').val("Saved Successfully"); 
+                            $('#MessageDocs').html("Docs Uploaded Successfully.");
+                            setTimeout(() => {
+                                $("#custloaderDocs").hide();
+                                $('#MessageDocs').html("");
+                                $('#saveBasicDetails').val("Upload Documents"); 
+                                $(".dropify-clear").trigger("click");
+                            }, 1000);
+                            
+                        }
+                        else
+                        {
+                            $("#custloaderDocs").hide();
+                            $('#MessageDocs').html("Something went wrong, Please try again later..!");
+                            $('#saveBasicDetails').val("Upload Documents"); 
+                        }
+						//$("#basicForm :input").prop("disabled",true);
+						
+					},
+                    error:function(data)
+                    {
+                        $("#custloaderDocs").hide();
+						$('#MessageDocs').html(data); 
+                    } 
+				});  
+			//}, 2000);
+			
+			
+        });
         </script>
 
         <!-- Plugins js-->

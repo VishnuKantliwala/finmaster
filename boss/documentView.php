@@ -3,14 +3,11 @@ session_start();
 if (!isset($_SESSION['user'])) {
     header("location:login.php");
 }
-if ($_SESSION['control'] != "admin") {
-    header("location:login.php");
-}
+
 include_once("../connect.php");
-include_once("../navigationfun.php");
 $cn = new connect();
 $cn->connectdb();
-$page_id=25;
+$page_id=31;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -95,7 +92,7 @@ $page_id=25;
                                 <button id="clearFilter" class="btn btn-primary width-md openTaskModal">Open modal</button>
                             </div> -->
                         </div>
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <div class="col-md-4">
                                 <select class="form-control" type="text" name="ddl_shipper_id"
                                     id="ddl_shipper_id" >
@@ -144,7 +141,7 @@ $page_id=25;
                                 </select>
 
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group row">
                             <div class="col-md-4">
                                 <input class="form-control input-daterange-datepicker" type="text" name="daterange"
@@ -156,26 +153,18 @@ $page_id=25;
                             <div class="col-md-2">
                                 <button id="clearFilter" class="btn btn-primary width-md">Clear</button>
                             </div>
-
+<!-- 
                             <div class="col-md-2">
                                 <button id="sorting" class="btn btn-primary width-md">Sorting</button>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="row">
                             <div class="col-12">
                                 <table id="datatable" class="table table-bordered dt-responsive ">
                                     <thead>
                                         <tr> 
-                                            <? 
-                                            if( $_SESSION['control'] == "admin" ) { 
-                                            ?>
-                                            <th data-orderable="false">
-                                                    <input id="chkAllFiles" type="checkbox" title="All Files" onchange="selectAllFiles(this.checked);" />
-                                                    </th>
-                                            <? 
-                                            } 
-                                            ?>
-                                            <th>Edit</th>
+                                            <th>View</th>
+                                            
                                             <!--<th>Copy</th>-->
                                             <? 
                                             if( $_SESSION['control'] == "admin" ) { 
@@ -184,35 +173,15 @@ $page_id=25;
                                             <? 
                                             } 
                                             ?>
-                                            <th>Document Date</th>
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
+                                            <th>Document ID</th>
                                             <th>Customer Name</th>
-                                            <th>Group Name</th>
-                                            <th>Agent Name</th>
-                                            <th>Service</th>
-                                            <th>Policy No</th>
-                                            <? 
-                                            if($_SESSION['control'] == "admin") { 
-                                            ?>
-                                            <th>Entry Person Name</th>
-                                            <? 
-                                            }
-                                            ?>
+                                            
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <? 
-                                            if( $_SESSION['control'] == "admin" ) { 
-                                            ?>
-                                            <th data-orderable="false">
-                                                    <input id="chkAllFiles" type="checkbox" title="All Files" onchange="selectAllFiles(this.checked);" />
-                                                    </th>
-                                            <? 
-                                            } 
-                                            ?>
-                                            <th>Edit</th>
+                                        <th>View</th>
+                                       
                                             <!--<th>Copy</th>-->
                                             <? 
                                             if( $_SESSION['control'] == "admin" ) { 
@@ -221,33 +190,32 @@ $page_id=25;
                                             <? 
                                             } 
                                             ?>
-                                            <th>Document Date</th>
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
+                                            <th>Document ID</th>
                                             <th>Customer Name</th>
-                                            <th>Group Name</th>
-                                            <th>Agent Name</th>
-                                            <th>Service</th>
-                                            <th>Policy No</th>
-                                            <? 
-                                            if($_SESSION['control'] == "admin") { 
-                                            ?>
-                                            <th>Entry Person Name</th>
-                                            <? 
-                                            }
-                                            ?>
                                         </tr>
                                     </tfoot>
                                     <tbody id="results">
-                                        
+                                        <?
+                                        $sql = $cn->selectdb("SELECT d.*,s.shipper_name FROM tbl_document d,tbl_shipper s WHERE s.shipper_id = d.shipper_id ORDER BY document_id DESC");
+                                        if($cn->numRows($sql) > 0)
+                                        {
+                                            while($row = $cn->fetchAssoc($sql))
+                                            {
+                                                ?>
+                                                <tr>
+                                                    <td><a href="documentViewClientWise.php?document_id=<? echo $row['document_id']; ?>"><i class="fa fa-eye"></i></a></td>
+                                                    <td><a onClick="deleteRecord(<?php echo $row['document_id']; ?>)"><i class="mdi mdi-delete"></i></a></td>
+                                                    <td><? echo $row['document_id']; ?></td>
+                                                    <td><? echo $row['shipper_name']; ?></td>
+                                                </tr>
+                                                <?
+                                            }
+                                        }
+                                        ?>
                                     </tbody>
                                     
                                 </table>
-                                <div id="loader_image" style="" class="container text-center">
-                                                    
-                                    <img src="./assets/images/loading.gif" />
-                                    
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -283,8 +251,50 @@ $page_id=25;
             <script src="assets/js/pages/form-advanced.init.js"></script>
             <!-- App js -->
             <script src="assets/js/app.min.js"></script>
-            
-            <script src="assets/js/documents.js"></script>
+            <script>
+                function deleteRecord(id) {
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "You won't be able to revert this!",
+                        type: "warning",
+                        showCancelButton: !0,
+                        confirmButtonText: "Yes, delete it!",
+                        cancelButtonText: "No, cancel!",
+                        confirmButtonClass: "btn btn-success mt-2",
+                        cancelButtonClass: "btn btn-danger ml-2 mt-2",
+                        buttonsStyling: !1
+                    }).then(function(t) {
+                        if (t.value) {
+                            $.ajax({
+                                type: "GET",
+                                async: false,
+                                url: "document_interaction.php?type=deleteDocument&document_id="+id,
+                                success: function(data) {
+                                    if (data == 'true') {
+                                        Swal.fire({
+                                            title: "Deleted!",
+                                            text: "Your record has been deleted.",
+                                            type: "success"
+                                        }).then(function(){
+                                          window.open('documentView.php', '_self');
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            title: "Something went to wrong!",
+                                            type: "error"
+                                        });
+                                    }
+                                }
+                            });
+                        } else if (t.dismiss === Swal.DismissReason.cancel) {
+                            Swal.fire({
+                                title: "Cancelled",
+                                type: "error"
+                            });
+                        }
+                    });
+                }
+            </script>
             
 </body>
 
