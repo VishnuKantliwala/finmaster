@@ -102,7 +102,7 @@ if($_GET['type'] == "UploadDocs")
         // foreach($_POST["cat_id"] as $attributeKey => $attributes)
         // {
             // echo $_POST["cat_id"][$attributeKey];
-            $sqlCat = $cn->selectdb("SELECT document_year_cat_id FROM tbl_document_year_cat WHERE cat_id = ".$_POST["cat_id"]);
+            $sqlCat = $cn->selectdb("SELECT document_year_cat_id FROM tbl_document_year_cat WHERE cat_id = ".$_POST["cat_id"]." AND document_year_id=".$document_year_id);
             if($cn->numRows($sqlCat) > 0)
             {
                 $rowCat = $cn->fetchAssoc($sqlCat);
@@ -116,7 +116,7 @@ if($_GET['type'] == "UploadDocs")
         // }
 
         //Code to insert files in table
-        $sqlDetails = $cn->selectdb("SELECT s.shipper_name,dy.document_year,c.cat_name FROM tbl_shipper s,tbl_document_year dy,tbl_cat c,tbl_document_year_cat dyc,tbl_document d WHERE dyc.document_year_id = dy.document_year_id AND dyc.cat_id = c.cat_id AND dy.document_id = d.document_id AND d.shipper_id = s.shipper_id AND dy.document_year_id = ".$document_year_id);
+        $sqlDetails = $cn->selectdb("SELECT s.shipper_name,dy.document_year,c.cat_name FROM tbl_shipper s,tbl_document_year dy,tbl_cat c,tbl_document_year_cat dyc,tbl_document d WHERE dyc.document_year_id = dy.document_year_id AND dyc.cat_id = c.cat_id AND dy.document_id = d.document_id AND d.shipper_id = s.shipper_id AND dyc.document_year_cat_id = ".$document_year_cat_id);
         if($cn->numRows($sqlDetails) > 0)
         {
             $row = $cn->fetchAssoc($sqlDetails);
@@ -137,7 +137,9 @@ if($_GET['type'] == "UploadDocs")
                 }
                 echo "1";
             }
+            //echo "2";
         }
+        //echo "3".$document_year_id;
     }
     else
     {
@@ -226,6 +228,35 @@ if($_GET['type'] == "deleteDocument")
             // $cn->insertdb("DELETE FROM tbl_files WHERE `file_id` = ".$row["file_id"]);
         }
         $cn->insertdb("DELETE FROM tbl_document WHERE `document_id` = ".$document_id);
+        
+        echo "true";
+    }
+    else
+    {
+        echo "false";
+    }
+}
+if($_GET['type'] == "deleteMulFile")
+{
+    $file_ids = $_POST['file_ids'];
+    $ids = "";
+    for($i=0;$i<count($file_ids);$i++)
+    {
+        $ids .= "'".$file_ids[$i]."',";
+    }
+    // echo $ids;
+    $ids = rtrim($ids,",");
+    $sql = $cn->selectdb("SELECT f.file_id,f.`file_name`,s.shipper_name,c.cat_name,dy.document_year FROM tbl_files f,tbl_shipper s,tbl_cat c,tbl_document_year dy,tbl_document_year_cat dyc,tbl_document d WHERE f.document_year_cat_id = dyc.document_year_cat_id AND dyc.document_year_id = dy.document_year_id AND dyc.cat_id = c.cat_id AND dy.document_id = d.document_id AND d.shipper_id = s.shipper_id AND f.`file_id` IN (".$ids.") GROUP BY f.file_name");
+    if($cn->numRows($sql) > 0)
+    {
+        while($row = $cn->fetchAssoc($sql))
+        {
+            $path = "Documents/".str_replace(" ","",$row["shipper_name"])."/".str_replace(" ","",$row["document_year"])."/".str_replace(" ","",$row["cat_name"])."/".$row["file_name"];
+            if(file_exists($path))
+                unlink($path);
+            $cn->insertdb("DELETE FROM tbl_files WHERE `file_id` = ".$row["file_id"]);
+        }
+        // $cn->insertdb("DELETE FROM tbl_files WHERE `file_id` = ".$document_id);
         
         echo "true";
     }

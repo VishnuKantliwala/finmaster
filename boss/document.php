@@ -323,7 +323,7 @@ $page_id=31;
 					data:formdata,
 					success:function(data){
                         //data = JSON.parse(data);
-                        //console.log(data);
+                        console.log(data);
                         if(data == 1)
                         {
                             $('#saveBasicDetails').val("Saved Successfully"); 

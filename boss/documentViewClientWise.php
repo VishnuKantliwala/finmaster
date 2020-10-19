@@ -30,7 +30,9 @@ else
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico">
-    
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
     <script src="assets/libs/ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="./assets/js/vendor.min.js"></script>
     <style type="text/css">
@@ -233,6 +235,9 @@ else
             ?>
         
         <!-- Vendor js -->
+        <script src="assets/js/vendor.min.js"></script>
+        <script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>
+        <script src="assets/js/pages/sweet-alerts.init.js"></script>
         <script src="assets/js/vendor.min.js"></script>        
 
         <!-- App js -->
@@ -304,7 +309,7 @@ else
         }
         function printDocs(year)
         {
-            var docs = "";
+            var docs = '<button type="button" class="btn btn-primary" name="DeleteMulDoc" id="DeleteMulDoc" onClick="deleteMulDocs()" style="margin:5px;"><i class="fa fa-trash"></i> Delete Selected Files</button>';
             var flag = false;
             if(data != "")
             {
@@ -321,7 +326,7 @@ else
                         docs += '<div class="row">';
                         var yearname = data.document_year[i].document_year_name == "BasicDocs" ? "Basic Documents" : data.document_year[i].document_year_name;
                         var shipper_name = data.shipper_name;
-                        docs += '<div class="col-12" style="border-bottom:1px dashed grey;border-top:1px dashed grey"><h3>'+yearname+'</h3></div>';
+                        docs += '<div class="col-12" style="border-bottom:1px dashed grey;border-top:1px dashed grey;display:flex;"><h3>'+yearname+'</h3></div>';
                         if(data.document_year[i].hasOwnProperty("document_year_cat"))
                         {
                             for(j=0;j<data.document_year[i].document_year_cat.length;j++)
@@ -361,6 +366,7 @@ else
                                         }
                                         docs += '<div class="col-3 row">'+
                                                     '<div class="col-6">'+
+                                                    '<input type="checkbox" name="file_id[]" value="'+data.document_year[i].document_year_cat[j].files[k].file_id+'">'+
                                                     '<a onClick="openDocumentModal(\''+path+'\',\''+ext[count-1]+'\',\''+data.document_year[i].document_year_cat[j].files[k].file_id+'\')" title="File Name : '+filename+'"><img src="'+image_name+'" style="width:100%;"/></a>'+
                                                     '<div class="col-12" style="text-align:center;">'+
                                                         '<button type="button" class="btn btn-primary" name="DeleteDoc" onClick="DeleteDoc('+data.document_year[i].document_year_cat[j].files[k].file_id+')"><i class="fa fa-trash"></i></button>'+
@@ -450,6 +456,51 @@ else
                 DeleteDoc(file_id);
             }
         });
+        function deleteMulDocs(){
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+                confirmButtonClass: "btn btn-success mt-2",
+                cancelButtonClass: "btn btn-danger ml-2 mt-2",
+                buttonsStyling: !1
+            }).then(function(t) {
+                if (t.value) {
+                    $("#loaderText").html("Please wait we are deleting your document..");
+                    $("#customLoader").show();
+                    var file_ids = $('input[type="checkbox"][name="file_id\\[\\]"]:checked').map(function() { return this.value; }).get();
+                    $.ajax({
+                        type:'POST',
+                        url:'document_interaction.php?type=deleteMulFile',
+                        data:{file_ids:file_ids},
+                        success: function(data) {
+                            // console.log(data);
+                            if (data == 'true') {
+                                setTimeout(() => {
+                                    $("#loaderText").html("Deleted.");
+                                    $("#customLoader").hide();
+                                    fetchDocuments("All");
+                                }, 500);
+                            } else {
+                                Swal.fire({
+                                    title: "Something went to wrong!",
+                                    type: "error"
+                                });
+                            }
+                        }
+                    });
+                } else if (t.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire({
+                        title: "Cancelled",
+                        type: "error"
+                    });
+                }
+            });
+            
+        }
         </script>
 </body>
 
