@@ -39,11 +39,40 @@ $page_id=29;
     .form-control {
         padding: 10px;
     }
+    .loader{
+        opacity:0.6;
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: rgb(249,249,249);
+        display:none;
+    }
+    .centered {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        
+        color:darkred;
+        display:inline-flex;
+        border:1px solid grey;
+        padding:10px;
+        background:black;
+    }
     </style>
 </head>
 
 <body>
-
+<div class="loader" id="customLoader">
+            
+    <div class="centered">
+        <img src="loader1.gif" style="height:40px;"/>
+        <h4 style="color:#d0d0d0;margin-left:10px;" id="loaderText">Please wait...</h4>
+    </div>
+</div>
     <!-- Begin page -->
     <div id="wrapper">
         <!-- Topbar Start -->
@@ -160,12 +189,17 @@ $page_id=29;
                             <div class="col-md-2">
                                 <button id="sorting" class="btn btn-primary width-md">Sorting</button>
                             </div>
+                            <div class="col-md-2">
+                                <button id="deleteRecords" class="btn btn-primary width-md">Delete</button>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-12">
                                 <table id="datatable" class="table table-bordered dt-responsive ">
                                     <thead>
                                         <tr>
+                                            <th><input type="checkbox" name="selectAll" id="selectAll" value="0"/></th>
+                                            <th>Status</th>
                                             <th>Task Name</th>
                                             <th>Employee Name</th>
                                             <th>Quantity</th>
@@ -176,6 +210,8 @@ $page_id=29;
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            <th></th>
+                                            <th>Status</th>
                                             <th>Task Name</th>
                                             <th>Employee Name</th>
                                             <th>Quantity</th>
@@ -326,6 +362,51 @@ $page_id=29;
             });
             var counter = 0;
 
+            $("#deleteRecords").on("click",function(){
+                Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+                confirmButtonClass: "btn btn-success mt-2",
+                cancelButtonClass: "btn btn-danger ml-2 mt-2",
+                buttonsStyling: !1
+                }).then(function(t) {
+                    if (t.value) {
+                        $("#loaderText").html("Please wait we are deleting your document..");
+                        $("#customLoader").show();
+                        var task_ids = $('input[type="checkbox"][name="selectSingleTask\\[\\]"]:checked').map(function() { return this.value; }).get();
+                        $.ajax({
+                            type:'POST',
+                            url:'assigned_task_delete.php?task=deleteMultiple',
+                            data:{task_ids:task_ids},
+                            success: function(data) {
+                                console.log(data);
+                                if (data == 'true') {
+                                    setTimeout(() => {
+                                        $("#loaderText").html("Deleted.");
+                                        $("#customLoader").hide();
+                                        window.open('assignedTaskView.php', '_self');
+                                    }, 500);
+                                } else {
+                                    Swal.fire({
+                                        title: "Something went to wrong!",
+                                        type: "error"
+                                    });
+                                }
+                            }
+                        });
+                    } else if (t.dismiss === Swal.DismissReason.cancel) {
+                        Swal.fire({
+                            title: "Cancelled",
+                            type: "error"
+                        });
+                    }
+                });
+            });
+
             function deleteRecord(id) {
                 Swal.fire({
                     title: "Are you sure?",
@@ -342,7 +423,7 @@ $page_id=29;
                         $.ajax({
                             type: "POST",
                             async: false,
-                            url: "assigned_task_delete.php",
+                            url: "assigned_task_delete.php?task=deleteSingle",
                             data: 'task_emp_id=' + id,
                             success: function(data) {
                                 if (data == 'true') {
@@ -535,7 +616,16 @@ $page_id=29;
 
             }
 
-            
+            $("#selectAll").on("change",function(){
+                if($('#selectAll').is(':checked'))
+                {
+                    $("input[name='selectSingleTask\\[\\]']:checkbox:enabled").prop('checked',true);
+                }
+                else
+                {
+                    $("input[name='selectSingleTask\\[\\]']:checkbox:enabled").prop('checked',false);
+                }
+            });
 
             // To get records
             function getRecords(shipper_id, from_date, end_date, user_id, task_status) {
@@ -554,15 +644,39 @@ $page_id=29;
                             var row = "<tbody>";
                             $('#datatable > tbody').empty();
                             for (i = 0; i < length; i++) {
+                                var status="";
+                                var disableFlag="";
+                                var singleDelete = "onClick='deleteRecord(" + data[i].task_emp_id +")'";
+                                if(data[i].task_emp_status == 0)
+                                {
+                                    status = "Assigned";
+                                }
+                                if(data[i].task_emp_status == 1)
+                                {
+                                    status = "Working";
+                                    disableFlag = "disabled";
+                                    singleDelete = "title='This record cannot be deleted..!'";
+                                }
+                                if(data[i].task_emp_status == 2)
+                                {
+                                    status = "Submitted";
+                                    disableFlag = "disabled";
+                                    singleDelete = "title='This record cannot be deleted..!'";
+                                }
+                                if(data[i].task_emp_status == 3)
+                                {
+                                    status = "Reappointed";
+                                }
                                 row += "<tr id='rowTask" + i + "'>" +
+                                    "<td ><input type='checkbox' name='selectSingleTask[]' value='" + data[i].task_emp_id + "' "+disableFlag+"/></td>" +
+                                    "<td >" + status + "</td>" +
                                     "<td >" + data[i].task_name + "</td>" +
                                     "<td >" + data[i].user_name + "</td>" +
                                     "<td >" + data[i].task_emp_quantity + "</td>" +
                                     "<td >" + data[i].date_assign + "</td>" +
                                     "<td ><button onClick='showTimeline(" + data[i].task_emp_id + ", " + data[i].task_id + ")' type='button' class='btn btn-success ' >Timeline <i class='mdi  mdi-chart-timeline'></i></button></td>" +
 
-                                    "<td ><a onClick='deleteRecord(" + data[i].task_emp_id +
-                                    ")'><div style='border:1px solid #dee2e6;text-align:center;padding:5px;'>Delete <i class='mdi mdi-delete'></i></div></a></td>" +
+                                    "<td ><a style='cursor:pointer;' "+singleDelete+"><div style='border:1px solid #dee2e6;text-align:center;padding:5px;'>Delete <i class='mdi mdi-delete'></i></div></a></td>" +
                                     "</tr>";
                             }
                             row += "</tbody>";

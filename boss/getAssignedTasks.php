@@ -58,6 +58,7 @@ if(mysqli_num_rows($sql) > 0)
         $returnObj[$i]["user_id"]=$row['user_id'];
         $returnObj[$i]["task_emp_quantity"]=$row['task_emp_quantity'];
         $returnObj[$i]["date_assign"]=date("d-m-Y",strtotime($row['date_assign']));
+        $returnObj[$i]["task_emp_status"]=$row['task_emp_status'];
         
         $i++;
     }
