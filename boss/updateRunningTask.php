@@ -55,9 +55,10 @@ $diff = 0;
     
 
  }
+ $date_submit = date("Y-m-d h:i:s");
     $cn->selectdb("UPDATE tbl_task_emp SET task_emp_quantity_done = (SELECT COUNT(*) FROM tbl_task_emp_qty WHERE  task_emp_id = ".$task_emp_id." and task_emp_status = 1), task_emp_description = '".$task_emp_description."' WHERE  task_emp_id = ".$task_emp_id);
 
-    $cn->selectdb("UPDATE tbl_task_emp SET task_emp_status = 2, task_emp_running_status = 0, task_emp_duration = task_emp_duration + ".$diff."  WHERE task_emp_quantity = task_emp_quantity_done AND task_emp_id = ".$task_emp_id);
+    $cn->selectdb("UPDATE tbl_task_emp SET task_emp_status = 2, task_emp_running_status = 0, task_emp_duration = task_emp_duration + ".$diff.",date_submit='".$date_submit."'  WHERE task_emp_quantity = task_emp_quantity_done AND task_emp_id = ".$task_emp_id);
 
     
 

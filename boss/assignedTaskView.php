@@ -202,6 +202,7 @@ $page_id=29;
                                             <th>Status</th>
                                             <th>Task Name</th>
                                             <th>Employee Name</th>
+                                            <th>Client</th>
                                             <th>Quantity</th>
                                             <th>Task Date</th>
                                             <th>Timeline</th>
@@ -214,6 +215,7 @@ $page_id=29;
                                             <th>Status</th>
                                             <th>Task Name</th>
                                             <th>Employee Name</th>
+                                            <th>Client</th>
                                             <th>Quantity</th>
                                             <th>Task Date</th>
                                             <th>Timeline</th>
@@ -672,6 +674,7 @@ $page_id=29;
                                     "<td >" + status + "</td>" +
                                     "<td >" + data[i].task_name + "</td>" +
                                     "<td >" + data[i].user_name + "</td>" +
+                                    "<td >" + data[i].shipper_name + "</td>" +
                                     "<td >" + data[i].task_emp_quantity + "</td>" +
                                     "<td >" + data[i].date_assign + "</td>" +
                                     "<td ><button onClick='showTimeline(" + data[i].task_emp_id + ", " + data[i].task_id + ")' type='button' class='btn btn-success ' >Timeline <i class='mdi  mdi-chart-timeline'></i></button></td>" +

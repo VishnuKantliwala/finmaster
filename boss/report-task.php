@@ -38,14 +38,57 @@ $page_id=24;
     <link href="assets/libs/bootstrap-colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
     <link href="assets/libs/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet">
     <link href="assets/libs/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- third party css -->
+    <link href="assets/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
     <!-- App css -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    
+    <style>
+    .loader {
+        opacity: 0.6;
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: rgb(249, 249, 249);
+        display: none;
+    }
+
+    .centered {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        color: darkred;
+        display: inline-flex;
+        border: 1px solid grey;
+        padding: 10px;
+        background: black;
+    }
+
+    @media (min-width: 576px) {
+        .modal-dialog {
+            max-width: 800px;
+        }
+    }
+    </style>
 </head>
 
 <body>
-
+    <div class="loader" id="customLoader">
+        <div class="centered">
+            <img src="loader1.gif" style="height:40px;" />
+            <h4 style="color:#d0d0d0;margin-left:10px;" id="loaderText">Please Wait...</h4>
+        </div>
+    </div>
     <!-- Begin page -->
     <div id="wrapper">
 
@@ -90,58 +133,131 @@ $page_id=24;
         <div class="content-page">
             <div class="content">
                 <!-- Start Content-->
-                <form class="form-horizontal" action="lbl_print_task_report.php" autocomplete="off" role="form" method="post" enctype="multipart/form-data">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card-box">
-                                    <h4 class="m-t-0 header-title">Project Work</h4>
-                                    <div class="row">
-                                      <div class="col-12">
-                                          <div class="p-2">
-                                                  <div class="form-group row">
-                                                      <label class="col-sm-2  col-form-label" for="txtEmp">Employee Name</label>
-                                                      <div class="col-sm-10">
-                                                        <select name="txtEmp" id="txtEmp" class="form-control">
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card-box">
+                                <h4 class="m-t-0 header-title">Project Work</h4>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="p-2">
+                                        <form method="POST" id="EmpTaskForm">
+                                            <div class="form-group row">
+                                                <label class="col-sm-2  col-form-label" for="txtEmp">Employee Name</label>
+                                                <div class="col-sm-4">
+                                                    <select name="txtEmp" id="txtEmp" class="form-control">
                                                         <?php
-                                                            $sql="SELECT uname FROM admintable";
+                                                            $sql="SELECT user_name,user_id FROM tbl_user";
                                                             $result = $cn->selectdb($sql);
                                                             while ($row1=$cn->fetchAssoc($result)) {
                                                         ?>
-                                                            <option value="<?php echo $row1['uname'];?>"><?php echo $row1['uname'];?></option>
+                                                        <option value="<?php echo $row1['user_id'];?>">
+                                                            <?php echo $row1['user_name'];?></option>
                                                         <?php
                                                             }
                                                         ?>
-                                                        </select>
-                                                        <br> All Employee
-                                                        <input type="checkbox" name="chkEmp" data-plugin="switchery" data-color="#00b19d" data-size="small"/>
-                                                      </div>
-                                                  </div>
-                                                  <div class="form-group row">
-                                                      <label class="col-sm-2  col-form-label" for="datepicker">Date</label>
-                                                      <div class="col-sm-10">
-                                                          <div class="input-daterange input-group" id="date-range">
-                                                                <input type="text" required placeholder="from" class="form-control" name="start">
-                                                                <input type="text" required placeholder="to" class="form-control" name="end">
-                                                            </div>
-                                                      </div>
-                                                  </div>
-                                                  <div class="form-group row">
-                                                      <label class="col-sm-2  col-form-label" for="example-placeholder"></label>
-                                                      <div class="col-sm-10">
-                                                          <button type="submit" class="btn btn-primary width-md" name="Submit">Search</button>
-                                                          <a href="index.php" class="btn btn-lighten-primary waves-effect waves-primary width-md">Cancel</a>
-                                                      </div>
-                                                  </div>
-                                          </div>
-                                      </div>
+                                                    </select>
+
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button type="submit" class="btn btn-primary width-md"
+                                                        name="Submit">Search</button>
+                                                </div>
+
+                                            </div>
+                                        </form>
+                                        <div class="form-group row">
+                                            <div class="col-sm-2">
+                                                
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div style="width:100%;border:1px dashed black;margin-top:7px;"></div>
+                                            </div>
+                                            <div class="col-sm-1" style="text-align:center;">
+                                                <label>OR</label>
+                                            </div>
+                                            <div class="col-sm-4">
+                                            <div style="width:100%;border:1px dashed black;margin-top:7px;"></div>
+                                            </div>
+                                        </div>
+                                        <form method="POST" id="DateWiseEmpTaskForm">
+                                            <div class="form-group row">
+                                                <label class="col-sm-2  col-form-label" for="datepicker">Date</label>
+                                                <div class="col-sm-4">
+                                                    <div class="input-daterange input-group" id="date-range">
+                                                        <input type="text" required placeholder="from"
+                                                            class="form-control" name="FromDate" id="FromDate" autocomplete="off">
+                                                        <input type="text" required placeholder="to"
+                                                            class="form-control" name="ToDate" id="ToDate" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button type="submit" class="btn btn-primary width-md"
+                                                        name="Submit">Search</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        </div>
                                     </div>
-                                    <!-- end row -->
-                                </div> <!-- end card-box -->
-                            </div><!-- end col -->
-                        </div><!-- end row -->
-                    </div> <!-- container-fluid -->
-                </form>
+                                </div>
+                                <!-- end row -->
+                            </div> <!-- end card-box -->
+
+                        </div><!-- end col -->
+                    </div><!-- end row -->
+                    <div class="row" id="loaderRow" style="display:none;">
+                        <div class="col-12">
+                            <div class="card-box">
+                                <h4 class="m-t-0 header-title">Search Result of <label id="Emp_ID"></label></h4>
+                                <div id="EmpWiseResult" style="display:none;">
+                                <table id="datatable" class="table table-bordered dt-responsive" >
+                                    <thead>
+                                        <tr>
+                                            <th>Task Name</th>
+                                            <th>Client Name</th>
+                                            <th>Assigned Date</th>
+                                            <th>Accepted Date</th>
+                                            <th>Submitted Date</th>
+                                            <th>Status</th>
+                                            <th>Time Taken</th>
+                                            <th>Time Expected</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody id="EmployeeSearchResult">
+
+                                    </tbody>
+
+                                </table>
+                                </div>
+                                <div id="DateWiseResult" style="display:none;">
+                                <table id="datatableDateWise" class="table table-bordered dt-responsive" >
+                                    <thead>
+                                        <tr>
+                                            <th>Emp Name</th>
+                                            <th>Task Name</th>
+                                            <th>Client Name</th>
+                                            <th>Assigned Date</th>
+                                            <th>Accepted Date</th>
+                                            <th>Submitted Date</th>
+                                            <th>Status</th>
+                                            <th>Time Taken</th>
+                                            <th>Time Expected</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody id="EmployeeSearchResultDate">
+
+                                    </tbody>
+
+                                </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end row -->
+                </div> <!-- container-fluid -->
+
             </div> <!-- content -->
             <?php
             include 'footer.php';
@@ -162,18 +278,126 @@ $page_id=24;
             <script src="assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
             <script src="assets/js/pages/form-advanced.init.js"></script>
             <script src="assets/libs/toastr/toastr.min.js"></script>
-
+            <!-- DataTables -->
+            <script src="assets/libs/datatables/jquery.dataTables.min.js"></script>
+            <script src="assets/libs/datatables/dataTables.bootstrap4.js"></script>
+            <script src="assets/libs/datatables/dataTables.responsive.min.js"></script>
+            <script src="assets/libs/datatables/responsive.bootstrap4.min.js"></script>
+            <!-- <script src="assets/js/pages/datatables.init.js"></script> -->
             <!-- Tablesaw js -->
             <!-- App js -->
             <script src="assets/js/app.min.js"></script>
             <script>
-                jQuery("#timepicker22").timepicker({
-                    showMeridian: !1,
-                    icons: {
-                        up: "mdi mdi-chevron-up",
-                        down: "mdi mdi-chevron-down"
+            jQuery("#timepicker22").timepicker({
+                showMeridian: !1,
+                icons: {
+                    up: "mdi mdi-chevron-up",
+                    down: "mdi mdi-chevron-down"
+                }
+            });
+            </script>
+            <script>
+            $("#EmpTaskForm").on("submit",function(event){
+                    event.preventDefault();
+                    $("#customLoader").show();
+                    $.ajax({  
+                        url:"fetchTaskReportResult.php?type=EmployeeWise",  
+                        method:"POST",  
+                        data:$('#EmpTaskForm').serialize(),
+                        success:function(data){  
+                            //console.log(data);
+                            row = "";
+                            $("#Emp_ID").html($("#txtEmp option:selected").text());
+                            if(data != 0)
+                            {
+                                data = JSON.parse(data);
+                                //console.log(data.length);
+                                for(i=0;i<data.length;i++)
+                                {
+                                    row += "<tr>"+
+                                            "<td>"+data[i].task_name+"</td>"+
+                                            "<td>"+data[i].shipper_name+"</td>"+
+                                            "<td>"+data[i].date_assign+"</td>"+
+                                            "<td>"+data[i].date_accept+"</td>"+
+                                            "<td>"+data[i].date_submit+"</td>"+
+                                            "<td>"+data[i].task_emp_status+"</td>"+
+                                            "<td style='text-align:center;'>"+data[i].task_emp_duration+"</td>"+
+                                            "<td style='text-align:center;'>"+data[i].task_emp_expected_time+"</td>"+
+                                            "</tr>";
+                                }
+                            }
+                            else
+                            {
+                                row = "<tr><td colspan='8'>No Records Found..!</td></tr>";
+                            }
+                            setTimeout(() => {
+                                $("#customLoader").hide();
+                                $('#DateWiseResult').hide();
+                                $("#loaderRow").show();
+                                $("#EmpWiseResult").show();
+                                $("#EmployeeSearchResult").html(row);
+                                $('#datatable').DataTable();
+                            }, 1500);
+                            
+                        }
+                    });
+            });
+            function getFormattedDate(date) {
+                date = new Date(date);
+                let year = date.getFullYear();
+                let month = (1 + date.getMonth()).toString().padStart(2, '0');
+                let day = date.getDate().toString().padStart(2, '0');
+            
+                return day + '/' + month + '/' + year;
+            }
+            $("#DateWiseEmpTaskForm").on("submit",function(event){
+                event.preventDefault();
+                $("#customLoader").show();
+                $.ajax({  
+                    url:"fetchTaskReportResult.php?type=DateWiseEmpTaskForm",  
+                    method:"POST",  
+                    data:$('#DateWiseEmpTaskForm').serialize(),
+                    success:function(data){  
+                        //console.log(data);
+                        row = "";
+                        var fromDate = getFormattedDate($("#FromDate").val());
+                        var toDate = getFormattedDate($("#ToDate").val());
+                        $("#Emp_ID").html(" Dates Between "+fromDate+" AND "+toDate);
+                        if(data != 0)
+                        {
+                            data = JSON.parse(data);
+                            //console.log(data.length);
+                            for(i=0;i<data.length;i++)
+                            {
+                                row += "<tr>"+
+                                        "<td>"+data[i].emp_name+"</td>"+
+                                        "<td>"+data[i].task_name+"</td>"+
+                                        "<td>"+data[i].shipper_name+"</td>"+
+                                        "<td>"+data[i].date_assign+"</td>"+
+                                        "<td>"+data[i].date_accept+"</td>"+
+                                        "<td>"+data[i].date_submit+"</td>"+
+                                        "<td>"+data[i].task_emp_status+"</td>"+
+                                        "<td style='text-align:center;'>"+data[i].task_emp_duration+"</td>"+
+                                        "<td style='text-align:center;'>"+data[i].task_emp_expected_time+"</td>"+
+                                        "</tr>";
+                            }
+                        }
+                        else
+                        {
+                            row = "<tr><td colspan='9'>No Records Found..!</td></tr>";
+                        }
+                        setTimeout(() => {
+                            $("#customLoader").hide();
+                            $('#EmpWiseResult').hide();
+                            $("#loaderRow").show();
+                            $('#DateWiseResult').show();
+                            $("#EmployeeSearchResultDate").html(row);
+                            $('#datatableDateWise').DataTable();
+                        }, 1500);
+                        
                     }
                 });
+            });
             </script>
 </body>
 

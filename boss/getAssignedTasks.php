@@ -36,11 +36,11 @@ if($from_date != "" && $end_date != "")
 
 if($shipper_id == 0)
 {
-    $qry = "SELECT t.*,te.*, u.user_id, u.user_name FROM tbl_task AS t, tbl_task_emp AS te, tbl_user u WHERE t.task_id = te.task_id AND te.user_id = u.user_id " . $filter . " ".$user_filter." ".$task_status_filter." ORDER BY te.task_emp_id DESC";
+    $qry = "SELECT t.*,te.*, u.user_id, u.user_name,s.shipper_name FROM tbl_task AS t, tbl_task_emp AS te, tbl_user u, tbl_shipper AS s WHERE t.task_id = te.task_id AND s.shipper_id = t.shipper_id AND te.user_id = u.user_id " . $filter . " ".$user_filter." ".$task_status_filter." ORDER BY te.task_emp_id DESC";
 }
 else
 {
-    $qry = "SELECT t.*,te.*, u.user_id, u.user_name FROM tbl_task AS t, tbl_task_emp AS te, tbl_user AS u, tbl_shipper AS s WHERE s.shipper_id = t.shipper_id AND s.shipper_id = '".$shipper_id."' AND t.task_id = te.task_id AND te.user_id = u.user_id " . $filter . " ".$user_filter." ".$task_status_filter." ORDER BY te.task_emp_id DESC";
+    $qry = "SELECT t.*,te.*, u.user_id, u.user_name,s.shipper_name FROM tbl_task AS t, tbl_task_emp AS te, tbl_user AS u, tbl_shipper AS s WHERE s.shipper_id = t.shipper_id AND s.shipper_id = '".$shipper_id."' AND t.task_id = te.task_id AND te.user_id = u.user_id " . $filter . " ".$user_filter." ".$task_status_filter." ORDER BY te.task_emp_id DESC";
 }
 
 $sql = $cn->selectdb($qry);
@@ -54,6 +54,7 @@ if(mysqli_num_rows($sql) > 0)
         $returnObj[$i]["task_id"]=$row['task_id'];
         $returnObj[$i]["task_emp_id"]=$row['task_emp_id'];
         $returnObj[$i]["task_name"]=$row['task_name'];
+        $returnObj[$i]["shipper_name"]=$row['shipper_name'];
         $returnObj[$i]["user_name"]=$row['user_name'];
         $returnObj[$i]["user_id"]=$row['user_id'];
         $returnObj[$i]["task_emp_quantity"]=$row['task_emp_quantity'];
