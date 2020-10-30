@@ -1,0 +1,103 @@
+[18-Dec-2019 07:09:19 Etc/GMT] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/morakhiy/public_html/header.php:141) in /home/morakhiy/public_html/adddocuments.php on line 6
+[18-Dec-2019 07:09:19 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/adddocuments.php on line 41
+[18-Dec-2019 07:10:15 Etc/GMT] PHP Warning:  explode() expects parameter 2 to be string, array given in /home/morakhiy/public_html/savechanges.php on line 46
+[18-Dec-2019 07:10:15 Etc/GMT] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in /home/morakhiy/public_html/savechanges.php on line 47
+[18-Dec-2019 07:10:15 Etc/GMT] PHP Warning:  move_uploaded_file() expects parameter 1 to be string, array given in /home/morakhiy/public_html/savechanges.php on line 53
+[18-Dec-2019 07:10:15 Etc/GMT] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/morakhiy/public_html/savechanges.php on line 71
+[18-Dec-2019 07:10:15 Etc/GMT] PHP Notice:  Undefined variable: row_contact in /home/morakhiy/public_html/savechanges.php on line 73
+[18-Dec-2019 09:45:12 Etc/GMT] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/morakhiy/public_html/savechanges.php on line 71
+[21-Dec-2019 10:09:17 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[21-Dec-2019 10:09:17 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[25-Dec-2019 11:49:46 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[25-Dec-2019 11:49:46 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[26-Dec-2019 04:45:24 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[26-Dec-2019 04:45:24 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[27-Dec-2019 10:49:47 Etc/GMT] PHP Warning:  mysqli::__construct(): (42000/1203): User morakhiy_morakh already has more than 'max_user_connections' active connections in /home/morakhiy/public_html/connect.php on line 32
+[27-Dec-2019 10:49:47 Etc/GMT] PHP Fatal error:  Failed to conencto to MySQL: User morakhiy_morakh already has more than 'max_user_connections' active connections in /home/morakhiy/public_html/connect.php on line 38
+[27-Dec-2019 10:49:47 Etc/GMT] PHP Warning:  mysqli::__construct(): (42000/1203): User morakhiy_morakh already has more than 'max_user_connections' active connections in /home/morakhiy/public_html/connect.php on line 32
+[27-Dec-2019 10:49:47 Etc/GMT] PHP Fatal error:  Failed to conencto to MySQL: User morakhiy_morakh already has more than 'max_user_connections' active connections in /home/morakhiy/public_html/connect.php on line 38
+[27-Dec-2019 10:49:47 Etc/GMT] PHP Warning:  mysqli::__construct(): (42000/1203): User morakhiy_morakh already has more than 'max_user_connections' active connections in /home/morakhiy/public_html/connect.php on line 32
+[27-Dec-2019 10:49:47 Etc/GMT] PHP Fatal error:  Failed to conencto to MySQL: User morakhiy_morakh already has more than 'max_user_connections' active connections in /home/morakhiy/public_html/connect.php on line 38
+[27-Dec-2019 10:49:47 Etc/GMT] PHP Warning:  mysqli::__construct(): (42000/1203): User morakhiy_morakh already has more than 'max_user_connections' active connections in /home/morakhiy/public_html/connect.php on line 32
+[27-Dec-2019 10:49:47 Etc/GMT] PHP Fatal error:  Failed to conencto to MySQL: User morakhiy_morakh already has more than 'max_user_connections' active connections in /home/morakhiy/public_html/connect.php on line 38
+[27-Dec-2019 10:49:47 Etc/GMT] PHP Warning:  mysqli::__construct(): (42000/1203): User morakhiy_morakh already has more than 'max_user_connections' active connections in /home/morakhiy/public_html/connect.php on line 32
+[27-Dec-2019 10:49:47 Etc/GMT] PHP Fatal error:  Failed to conencto to MySQL: User morakhiy_morakh already has more than 'max_user_connections' active connections in /home/morakhiy/public_html/connect.php on line 38
+[27-Dec-2019 10:49:47 Etc/GMT] PHP Warning:  mysqli::__construct(): (42000/1203): User morakhiy_morakh already has more than 'max_user_connections' active connections in /home/morakhiy/public_html/connect.php on line 32
+[27-Dec-2019 10:49:47 Etc/GMT] PHP Fatal error:  Failed to conencto to MySQL: User morakhiy_morakh already has more than 'max_user_connections' active connections in /home/morakhiy/public_html/connect.php on line 38
+[30-Dec-2019 12:15:41 Etc/GMT] PHP Notice:  Undefined index: customer in /home/morakhiy/public_html/savechanges.php on line 7
+[30-Dec-2019 12:25:40 Etc/GMT] PHP Notice:  Undefined index: customer in /home/morakhiy/public_html/savechanges.php on line 7
+[01-Jan-2020 16:27:33 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[01-Jan-2020 16:27:33 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[02-Jan-2020 07:39:28 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[02-Jan-2020 07:39:28 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[03-Jan-2020 04:30:29 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[03-Jan-2020 04:30:29 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[06-Jan-2020 20:18:19 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[06-Jan-2020 20:18:19 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[09-Jan-2020 04:16:36 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[09-Jan-2020 04:16:36 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[17-Jan-2020 12:18:09 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[17-Jan-2020 12:18:09 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[18-Jan-2020 05:09:50 Etc/GMT] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/morakhiy/public_html/header.php:141) in /home/morakhiy/public_html/adddocuments.php on line 6
+[18-Jan-2020 05:09:50 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/adddocuments.php on line 41
+[18-Jan-2020 06:10:35 Etc/GMT] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/morakhiy/public_html/header.php:141) in /home/morakhiy/public_html/adddocuments.php on line 6
+[18-Jan-2020 06:10:35 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/adddocuments.php on line 41
+[22-Jan-2020 08:01:10 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[22-Jan-2020 08:01:10 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[28-Jan-2020 05:52:39 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[28-Jan-2020 05:52:39 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[18-Feb-2020 03:55:23 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[18-Feb-2020 03:55:23 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[16-Mar-2020 09:26:57 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[16-Mar-2020 09:26:57 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[18-Mar-2020 05:29:36 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[18-Mar-2020 05:29:36 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[18-Mar-2020 07:33:34 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[18-Mar-2020 07:33:34 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[18-Mar-2020 07:33:36 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[18-Mar-2020 07:33:36 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[18-Mar-2020 07:33:52 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[18-Mar-2020 07:33:52 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[24-Mar-2020 14:44:10 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[24-Mar-2020 14:44:10 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[27-Mar-2020 17:42:24 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[27-Mar-2020 17:42:24 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[28-Mar-2020 14:53:10 Etc/GMT] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/morakhiy/public_html/header.php:142) in /home/morakhiy/public_html/adddocuments.php on line 6
+[28-Mar-2020 14:53:10 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/adddocuments.php on line 41
+[31-Mar-2020 12:36:37 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[31-Mar-2020 12:36:37 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[02-Apr-2020 08:03:04 Etc/GMT] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/morakhiy/public_html/header.php:142) in /home/morakhiy/public_html/adddocuments.php on line 6
+[02-Apr-2020 08:03:04 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/adddocuments.php on line 41
+[02-Apr-2020 08:11:06 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[02-Apr-2020 08:11:06 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[02-Apr-2020 09:59:05 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[02-Apr-2020 09:59:05 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[02-Apr-2020 10:40:28 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[02-Apr-2020 10:40:28 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[05-Apr-2020 15:18:47 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[05-Apr-2020 15:18:47 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[05-Apr-2020 18:25:01 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[05-Apr-2020 18:25:01 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[06-Apr-2020 06:57:01 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[06-Apr-2020 06:57:01 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[06-Apr-2020 07:41:08 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[06-Apr-2020 07:41:08 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[06-Apr-2020 08:00:24 Etc/GMT] PHP Warning:  move_uploaded_file(boss/Documents/DimpleRonakMistry-29/2019-2020/SkylightspaymenttoMaruti/TDS/Stamp/Reg..xlsx): failed to open stream: No such file or directory in /home/morakhiy/public_html/savechanges.php on line 59
+[06-Apr-2020 08:00:24 Etc/GMT] PHP Warning:  move_uploaded_file(): Unable to move '/tmp/phpfit5mg' to 'boss/Documents/DimpleRonakMistry-29/2019-2020/SkylightspaymenttoMaruti/TDS/Stamp/Reg..xlsx' in /home/morakhiy/public_html/savechanges.php on line 59
+[06-Apr-2020 11:24:50 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[06-Apr-2020 11:24:50 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[07-Apr-2020 13:26:24 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[07-Apr-2020 13:26:24 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[08-Apr-2020 05:55:08 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[08-Apr-2020 05:55:08 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[08-Apr-2020 05:55:08 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[08-Apr-2020 05:55:08 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[08-Apr-2020 06:18:03 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[08-Apr-2020 06:18:03 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[08-Apr-2020 08:53:24 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[08-Apr-2020 08:53:24 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[15-Apr-2020 06:42:44 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[15-Apr-2020 06:42:44 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[16-Apr-2020 06:04:44 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 31
+[16-Apr-2020 06:04:44 Etc/GMT] PHP Notice:  Undefined index: groupname in /home/morakhiy/public_html/mydocuments.php on line 39
+[30-Jun-2020 08:19:03 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/morakhiy/public_html/header.php:1) in /home/morakhiy/public_html/adddocuments.php on line 6

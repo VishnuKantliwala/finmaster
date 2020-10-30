@@ -11,8 +11,8 @@ include_once("../navigationfun.php");
 $cn=new connect();
 $cn->connectdb();
 
-$page_id= 7;
-$result = $cn->selectdb("SELECT * FROM tbl_logo");
+$page_id= 8;
+$result = $cn->selectdb("SELECT * FROM tbl_favicon");
 
 ?>
 <!DOCTYPE html>
@@ -71,7 +71,7 @@ $result = $cn->selectdb("SELECT * FROM tbl_logo");
                 </li>
 
                 <li>
-                    <h4 class="page-title-main">Logo View</h4>
+                    <h4 class="page-title-main">FavIcon View</h4>
                 </li>
 
             </ul>
@@ -95,37 +95,44 @@ $result = $cn->selectdb("SELECT * FROM tbl_logo");
                     <div class="row">
                         <div class="col-12">
                             <div class="card-box">
-                                <h4 class="mt-0 header-title">Logo View</h4>
-                                <table id="datatable" class="table table-bordered dt-responsive nowrap">
-                                        <thead>
-                                            <tr>
-                                                <th>Logo Image</th>
-                                                <th>Edit</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Logo Image</th>
-                                                <th>Edit</th>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody>
+                                <h4 class="mt-0 header-title">Favicon View</h4>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table id="datatable" class="table table-bordered dt-responsive nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>Size</th>
+                                                    <th>Relation</th>
+                                                    <th>Favicon</th>
+                                                    <th>Edit</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Size</th>
+                                                    <th>Relation</th>
+                                                    <th>Favicon</th>
+                                                    <th>Edit</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
                                             <?php
                                             if (dbNumRows($result) > 0) 
                                             {
-                                                while($row = dbFetchAssoc($result)) 
-                                                {
+                                                $row = dbFetchAssoc($result);
                                                 extract($row);
                                             ?>
-                                            <tr>
-                                                <td><img src='../logo/<?php echo $image_name; ?>' class="img-responsive"></td>
-                                                <td><a href='logo_edit.php?logo_id=<?php echo $logo_id ?>&page=<? echo isset($_GET['page']);?>'><i class="fa fa-edit"></i></a></td>
-                                            </tr>
-											<? } } ?>
-                                        </tbody>
-
-                                    </table>
-                                    
+                                                <tr>
+                                                    <td><?echo $size?></td>
+                                                    <td><?echo $relation?></td>
+                                                    <td><?if($image_name!=''){?><img height="50" width="50" src='../favicon/<?php echo $image_name; ?>' class="img-responsive"><?}else{echo "No icon added.";}?></td>
+                                                    <td><a href='favicon_edit.php?fav_id=<?php echo $fav_id ?>&page=<? echo isset($_GET['page']);?>'><i class="fa fa-edit"></i></a></td>
+                                                </tr>
+                                                <? } ?>
+                                            </tbody>
+                                        </table>  
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -3,15 +3,12 @@ session_start();
 if (!isset($_SESSION['user'])) {
     header("location:login.php");
 }
-if ($_SESSION['control'] != "admin") {
-    header("location:login.php");
-}
+
 include_once("../connect.php");
-include_once("../navigationfun.php");
 $cn = new connect();
 $cn->connectdb();
-$product_id = $_POST['product_id'];
-$sql = "DELETE FROM tbl_product WHERE product_id='" . $product_id . "'";
+$service_id = $_POST['service_id'];
+$sql = "DELETE FROM tbl_service WHERE service_id='" . $service_id . "'";
 //echo $sql;
 $cn->insertdb($sql);
 if (mysqli_affected_rows($cn->getConnection()) > 0) {

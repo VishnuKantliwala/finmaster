@@ -1,5 +1,4 @@
 <?php
-ob_start();
 session_start();
 if(!isset($_SESSION['user']))
 {
@@ -10,19 +9,17 @@ include_once("../connect.php");
 include_once("../navigationfun.php");
 $cn=new connect();
 $cn->connectdb();
+$page_id= 34;
 
-$page_id= 7;
-$result = $cn->selectdb("SELECT * FROM tbl_logo");
-
+$result = $cn->selectdb("SELECT * FROM tbl_contact");
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
     
 <head>
         <meta charset="utf-8" />
-        <title>Finmasters</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+        <title>Finmaster</title>
         <link rel="shortcut icon" href="assets/images/favicon.ico">
 
 
@@ -71,7 +68,7 @@ $result = $cn->selectdb("SELECT * FROM tbl_logo");
                 </li>
 
                 <li>
-                    <h4 class="page-title-main">Logo View</h4>
+                    <h4 class="page-title-main">Contact View</h4>
                 </li>
 
             </ul>
@@ -95,37 +92,44 @@ $result = $cn->selectdb("SELECT * FROM tbl_logo");
                     <div class="row">
                         <div class="col-12">
                             <div class="card-box">
-                                <h4 class="mt-0 header-title">Logo View</h4>
-                                <table id="datatable" class="table table-bordered dt-responsive nowrap">
-                                        <thead>
-                                            <tr>
-                                                <th>Logo Image</th>
-                                                <th>Edit</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Logo Image</th>
-                                                <th>Edit</th>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody>
-                                            <?php
-                                            if (dbNumRows($result) > 0) 
-                                            {
-                                                while($row = dbFetchAssoc($result)) 
+                                <h4 class="mt-0 header-title">Contact View</h4>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table id="datatable" class="table table-bordered dt-responsive nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Map</th>
+                                                    <th>Edit</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Map</th>
+                                                    <th>Edit</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <?php
+                                                if (mysqli_num_rows($result) > 0) 
                                                 {
-                                                extract($row);
-                                            ?>
-                                            <tr>
-                                                <td><img src='../logo/<?php echo $image_name; ?>' class="img-responsive"></td>
-                                                <td><a href='logo_edit.php?logo_id=<?php echo $logo_id ?>&page=<? echo isset($_GET['page']);?>'><i class="fa fa-edit"></i></a></td>
-                                            </tr>
-											<? } } ?>
-                                        </tbody>
-
-                                    </table>
-                                    
+                                                    while($row = mysqli_fetch_assoc($result)) 
+                                                    {
+                                                        extract($row);
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $con_id; ?></td>
+                                                            <td><?php echo $maptag; ?></td>
+                                                            <td><a href='contact.php?con_id=<?php echo $con_id ?>&page=<? if (isset($_GET['page']) && !empty($_GET['page'])) echo $_GET['page'];?>'><i class="fa fa-edit"></i></a></td>
+                                                        </tr>
+                                                    <? } 
+                                                } ?>
+                                                <input type="hidden" name="page" id="page" value="<?  if (isset($_GET['page']) && !empty($_GET['page'])) echo $_GET['page'];?>">
+                                            </tbody>
+                                        </table>  
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

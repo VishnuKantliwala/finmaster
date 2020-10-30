@@ -3,14 +3,33 @@ session_start();
 if (!isset($_SESSION['user'])) {
     header("location:login.php");
 }
-if ($_SESSION['control'] != "admin") {
-    header("location:login.php");
-}
 include_once("../connect.php");
 include_once("../navigationfun.php");
+include_once("image_lib_rname.php"); 
 $cn = new connect();
 $cn->connectdb();
-$page_id=4;
+$page_id=37;
+
+if (isset($_POST['Submit'])) {
+    $name = $_POST['txtName'];
+    $desc = $_POST['txtDesc'];
+    $meta_tag_title=$_POST['meta_tag_title'];
+    $meta_tag_description=$_POST['meta_tag_description'];
+    $meta_tag_keywords=$_POST['meta_tag_keywords'];					  		
+    $slug=$_POST['slug'];
+    if($_FILES["frontimg"]['error'] > 0)// it means no new image selected insert previous one......
+    {
+    
+        $con->insertdb("INSERT INTO `tbl_service`(`service_name`,`description`,`service_image`,meta_tag_title,meta_tag_description,meta_tag_keywords,slug) VALUES('".$name."','".$desc."','','".$meta_tag_title."','".$meta_tag_description."','".$meta_tag_keywords."','".$slug."')");
+    }
+    else
+    {
+        $single_image = createImage('frontimg',"../product/");
+        $con->insertdb("INSERT INTO `tbl_service`(`service_name`,`description`,`service_image`,meta_tag_title,meta_tag_description,meta_tag_keywords,slug) VALUES('".$name."','".$desc."','".$single_image."','".$meta_tag_title."','".$meta_tag_description."','".$meta_tag_keywords."','".$slug."')");
+    }
+  
+    header("location:serviceWebsiteview.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,7 +81,7 @@ $page_id=4;
                     </button>
                 </li>
                 <li>
-                    <h4 class="page-title-main">Employee</h4>
+                    <h4 class="page-title-main">Service</h4>
                 </li>
             </ul>
         </div>
@@ -82,49 +101,37 @@ $page_id=4;
                     <div class="row">
                         <div class="col-12">
                             <div class="card-box">
-                                <a href="user.php" class="btn btn-primary width-md">Add</a>
+                                <a href="serviceWebsite.php" class="btn btn-primary width-md">Add</a>
                                 <br><br>
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap">
                                       <thead>
                                           <tr>
-                                                <th>Role</th>
-                                              <th>Employee Name</th>
-                                              <th>Password</th>
-                                              <th>Email</th>
-                                              <th>Designation</th>
-                                              <th>Last Login</th>
+                                              <th>ID</th>
+                                              <th>Name</th>
                                               <th>Edit</th>
                                               <th>Delete</th>
                                           </tr>
                                       </thead>
                                       <tfoot>
                                           <tr>
-                                              <th>Role</th>
-                                              <th>User Name</th>
-                                              <th>Password</th>
-                                              <th>Email</th>
-                                              <th>Designation</th>
-                                              <th>Last Login</th>
+                                               <th>ID</th>
+                                              <th>Name</th>
                                               <th>Edit</th>
                                               <th>Delete</th>
                                           </tr>
                                       </tfoot>
                                       <tbody>
                                           <?php
-                                          $sql = "SELECT u.user_id,u.user_name,u.user_password,u.user_email,u.user_designation,u.user_last_login_date_time,r.role_name FROM tbl_user u,tbl_role r WHERE u.role_id = r.role_id AND r.role_id != 3";
+                                          $sql = "SELECT * FROM tbl_service";
                                           $result = $cn->selectdb($sql);
                                           if ($cn->numRows($result) > 0) {
                                               while ($row = $cn->fetchAssoc($result)) {
                                           ?>
                                                   <tr>
-                                                      <td><?php echo $row['role_name']; ?></td>
-                                                      <td><?php echo $row['user_name']; ?></td>
-                                                      <td><?php echo base64_decode($row['user_password']); ?></td>
-                                                      <td><?php echo $row['user_email']; ?></td>
-                                                      <td><?php echo $row['user_designation']; ?></td>
-                                                      <td><?php echo $row['user_last_login_date_time']; ?></td>
-                                                      <td><a href="userupdate.php?user_id=<?php echo $row['user_id']; ?>"><i class="mdi mdi-border-color"></i></a></td>
-                                                      <td><a onClick="deleteRecord('<?php echo $row['user_id']; ?>')"><i class="mdi mdi-delete"></i></a></td>
+                                                      <td><?php echo $row['service_id']; ?></td>
+                                                      <td><?php echo $row['service_name']; ?></td>
+                                                      <td><a href="serviceWebsiteupdate.php?service_id=<?php echo $row['service_id']; ?>"><i class="mdi mdi-border-color"></i></a></td>
+                                                      <td><a onClick="deleteRecord(<?php echo $row['service_id']; ?>)"><i class="mdi mdi-delete"></i></a></td>
                                                   </tr>
                                           <?php
                                               }
@@ -157,7 +164,9 @@ $page_id=4;
             <script src="assets/js/app.min.js"></script>
             <script>
                 $(document).ready(function() {
-                    $('#datatable').DataTable();
+                    $('#datatable').DataTable({
+                       order: ['0', 'DESC']
+                    });
                 });
 
                 function deleteRecord(id) {
@@ -176,8 +185,8 @@ $page_id=4;
                             $.ajax({
                                 type: "POST",
                                 async: false,
-                                url: "userdelete.php",
-                                data: 'user_id=' + id,
+                                url: "serviceWebsitedelete.php",
+                                data: 'service_id=' + id,
                                 success: function(data) {
                                     if (data == 'true') {
                                         Swal.fire({
@@ -185,7 +194,7 @@ $page_id=4;
                                             text: "Your record has been deleted.",
                                             type: "success"
                                         }).then(function(){
-                                          window.open('userview.php', '_self');
+                                          window.open('serviceWebsiteview.php', '_self');
                                         });
                                     } else {
                                         Swal.fire({

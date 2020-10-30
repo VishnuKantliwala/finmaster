@@ -144,7 +144,7 @@ else
                     <div class="container-fluid">
                         <div class="row nameBoxWrap" name="nameBoxWrap">
                             <div class="col-12">
-                            <div class="card-box">
+                                <div class="card-box">
                                     <form name="basicForm" id="basicForm" method="post">
                                     <h4 class="m-t-0 header-title">Filter Documents</h4>
                                     <hr/>

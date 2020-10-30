@@ -172,8 +172,7 @@
                             <li <?php if($page_id==4) echo 'class="active"';?>><a href="userview.php">Employee</a></li>
                             <li <?php if($page_id==5) echo 'class="active"';?>><a href="attendantview.php">Attendant</a></li>
                             <li <?php if($page_id==6) echo 'class="active"';?>><a href="customerview.php">Customer</a></li>
-                            <li <?php if($page_id==7) echo 'class="active"';?>><a href="logoview.php">Logo</a></li>
-                            <!-- <li <?php if($page_id==8) echo 'class="active"';?>><a href="expenseview.php">Expense</a></li> -->
+                            
                             <li <?php if($page_id==9) echo 'class="active"';?>><a href="tcview.php">Term & Condition</a></li>
                         </ul>
 
@@ -234,7 +233,7 @@
                             <span> Renewal</span>
                         </a>
                     </li> -->
-
+                    
                 <?php
                 }
                 ?>
@@ -248,8 +247,52 @@
                             <span> Company Name </span>
                         </a>
                     </li>
-
-                    
+                <?php
+                }
+                if ($_SESSION['control'] == "Super Admin") {
+                ?>
+                    <li>
+                        <a href="contactView.php" <?php if($page_id==34) echo 'class="active"';?>>
+                            <i class="mdi mdi-account-card-details-outline"></i>
+                            <span> Contact Details </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="pageView.php" <?php if($page_id==33) echo 'class="active"';?>>
+                            <i class="mdi mdi-view-dashboard"></i>
+                            <span> Information </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="logoview.php" <?php if($page_id==7) echo 'class="active"';?>>
+                            <i class="mdi mdi-view-dashboard"></i>
+                            <span> Logo </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="faviconView.php" <?php if($page_id==8) echo 'class="active"';?>>
+                            <i class="mdi mdi-view-dashboard"></i>
+                            <span> Favicon </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="sliderView.php" <?php if($page_id==35) echo 'class="active"';?>>
+                            <i class="mdi mdi-view-dashboard"></i>
+                            <span> Slider </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="socialView.php" <?php if($page_id==36) echo 'class="active"';?>>
+                            <i class="mdi mdi-view-dashboard"></i>
+                            <span> Social Media </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="serviceWebsiteview.php" <?php if($page_id==37) echo 'class="active"';?>>
+                            <i class="mdi mdi-view-dashboard"></i>
+                            <span> Services </span>
+                        </a>
+                    </li>
                 <?php
                 }
                 ?>
@@ -260,22 +303,7 @@
                         <span> Documents </span>
                     </a>
                 </li>
-                
-                
-                
-                <?php
-                /*if ($_SESSION['control'] == 'Employee') {
-                ?>
-                <li>
-                    <a href="pro_achknow_view.php" <?php if($page_id==15) echo 'class="active"';?>>
-                        <i class="mdi mdi-account-key-outline"></i>
-                        <span> Project Work </span>
-                    </a>
-                </li>
-                <?php
-                }*/
-                ?>
-                
+                        
                 <li>
                     <a href="changepassword.php" <?php if($page_id==18) echo 'class="active"';?>>
                         <i class="mdi mdi-account-key-outline"></i>
